@@ -1,0 +1,51 @@
+$\lang''=\{x \in \AB^* : \exists y \in \lang', xy \in \lang\} \text{ for any } \lang'$
+\\
+
+We shall construct the following NFA $N''$ for $\lang''$:
+
+$N''=(Q \cup \{q_f\}, \AB, \de'', S''=\{q_0\}, F''=\{q_f\})$,
+
+(we assume w.l.o.g. that $Q \cap \{q_f\} \neq \emptyset$) \\
+such that the transition function is: \\
+\[
+    \de''(q,\ch) = \left.
+    \begin{cases}
+        \{\de(q, \ch)\} , & \ch \in \AB                                                      \\
+        \{q_f\},          & \exists y \in \lang' : \hat{\de}(q, y) \in F  \ \wedge \ch=\empw \\
+    \end{cases}
+    \right\} , \ch \in \AB \cup \{\empw\}
+\]
+
+Now, we shall prove its correctness: \\
+We need to show that: $w \in \lang'' \Longleftrightarrow  w \in \lang(N'')$. \\
+Note that: \\
+$w \in \lang''$\\
+
+(From definition of $\lang''$) \\
+$\Longleftrightarrow w \in \{x \in \AB^* : \exists y \in \lang', xy \in \lang\}$ \\
+
+(From definition of $A$: $\lang = \lang(A)$) \\
+$\Longleftrightarrow \exists x=x_1...x_n \in \AB^*, y=y_1...y_m \in \lang': w=x,  xy \in \lang = \lang(A)$\\
+
+(From definition of $A$) \\
+$\Longleftrightarrow \exists q_1,q_2,...q_m, q_{m+1}...q_{n+m} \text{ s.t. } $\\
+$
+    \de(q_0,x_1)=q_1, \de(q_1,x_2)=q_2, ..., \\
+    \de(q_{n-1},x_n)=q_n, \de(q_n,y_1)=q_{n+1},...,\\
+    \de(q_{n+m-1},y_{m})=q_{n+m} \in F
+$ \\ \\ \\
+
+(From definition of $\de'' \text{ and }
+    \de(q_n,y_1)=q_{n+1},...,\de(q_{n+m-1},y_{m})=q_{n+m} \rightarrow \hat{\de}(q_n, y)=q_{n+m}$) \\
+$\Longleftrightarrow \exists q_1,q_2,...q_m, q_{m+1}...q_{n+m} \text{ s.t. } $\\
+$
+    \de''(q_0,x_1) \ni q_1  \text{ } ((q_0) \in S''), ..., \\
+    \de''(q_{n-1},x_n) \ni q_n, \\
+    \hat{\de}(q_n, y)=q_{n+m} \in F \rightarrow \de''(q_n,\empw)=\{q_f\}, q_f \in F''
+$ \\
+
+(From definition of $N''$) \\
+$\Longleftrightarrow w=x_1...x_n \in \lang(N'')$ \\
+
+All in all, we got $w \in \lang'' \Longleftrightarrow  w \in \lang(N'')$. Thus, concluding the proof. \\
+

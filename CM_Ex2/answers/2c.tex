@@ -1,0 +1,10 @@
+The complement of $\lang((0 \cup 10 \cup 110)^*(\empw \cup 1 \cup 11))$
+
+Note that the first part ($(0 \cup 10 \cup 110)^*$) gives us an arbitrary number of 0's
+and sequences that contain 1 or 11 and followed by an arbitrary number of 0's (\bd{at least one 0}).
+And the second part ($\empw \cup 1 \cup 11$) gives us the empty word or 1 or 11.
+
+Therefore the words in the language have sequences of at most two 1's
+and the complement of language will be words that are arbitrary strings that contain at least three 1's:
+
+$R_\lang = (0 \cup 1)^*111(0 \cup 1)^*$ \\

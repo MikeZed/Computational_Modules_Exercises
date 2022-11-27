@@ -1,0 +1,52 @@
+
+$\lang''=\{x_1 x_2 . . . x_k : k \in \nat ,x_i \in \AB \text{ for every }
+    1 \leq i \leq k \\ \text{ and } \exists y_1,y_2,...y_{2k} \in \AB
+    \text { such that } x_1 y_1 y_2 x_2 y_3 y_4...x_k y_{2k-1} y_{2k} \in \lang \}$
+\\ \\
+We shall construct the following NFA $N''$ for $\lang''$: \\
+$N''=(Q, \AB, \de'', S=\{q_0\}, F)$, such that the
+transition function is: \\
+$\de''(q,\ch)=\{\de(\de(\de(q,\ch),a),b) : \forall a,b \in \AB\},
+    \forall q \in Q, \forall \ch \in \AB$. \\
+Meaning that $\de''$ is using $\de$ to make one step with $\ch$ and
+then 'guess' two steps with all possible symbols in $\AB$.
+\\ \\
+Now, we shall prove its correctness: \\
+We need to show that: $w \in \lang'' \Longleftrightarrow  w \in \lang(N'')$. \\
+Note that: \\
+$w \in \lang''$\\
+
+(From definition of $\lang''$) \\
+$\Longleftrightarrow w \in \{x_1 x_2 . . . x_k : k \in \nat ,x_i \in \AB \text{ for every }
+    1 \leq i \leq k \\ \text{ and } \exists y_1,y_2,...y_{2k} \in \AB
+    \text { such that } x_1 y_1 y_2 x_2 y_3 y_4...x_k y_{2k-1} y_{2k} \in \lang \}$  \\
+
+(From definition of $A$: $\lang = \lang(A)$) \\
+$\Longleftrightarrow \exists k \in \nat ,x_1...x_k \in \AB^*:  w=x_1 x_2 . . . x_k, \\
+    \text{ and } \exists y_1,y_2,...y_{2k} \in \AB
+    \text { such that } w_{\lang}=x_1 y_1 y_2 x_2 y_3 y_4...x_k y_{2k-1} y_{2k} \in \lang=\lang(A)$ \\
+
+(From definition of $A$) \\
+$\Longleftrightarrow \exists q_1,q_2,...q_{3k} \text{ s.t. } $\\
+$
+    \de(q_0,x_1)=q_1, \de(q_1,y_1)=q_2, \de(q_2,y_2)=q_3, ..., \\
+    \de(q_{3k-3},x_{k})=q_{3k-2}, \de(q_{3k-2},y_{2k-1})=q_{3k-1}, \de(q_{3k-1},y_{2k})=q_{3k} \in F
+$ \\ \\
+(*) Now, from the above and the definition of $\de''$ we get that: \\
+$\exists q_1,q_2,...q_{3k} \text{ s.t. } $\\
+$
+    \de''(q_0,x_1)=\{\de(\de(\de(q_0,x_1),a),b) : \forall a,b \in \AB\} \ni q_3 \text{ } (q_0 \in S), ..., \\
+    \de''(q_{3i-3},x_{i})=\{\de(\de(\de(q_{3i-3},x_{i}),a),b) : \forall a,b \in \AB\} \ni q_{3i}, ..., \\
+    \de''(q_{3k-3},x_{k})=\{\de(\de(\de(q_{3k-3},x_{k}),a),b) : \forall a,b \in \AB\} \ni q_{3k} \text{ } (q_{3k} \in F)
+$ \\ \\
+
+(From definition of $N''$) \\
+$\Longleftrightarrow w=x_1 x_2 . . . x_k \in \lang(N'')$ \\
+\\
+Note that when looking at the proof in the direction of - ($w \in \lang'' \Longleftarrow  w \in \lang(N'')$),
+we get transition (*) by choosing  $y_1,y_2,...y_{2k}$ from the specific $a,b \in \AB$ that give us the
+accepting branch in the NFA $N''$ for input $w=x_1 x_2 ... x_k$.
+\\
+
+All in all, we got $w \in \lang'' \Longleftrightarrow  w \in \lang(N'')$. Thus, concluding the proof. \\
+

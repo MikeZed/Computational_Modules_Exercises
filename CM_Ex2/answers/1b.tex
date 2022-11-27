@@ -1,0 +1,72 @@
+$\lang''=\{xy : yx \in \lang \}$
+\\ \\
+The idea would be to construct an NFA per state $q \in Q$, $N_q$,
+each NFA will check if we can 'break' the word $yx \in \lang$ in state q of $A$.
+So each NFA will contain 2 copies of $A - A_{q,1}, A_{q,2}$ such that for
+$yx \in \lang$, $x$ will take us from state q in $A_{q,1}$ to $F_{q,1}$
+which will be connected with $\empw$-moves to $q_{0,q,2}$ in $A_{q,2}$,
+and y will take us from there to state q in $A_{q,2}$.
+
+The main NFA, $N''$, will be a 'union' of the he smaller NFAs ($N_q, \forall q \in Q$).
+It will have an initial state group that is the group of the initial states of each of the
+smaller NFAs ($N_q, \forall q \in Q$), and that way we will check if word $w$
+is some rotation of some word in $\lang$.
+
+Now, we shall give formal definitions for every one of the NFAs: \\
+
+\underline{$\forall q \in Q, N_q$:} \\
+
+$N_q=(Q \times \{1,2\} \times \{q\}, \AB, \de_q, S_q=\{(q, 1, q)\}, F_q=\{(q, 2, q)\})$, \\
+such that the transition function is: \\
+\[
+    \de_q((q', k, q),\ch) = \left.
+    \begin{cases}
+        \{(\de(q',\ch)\}, k, q)\} , & \ch \in \AB                          \\
+        \{(q_0, 2, q)\},            & q' \in F \wedge k=1 \wedge \ch=\empw \\
+    \end{cases}
+    \right\} , \text{ } k \in \{1,2\}, \ch \in \AB \cup \{\empw\}
+\]
+
+\underline{$N''$:} \\
+
+$N''=((Q \times \{1,2\} \times Q), \AB, \de'',
+    S''=\{(q_i, 1, q_i) : q_i \in Q\}, F''=\{(q_f, 2, q_f) : q_f \in Q\})$, \\
+such that the transition function is: \\
+\[
+    \de''((q', k, q),\ch) = \de_{q}((q', k, q),\ch),  k \in \{1,2\}, \ch \in \AB \cup \{\empw\}
+\]
+
+Now, we shall prove its correctness: \\
+We need to show that: $w \in \lang'' \Longleftrightarrow  w \in \lang(N'')$. \\
+Note that: \\
+$w \in \lang''$\\
+
+(From definition of $\lang''$) \\
+$\Longleftrightarrow w \in \{xy : yx \in \lang \}$ \\
+
+(From definition of $A$: $\lang = \lang(A)$) \\
+$\Longleftrightarrow \exists x=x_1...x_n,y=y_1...y_m \in \AB^* : w=xy \wedge yx \in \lang = \lang(A)$ \\
+\\ \\
+
+(From definition of $A$) \\
+$\Longleftrightarrow \exists q_1,q_2,...q_m, q_{m+1}...q_{n+m} \text{ s.t. } $\\
+$
+    \de(q_0,y_1)=q_1, \de(q_1,y_2)=q_2, ..., \\
+    \de(q_{m-1},y_m)=q_m, \de(q_m,x_1)=q_{m+1},...,\\
+    \de(q_{n+m-1},x_{n})=q_{n+m} \in F
+$ \\
+
+(From definition of $\de''$) \\
+$\Longleftrightarrow \exists q_1,q_2,...q_m, q_{m+1}...q_{n+m} \text{ s.t. } $\\
+$
+    \de''((q_m, 1, q_m), x_1) \ni (q_{m+1}, 1, q_m) \text{ } ((q_m, 1, q_m) \in S''), ..., \\
+    \de''((q_{n+m-1}, 1, q_m), x_n) \ni (q_{n+m}, 1, q_m),\\
+    \de''((q_{n+m}, 1, q_m), \empw) \ni (q_0, 2, q_m), (q_{n+m} \in F)\\
+    \de''((q_0, 2, q_m), y_1) \ni (q_1, 2, q_m), ...,\\
+    \de''((q_{m-1}, 2, q_m), y_m) \ni (q_m, 2, q_m) \text{ } ((q_m, 2, q_m) \in F'')
+$ \\
+
+(From definition of $N''$) \\
+$\Longleftrightarrow w=x_1...x_n y_1... y_m \in \lang(N'')$ \\
+
+All in all, we got $w \in \lang'' \Longleftrightarrow  w \in \lang(N'')$. Thus, concluding the proof. \\

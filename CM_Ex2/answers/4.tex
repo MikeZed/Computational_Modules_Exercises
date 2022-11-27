@@ -1,0 +1,21 @@
+Define operation $\diamond$:
+\[
+    A \diamond B = \{xy : x \in A \wedge y \in B \wedge |x| = |y|\}
+\]
+Prove/Disprove: $A$ and $B$ are regular imply $A \diamond B$ is regular. \\
+
+We shall disprove the above. \\
+We will present an example with languages over the binary alphabet $\AB = \{0, 1\}$ \\
+Note that for $A=\{0\}^*$ and $B=\{1\}^*$ we get: \\
+$
+    \begin{aligned}
+        A \diamond B & = \{xy : x \in A \wedge y \in B \wedge |x| = |y|\}             \\
+                     & = \{xy : x \in \{0\}^* \wedge y \in \{1\}^* \wedge |x| = |y|\} \\
+                     & = \{0^n 1^n : n \geq 0\}
+    \end{aligned}
+$ \\
+Note that $A$ and $B$ can be presented as regular expressions: $A=L(0^*), B=L(1^*)$,
+so they are regular languages. But we saw in class that $A \diamond B =\{0^n 1^n : n \geq 0\}$
+is not a regular language. \\
+Therefore the operation $\diamond$ between regular language does not necessarily
+returns a regular language and the claim is false. \\

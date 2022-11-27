@@ -1,0 +1,13 @@
+$\lang = \{ w \in \AB^* : |w| \text{ mod 4 } = 2\}$
+
+Note that $\lang$ contains all the possible words over $\AB$
+that are of length $|w|=n=4k+2, k \in \nat \cup \{0\}$. \\
+Therefore a regular expression for the language would be a string of $\{0,1\}$ of length 2
+followed by any number of times the string $\{0,1\}$ of length 4:
+
+$
+    \begin{aligned}
+        R_\lang & =(0 \cup 1)(0 \cup 1)((0 \cup 1)(0 \cup 1)(0 \cup 1)(0 \cup 1))^* \\
+                & =(0 \cup 1)^2((0 \cup 1)^4)^*
+    \end{aligned}
+$ \\

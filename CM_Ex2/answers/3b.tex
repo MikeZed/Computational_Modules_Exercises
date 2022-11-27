@@ -1,0 +1,40 @@
+$\lang=\{w : |w| \in \nat_{even} \wedge w = w^R\}$
+(twice, once using the pumping lemma and once using Myhill-Nerode) \\
+
+\underline{Using Pumping Lemma} \\
+
+We will prove by contradiction - we will assume that $\lang$ is regular.
+Since $\lang$ is regular, we can apply the pumping lemma to $\lang$. Let $k$
+be the number from the pumping lemma for $\lang$. We will choose $w = 0^k 11 0^k $.
+Note that $|w|=2k+2 \in \nat_{even} \wedge w=w^R \rightarrow w \in \lang \text{ and } |w| \geq k$.
+Therefore, from the pumping lemma, there exists some $x, y, z$ where $w = xyz$ and:
+
+\begin{enumerate}
+    \item $\forall i \geq 0: x y^i z \in \lang$
+    \item $|y| > 0$
+    \item $|xy| \leq k$
+\end{enumerate}
+
+From (ii) and (iii) we get that $y=0^j, 0 < j \leq k$,
+Note that $x y^2 z = 0^k 0^j 11 0^k = 0^{k+j} 11 0^k$,
+so we get
+\[
+    (x y^2 z)_{k+1} = (0^{k+j} 11 0^k)_{k+1} = 0 \neq
+    1 = (0^k 11 0^{k+j})_{k+1} = (x y^2 z)^R
+\]
+meaning $x y^2 z \notin \lang$ in contradiction with (i). \\
+We got a contradiction, hence $\lang$ is not regular. \\
+
+
+\underline{Using Myhill-Nerode Theorem} \\
+
+Note that for $i \neq j$ we get $x = 0^i 11 \nceq{\lang} 0^j 11 = y$,
+since for $z=0^i \in \AB^*$ we get:
+
+$xz = 0^i 11 0^i \in \lang \text{ } (|xz|=2i+2 \in \nat_{even} \wedge xz=(xz)^R)$, \\
+but $yz = 0^j 11 0^i \notin \lang \text{ } (yz \neq (yz)^R)$
+
+Therefore, each $ 0^i 11 $ belongs to a different equivalence class for every $i \geq 0$, \\
+meaning $|\AB^* / \ceq{\lang}| \geq |\{0^i 11: i \geq 0\}| = \infty$ \\
+We got that $\lang$ has an infinite number of equivalence classes, hence from
+Myhill-Nerode Theorem we get that $\lang$ is not regular. \\

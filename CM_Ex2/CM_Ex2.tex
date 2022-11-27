@@ -1,0 +1,82 @@
+\documentclass{article}
+
+\input{aux_tex/packages.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PDF COLOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor} \pagecolor[rgb]{0,0,0} \color[rgb]{0.9,0.9,0.9}
+%%%%%%%%%%%%%%%%%%%%%%%%% SUPPRESS UNDERFULL HBOX %%%%%%%%%%%%%%%%%%%%%%%
+\hbadness = 20000
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Basic Document Settings 
+%
+\input{aux_tex/doc_formatting.tex}
+\input{aux_tex/cm_defs.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \input{aux_tex/personal_info.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% Title 
+%
+
+
+\title{
+    \textmd{\bd{\hmwkClass:\ \hmwkTitle}}\\
+}
+\author{\hmwkAuthorName}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+      \item Let \(\lang\)  be a regular language. For each of the following languages,
+            we shall build an NFA that accepts it and then prove its correctness.
+            \(\lang\) is regular, therefore there exists a DFA \(A=(Q, \AB, \delta, q_0, F)\)
+            that accepts it, we shall use this DFA in all of the following subsections.
+
+            \begin{enumerate}
+                  \item \input{answers/1a.tex}
+                  \item \input{answers/1b.tex}
+                  \item \input{answers/1c.tex}
+            \end{enumerate}
+
+            \pagebreak
+
+      \item We shall present a regular expression for the following languages and give a short
+            explanation for their correctness:
+
+            \begin{enumerate}
+                  \item \input{answers/2a.tex}
+                  \item \input{answers/2b.tex}
+                  \item \input{answers/2c.tex}
+            \end{enumerate}
+
+            \pagebreak
+
+      \item We shall prove that the following languages are not regular:
+            \begin{enumerate}
+                  \item \input{answers/3a.tex}
+                  \item \input{answers/3b.tex}
+                  \item \input{answers/3c.tex}
+            \end{enumerate}
+
+            \pagebreak
+
+      \item \input{answers/4.tex}
+
+      \item \input{answers/5.tex}
+
+
+\end{enumerate}
+
+\bd{Bonus.} \\
+We will define a state per equivalence class of $\lang$
+transition function according to the equivalence class
+accepting state if
+
+\end{document}

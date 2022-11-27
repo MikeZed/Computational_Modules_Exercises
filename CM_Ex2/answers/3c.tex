@@ -1,0 +1,51 @@
+$\lang=\{w : \exists n \in \nat \text{ s.t. } |w| = n^3\}$
+(twice, once using the pumping lemma and once using Myhill-Nerode) \\
+
+\underline{Using Pumping Lemma} \\
+
+We will prove by contradiction - we will assume that $\lang$ is regular.
+Since $\lang$ is regular, we can apply the pumping lemma to $\lang$. Let $k$
+be the number from the pumping lemma for $\lang$. We will choose $w = 0^{3^k}$.
+Note that $|w|=3^k \rightarrow w \in \lang \text{ and } |w| \geq k$.
+Therefore, from the pumping lemma, there exists some $x, y, z$ where $w = xyz$ and:
+
+\begin{enumerate}
+    \item $\forall i \geq 0: x y^i z \in \lang$
+    \item $|y| > 0$
+    \item $|xy| \leq k$
+\end{enumerate}
+
+From (ii) and (iii) we get that $y=0^j, 0 < j \leq k$,
+note that $x y^2 z = 0^{k^3} 0^j = 0^{k^3+j}$,
+so we get
+\[
+    |x y^2 z| = k^3+j
+\]
+but
+\[
+    k = \sqrt[3]{k^3} < \boldsymbol{\sqrt[3]{k^3+j}} < \sqrt[3]{k^3+k} < \sqrt[3]{k^3+3k^2+3k+1} = \sqrt[3]{(k+1)^3} = k+1
+\]
+so $\sqrt[3]{k^3+j} \notin \nat$, meaning $x y^2 z \notin \lang$ in contradiction with (i). \\
+We got a contradiction, hence $\lang$ is not regular. \\
+
+
+\underline{Using Myhill-Nerode Theorem} \\
+
+Note that for $i < j$ we get $x = 0^{i^3+1} \nceq{\lang} 0^{j^3+1}  = y$,
+since for $z=0^{3i^2+3i} \in \AB^*$ we get:
+
+$xz = 0^{i^3+1}0^{3i^2+3i}=0^{i^3+3i^2+3i+1}=0^{(i+1)^3} \in \lang \text{ } (\sqrt[3]{|xz|}=\sqrt[3]{(i+1)^3}=i+1 \in \nat$, \\
+but $yz = 0^{j^3+1}0^{3i^2+3i}=0^{j^3+3i^2+3i+1}$, so:
+\[
+    |yz| = j^3+3i^2+3i+1
+\]
+and
+\[
+    j = \sqrt[3]{j^3} < \boldsymbol{\sqrt[3]{j^3+3i^2+3i+1}} < \sqrt[3]{j^3+3j^2+3j+1} = \sqrt[3]{(j+1)^3} = j+1
+\]
+so $\sqrt[3]{j^3+3i^2+3i+1} \notin \nat$, meaning $yz \notin \lang$.
+
+Hence, each $ 0^{i^3+1} $ belongs to a different equivalence class for every $i \geq 0$, \\
+meaning $|\AB^* / \ceq{\lang}| \geq |\{0^{i^3+1}: i \geq 0\}| = \infty$ \\
+We got that $\lang$ has an infinite number of equivalence classes, hence from
+Myhill-Nerode Theorem we get that $\lang$ is not regular. \\
