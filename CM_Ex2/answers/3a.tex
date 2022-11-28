@@ -1,22 +1,22 @@
 $\lang=\{w : \#_0(w) \geq \#_1(w)\}\}$ (using closure properties) \\
 We will prove by contradiction - we will assume that is $\lang$ is regular.
 
-\textcolor{red}
-{
-    Note that: $\lang \cap \lang_1 = \lang_2$ \\
-    for $\lang_1 = $ \\
-    and $\lang_2 = $ \\
-    $\lang_1$ is regular \\
-    $\lang_2$ is not regular \\
-    But, because $\lang$ and $\lang_1$ are regular, from closure properties
-    for intersection of languages we get that $\lang_2$ is regular too, but its not.
-    Hence we got a contradiction and $\lang$ not is regular.
-    -
-    0
-    01
-    001
-    0011
-    000111
-    0000111 \\\\\\\\\\\\
-}
-\\
+Note that: $\lang \cap \lang_1 = \lang_2$ \\
+for $\lang_1 = \lang(0^*1^*) $ and $\lang_2 = \{w = 0^i1^j : i \geq j\}\}$ \\
+$\lang_1$ is regular because it can be presented as a regular expression. \\
+$\lang_2$ is not regular as we will show below by using the Myhill-Nerode Theorem: \\
+
+Note that for $i > j$ we get $x = 0^i \nceq{\lang_2} 0^j = y$,
+since for $z=1^i \in \AB^*$ we get:
+
+$xz = 0^i 1^i \in \lang_2$, \\
+but $yz = 0^j 1^i \notin \lang_2$
+
+Therefore, each $ 0^i $ belongs to a different equivalence class for every $i \geq 0$, \\
+meaning $|\AB^* / \ceq{\lang_2}| \geq |\{0^i: i \geq 0\}| = \infty$ \\
+We got that $\lang_2$ has an infinite number of equivalence classes, hence from
+Myhill-Nerode Theorem we get that $\lang_2$ is not regular. \\
+
+But, because $\lang$ and $\lang_1$ are regular, from closure properties
+for intersection of regular languages we get that $\lang_2$ is regular too, but its not.
+Hence we got a contradiction and $\lang$ not is regular. \\

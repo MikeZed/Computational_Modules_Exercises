@@ -7,38 +7,75 @@ $
 $ \\ \\
 We will present a non-regular $\lang$ such that $\lang \in Size(O(1))$.
 
-We will use the language in question 3c: \\
+We will use the language from question 3c: \\
 $\lang=\{w : \exists n \in \nat \text{ s.t. } |w| = n^3\}$ \\
 it was proven in 3c that the above language is not regular.
 
-We can construct the following circuit ensemble $C=\{C_n\}_{n \in \nat}$ \\
-such that $\lang(C)=\lang$ and $|C_n|\in O(1\}$:
+We can construct the following circuit ensemble $C=\{C_n\}_{n \in \nat}$ such that
+$\lang(C)=\lang$ and $|C_n|\in O(1\}$:
 
-if $n$ is a cube of an integer ($\sqrt[3]{n} \in \nat$), then the circuit, $C_n$, will return the constant 1, \\
-otherwise (if $\sqrt[3]{n} \notin \nat$) the circuit, $C_n$, will return the constant 0.
+For input $x=x_1...x_n$, if $n$ is a cube of an integer ($\sqrt[3]{n} \in \nat$), then
+the circuit, $C_n$, will return the constant 1, otherwise (if $\sqrt[3]{n} \notin \nat$)
+the circuit, $C_n$, will return the constant 0.
 
-Presenting the above as formula:
+Presenting the above as a formula:
 $
-    C_n(x_1 ... x_n) =
+    C_n(x_1 ... x_n) = \left.
     \begin{cases}
         1 , & \sqrt[3]{n} \in \nat    \\
         0 , & \sqrt[3]{n} \notin \nat \\
     \end{cases}
+    \right. , x_1...x_n = x \in \lang
 $
 
-Presenting as a diagram: \\
-\textcolor{red}
-{
-    \begin{tikzpicture}[
-            every node/.style = {minimum width = 2em, draw, circle},
-        ]
-        \node {y}
-        child {node {$\neg$}}
-        child {node {$\wedge$}}
-        child {node {$\wedge$}};
-    \end{tikzpicture}
-}
+Presenting as a diagram:
 
-Indeed, $w \in \lang$ iff then $C_{|w|}(w)=1$.
-Therefore $\lang(C)=\lang$ and for each circuit in the ensemble $|C_n| = 0 \in O(1\}$ since there are no logic
+\underline{$C_n, \text{ for } \sqrt[3]{n} \in \nat$:}
+\begin{center}
+    \begin{tikzpicture}[
+            level distance=1.5cm,
+            level 1/.style={sibling distance=1cm},
+            level 2/.style={sibling distance=1.5cm}]
+        \node (y) {$y$}
+        child { node (T1) {$x_1$} edge from parent[draw=none]}
+        child {node {$\ldots$} edge from parent[draw=none]}
+        child { node (Tn) {$x_n$} edge from parent[draw=none]}
+        child { node (const0) {$1$} };
+    \end{tikzpicture}
+\end{center}
+
+\underline{$C_n, \text{ for } \sqrt[3]{n} \notin \nat$:}
+\begin{center}
+    \begin{tikzpicture}[
+            level distance=1.5cm,
+            level 1/.style={sibling distance=1cm},
+            level 2/.style={sibling distance=1.5cm}]
+        \node (y) {$y$}
+        child { node (T1) {$x_1$} edge from parent[draw=none]}
+        child {node {$\ldots$} edge from parent[draw=none]}
+        child { node (Tn) {$x_n$} edge from parent[draw=none]}
+        child { node (const0) {$0$} };
+    \end{tikzpicture}
+\end{center}
+
+Indeed, $w \in \lang$ iff $C_{|w|}(w)=1$.
+Therefore $\lang(C)=\lang$ and for each circuit in the ensemble we get $|C_n| = 0 \in O(1\}$ since there are no logic
 gates in all the circuits in the ensemble.
+
+Note - if we can't use the constants $\{0, 1\}$ in the circuit ensemble, then we can 'create' those
+constants from one of the input bits, it that case we will construct the circuit ensemble according
+to the following formula:
+$x_1 \vee  (\neg x_1) = 1, x_1 \wedge (\neg x_1) = 0$ and then:  \\
+$
+    C_n(x_1 ... x_n) = \left.
+    \begin{cases}
+        x_1 \vee  (\neg x_1) ,  & \sqrt[3]{n} \in \nat    \\
+        x_1 \wedge (\neg x_1) , & \sqrt[3]{n} \notin \nat \\
+    \end{cases}
+    \right. , x_1...x_n = x \in \lang
+$
+
+In that case we also get $|C_n| = 2 \in O(1)$
+
+In conclusion, we presented a non-regular language - $\lang=\{w : \exists n \in \nat \text{ s.t. } |w| = n^3\}$,
+such that $\lang \in Size(O(1))$. As requested.

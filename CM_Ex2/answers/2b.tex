@@ -1,13 +1,7 @@
-$\lang = \{ w \in \AB^* : |w| \text{ mod 4 } = 2\}$
+$\lang = \{ w \in \AB^* : \#_0(w) \leq 3\}$
 
-Note that $\lang$ contains all the possible words over $\AB$
-that are of length $|w|=n=4k+2, k \in \nat \cup \{0\}$. \\
-Therefore a regular expression for the language would be a string of $\{0,1\}$ of length 2
-followed by any number of times the string $\{0,1\}$ of length 4:
-
-$
-    \begin{aligned}
-        R_\lang & =(0 \cup 1)(0 \cup 1)((0 \cup 1)(0 \cup 1)(0 \cup 1)(0 \cup 1))^* \\
-                & =(0 \cup 1)^2((0 \cup 1)^4)^*
-    \end{aligned}
-$ \\
+Note that $\lang$ contains all the possible words over $\AB$ that have at most three 0's.
+Therefore a regular expression for the language would be at most three 0's (which is equivalent to
+three times the regular expression $(\empw \cup 0)$) and an arbitrary number of 1's that can be inbetween,
+before and after these 0's: \\
+$R_\lang =1^*(\empw \cup 0)1^*(\empw \cup 0)1^*(\empw \cup 0)1^*$ \\
