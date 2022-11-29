@@ -1,14 +1,11 @@
 We will build a DFA $D = (Q, \AB, \de, q_0, F)$ accepting $\lang$:
-We will denote the equivalence classes by $E_0, E_1, ... , E_{n-1}$.
+We will denote the equivalence classes by $E_0=[x_0], E_1=[x_1], ... , E_{n-1}=x_{n-1}$,
+where $x_0,...,x_{n-1}$ are different strings that 'represent' those classes.
 The group of states, $Q$, will have a state per equivalence class, so $|Q|=n$
-and $Q=\{q_0,q_1,...,q_{n-1}\}$, while $q_0=E_0$
-and $F=\{q_i : \forall i \in {0,...,n-1} \text{ s.t. } E_i \subseteq \lang \}$.
+and $Q=\{[x_0],[x_1],...,x_{n-1}\}$, where $q_0=[x_0]=[\empw]$
+and $F=\{[x_i] : \forall i \in \{0,...,n-1\} \text{ s.t. } [x_i] \subseteq \lang \}$. \\
 The transition function will be:
 \[
-    \de(q_i, \ch) = q_j
+    \de([x_i], \ch) = [x_i \ch], \text{ } \forall i \in \{0,...,n-1\}, \ch \in \AB
 \]
 
-
-We will define a state per equivalence class of $\lang$
-transition function according to the equivalence class
-accepting state if
