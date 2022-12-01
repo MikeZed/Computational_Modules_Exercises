@@ -1,15 +1,41 @@
 We need to show that: $w \in \lang \Longleftrightarrow  w \in \lang(D)$. \\
 First we show that:
+\[
+    (*) \text{   } \hat{\de}([\empw], w) = \hat{\de}([\empw], w_1...w_k) = [\empw w_1...w_k] = [\empw w], \forall w =w_1...w_k \in \AB^*\\
+\]
+we will prove by induction on $k$ :
 
+\underline{- Base Case:} \\
+for $k=0$ we get: \\
+\[
+    w = w_1...w_k = \empw \rightarrow \hat{\de}([\empw], w) =  \hat{\de}([\empw], \empw) = [\empw] = [\empw w]
+\] \\
+
+\underline{- Induction Step}: \\
+we will assume that the claim is correct for $w=w_1...w_k$ and prove for $w'=w_1...w_k \ch$ for $\ch \in \AB$:
+\[
+    \begin{aligned}
+        \hat{\de}([\empw], w') & =                                                                                    \\
+                               & = \hat{\de}([\empw], w_1...w_k\ch)        &  & (w'=w_1...w_k \ch)                    \\
+                               & = \de(\hat{\de}([\empw], w_1...w_k), \ch) &  & (\text{from definition of }\hat{\de}) \\
+                               & = \de([\empw w_1...w_k], \ch)             &  & (\text{from induction hypothesis})    \\
+                               & = [\empw w_1...w_k \ch]                   &  & (\text{from definition of }\de)       \\
+                               & = [\empw w']
+    \end{aligned}
+\]
+Therefore by induction we get (*).
+
+Now, we will prove $w \in \lang \Longleftrightarrow  w \in \lang(D)$: \\
 Note that:
+$ w = w_1...w_k \in \lang $
 
-$ w \in \lang $ \\
+(from (*)) \\
+$ \Longleftrightarrow \hat{\de}([\empw], w) = [\empw w] = [w] \subseteq \lang \text{ } (w \in \lang)$
 
-$ \Longleftrightarrow \hat{\de}([x_0], w) \in F $ \\
+(from previous section - section (a)) \\
+$ \Longleftrightarrow \exists i \in \{0,...,n-1\}: \hat{\de}([\empw], w) = [w] = [x_i], [x_i] \in F $ \\
+
+$ \Longleftrightarrow \hat{\de}(q_0, w) = \hat{\de}([\empw], w) \in F $ \\
 
 $ \Longleftrightarrow  w \in \lang(D) $ \\
-In conclusion, we got $w \in \lang \Longleftrightarrow  w \in \lang(N)$. Thus, concluding the proof. \\
-
-We will define a state per equivalence class of $\lang$
-transition function according to the equivalence class
-accepting state if
+In conclusion, we got $w \in \lang \Longleftrightarrow  w \in \lang(D)$. Thus, concluding the proof. \\

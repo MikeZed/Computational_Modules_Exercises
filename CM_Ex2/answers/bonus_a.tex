@@ -1,11 +1,30 @@
 We will build a DFA $D = (Q, \AB, \de, q_0, F)$ accepting $\lang$:
+
 We will denote the equivalence classes by $E_0=[x_0], E_1=[x_1], ... , E_{n-1}=x_{n-1}$,
 where $x_0,...,x_{n-1}$ are different strings that 'represent' those classes.
 The group of states, $Q$, will have a state per equivalence class, so $|Q|=n$
-and $Q=\{[x_0],[x_1],...,x_{n-1}\}$, where $q_0=[x_0]=[\empw]$
+and $Q=\{[x_0],[x_1],...,[x_{n-1}]\}$, where $q_0=[x_0]=[\empw]$ \\
 and $F=\{[x_i] : \forall i \in \{0,...,n-1\} \text{ s.t. } [x_i] \subseteq \lang \}$. \\
 The transition function will be:
 \[
     \de([x_i], \ch) = [x_i \ch], \text{ } \forall i \in \{0,...,n-1\}, \ch \in \AB
 \]
+
+Note that each word, $w \in \AB^*$, belongs exactly to one of the equivalence classes of $\lang$, because:
+\begin{enumerate}[i.]
+    \item $w$ is at least in one equivalence class, since $[w]$ is an equivalence class of $\lang$ and $w \in [w]$.
+    \item $w$ is at most in one equivalence class, since for $i \neq j: E_i \cap E_j = \emptyset$, \\
+          otherwise: $\exists x \in  E_i \cap E_j \rightarrow x \in E_i \wedge x \in E_j \\
+              \rightarrow \forall a \in E_i, b \in E_j \wedge \forall z \in \AB^*:
+              az \in \lang \Leftrightarrow xz \in \lang \Leftrightarrow bz \in \lang \\
+              \rightarrow E_i = [a] = [x] = [b] = E_j$
+          in contradiction with $E_i$ and $E_j$ being different equivalence classes
+\end{enumerate}
+
+therefore the transition function, $\de$, is a valid function,
+and for every $w \in \AB^*$ there exists $ i \in \{0,...,n-1\}$ such that $[w] = E_i = [x_i]$,
+also note that for $w \in \lang$ we get $[w] \subseteq \lang$, since: \\
+$\forall a \in [w], \forall z \in \AB^*: az \in \lang \Leftrightarrow wz \in \lang$ \\
+so for $z=\empw$ we get $az=a \in \lang \Leftrightarrow wz=w \in \lang \rightarrow a \in \lang$
+
 
