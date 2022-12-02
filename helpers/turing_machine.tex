@@ -1,0 +1,124 @@
+% Turing Machine
+\usetikzlibrary{chains,fit,shapes}
+\begin{tikzpicture}
+    \tikzstyle{every path}=[very thick]
+
+    \edef\sizetape{0.7cm}
+    \tikzstyle{tmtape}=[draw,minimum size=\sizetape]
+
+    % Define TM tape Heads style
+    \tikzstyle{tmhead}=[rectangle,draw,minimum size=.5cm]
+
+    \tikzstyle{tmhead_r}=[arrow box,draw,minimum size=.5cm,arrow box
+    arrows={east:0.25cm}]
+
+    \tikzstyle{tmhead_l}=[arrow box,draw,minimum size=.5cm,arrow box
+    arrows={west:0.25cm}]
+
+    \tikzstyle{tmhead_rl}=[arrow box,draw,minimum size=.5cm,arrow box
+    arrows={east:.25cm, west:0.25cm}]
+
+    % \tikzstyle{tmhead_r1}=[box,draw,minimum size=.5cm, arrow=east:0.25cm]
+
+
+    %% Draw TM Finite Control
+    \begin{scope}[shift={(5cm,+5cm)}, shorten >=1pt,node distance=2cm,on grid,auto]
+        \node[state,initial] (q_0)   {$q_0$};
+        \node[state] (q_1) [above right=of q_0] {$q_1$};
+        \node[state] (q_2) [below right=of q_0] {$q_2$};
+        \node[state,accepting](q_3) [below right=of q_1] {$q_3$};
+        \path[->]
+        (q_0) edge  node {0 $\to$ 1,R} (q_1)
+        edge  node [swap] {1} (q_2)
+        (q_1) edge  node  {1} (q_3)
+        edge [loop above] node {0} ()
+        (q_2) edge  node [swap] {0} (q_3)
+        edge [loop below] node {1} ();
+        \/*
+        [shift={(5cm,+5cm)},start chain=circle placed {at=(-\tikzchaincount*60:1.5)}]
+        \foreach \i in {q_0,q_1,q_2,q_3,\ddots,q_n}
+        \node [on chain] {$\i$};
+
+        % Arrow to current state
+        \node (center) {};
+        \draw[->] (center) -- (circle-2);
+        */
+        \node[minimum width=7cm, minimum height=6cm, rounded corners,draw=black,thick,fit=(q_0) (q_1) (q_2) (q_3),
+            label=above:\textbf{Turing Machine}] (fsbox)
+        {};
+
+    \end{scope}
+
+    \centering
+    %% Draw TM tape
+    \begin{scope}[start chain=1 going right,node distance=-0.15mm,xshift=2cm]
+        \node [on chain=1,tmtape] {$\ldots$};
+        \node [on chain=1,tmtape] (input1) {b};
+        \node [on chain=1,tmtape] {b};
+        \node [on chain=1,tmtape] {a};
+        \node [on chain=1,tmtape] {a};
+        \node [on chain=1,tmtape] {a};
+        \node [on chain=1,tmtape] {$\sqcup$};
+        \node [on chain=1,tmtape] {$\ldots$};
+        \node [on chain=1] {\textbf{Input/Output Tape}};
+    \end{scope}
+
+    %% Draw TM tape
+    \begin{scope}[start chain=2 going right,node distance=-0.15mm,xshift=2cm, yshift=-2cm]
+        \node [on chain=2,tmtape] {$\ldots$};
+        \node [on chain=2,tmtape] {b};
+        \node [on chain=2,tmtape] {b};
+        \node [on chain=2,tmtape] {a};
+        \node [on chain=2,tmtape] {a};
+        \node [on chain=2,tmtape] (input2){a};
+        \node [on chain=2,tmtape] {$\sqcup$};
+        \node [on chain=2,tmtape] {$\ldots$};
+        \node [on chain=2] {\textbf{Input/Output Tape}};
+    \end{scope}
+
+    %% Draw TM tape
+    \begin{scope}[start chain=3 going right,node distance=-0.15mm,xshift=2cm, yshift=-4cm]
+        \node [on chain=3,tmtape] {$\ldots$};
+        \node [on chain=3,tmtape] {b};
+        \node [on chain=3,tmtape] {b};
+        \node [on chain=3,tmtape] (input3) {a};
+        \node [on chain=3,tmtape] {a};
+        \node [on chain=3,tmtape] {a};
+        \node [on chain=3,tmtape] {$\sqcup$};
+        \node [on chain=3,tmtape] {$\ldots$};
+        \node [on chain=3] {\textbf{Input/Output Tape}};
+    \end{scope}
+
+    %% Draw TM head above (input) tape cell
+    \node [tmhead,yshift=+0.3cm] at (input1.north) (head1) {$q_1$};
+
+    \node [tmhead_l,yshift=+0.3cm] at (input2.north) (head2) {$q_1$};
+
+    \node [tmhead_r,yshift=+0.3cm] at (input3.north) (head3) {$q_1$};
+
+    % \path[->,draw] (head1.west)
+    %% Link Finite Control with Head
+    \path[->,draw] (fsbox.south) .. controls (7,+1) and (+2,+2) .. node[right]
+    (headlinetext)
+    {}
+    (head1.north);
+
+    %% Link Finite Control with Head
+    \path[->,draw] (fsbox.south) .. controls (7,+1) and (0,+2) .. node[right]
+    (headlinetext)
+    {}
+    (head2.north);
+
+    %% Link Finite Control with Head
+    \path[->,draw] (fsbox.south) .. controls (9,+1) and (0,+2) .. node[right]
+    (headlinetext)
+    {}
+    (head3.north);
+
+    % \node[xshift=3cm] at (headlinetext)
+    {\begin{tabular}{c}
+        \textbf{Reading and Writing Head} \\
+        \textbf{(moves in both directions)}
+    \end{tabular}};
+
+\end{tikzpicture}

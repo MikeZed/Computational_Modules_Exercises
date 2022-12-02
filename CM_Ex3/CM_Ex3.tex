@@ -1,0 +1,72 @@
+\documentclass{article}
+
+\input{aux_tex/packages.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PDF COLOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor} \pagecolor[rgb]{0,0,0} \color[rgb]{0.9,0.9,0.9}
+%%%%%%%%%%%%%%%%%%%%%%%%% SUPPRESS UNDERFULL HBOX %%%%%%%%%%%%%%%%%%%%%%%
+\hbadness = 20000
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Basic Document Settings 
+%
+\input{aux_tex/doc_formatting.tex}
+\input{aux_tex/cm_defs.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{aux_tex/personal_info.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% Title 
+%
+
+\title{
+    \textmd{\bd{\hmwkClass:\ \hmwkTitle}}\\
+}
+\author{\hmwkAuthorName}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+      \item
+            \begin{enumerate}
+                  \item \input{answers/1a.tex}
+                  \item \input{answers/1b.tex}
+            \end{enumerate}
+
+            \pagebreak
+
+      \item \input{answers/2.tex}
+
+            \pagebreak
+
+      \item
+            \begin{enumerate}
+                  \item \input{answers/3a.tex}
+                  \item \input{answers/3b.tex}
+                  \item \input{answers/3c.tex}
+                  \item \input{answers/3d.tex}
+                  \item \input{answers/3e.tex}
+            \end{enumerate}
+
+            \pagebreak
+
+      \item
+            \begin{enumerate}
+                  \item \input{answers/4a.tex}
+                  \item \input{answers/4b.tex}
+            \end{enumerate}
+
+      \item \input{answers/5.tex}
+
+
+\end{enumerate}
+
+\bd{Bonus.}
+
+\end{document}
