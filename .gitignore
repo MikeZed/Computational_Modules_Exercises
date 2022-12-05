@@ -4,7 +4,7 @@
 *.gz
 *.fdb_latexmk
 *.aux
-CM_Ex2/aux_tex/personal_info.tex
+*personal_info.tex
 *.pdf
 *.txt
 *.fls
