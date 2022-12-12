@@ -1,0 +1,12 @@
+$f$ is computable so there exists TM $M'$ which computes it
+
+we will define the following TM $M$ that decides $L_f$
+
+it gets $(x, f(x))$ as an input and then run $M'$ on $x$ and compare the output of $M'$ (what is written on its tape)
+with $f(x)$, if it is the same then it accepts the input, otherwise it rejects it
+
+Proof of correctness: \\
+- for $(x, f(x)) \in L_f$ we get $M'(x) = f(x)$ so $M$ will accept the input. \\
+- for $(x, f(x)) \notin L_f$ we get $M'(x) \neq f(x)$ so $M$ will reject the input. \\
+
+In conclusion, we get $L_f \in \mathcal{R}$

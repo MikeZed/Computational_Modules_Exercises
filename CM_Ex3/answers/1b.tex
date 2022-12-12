@@ -1,2 +1,39 @@
 Let $M = (Q, \AB, \Gamma, \de, q_0, q_a, q_r)$ be a single-tape TM. \\
 Formally describe a 2-tape TM with 3 states that accepts $L(M)$.
+
+For convenience, we will denote accessing the various fields of the 3-tuple
+of the output of $\de$ by: \\
+$\de(q', \ch')[q]$ - the next state according to $\de(q', \ch')$ \\
+$\de(q', \ch')[\ch]$ - the symbol to be written to the tape according to $\de(q', \ch')$ \\
+$\de(q', \ch')[D]$ - the direction of the head movement according to $\de(q', \ch')$ \\
+
+We will denote the required TM by $M'$. \\
+The formal description of $M'$ will be: \\
+$ M' = (Q', \AB, \Gamma', \de', q_0', q_a', q_r') $ such that: \\
+$ Q'      = \{q_0', q_a', q_r'\} $ \\
+$ \AB'    = \AB $ \\
+$ \Gamma' = \Gamma \cup Q \cup \{\sqcup\} $ (we assume w.l.o.g. that $\Gamma \cap Q = \emptyset$) \\
+\[
+    \de'(q_0', (\ch, q_M)) = \left.
+    \begin{cases}
+        (q_0', (\ch, q_0), (L, L)) ,                                            & (\ch, q_M) \in \Gamma \times \{\sqcup\}                \\
+        (q_0', (\de(q_M, \ch)[\ch], \de(q_M, \ch)[q]), (\de(q_M, \ch)[D], L)) , & (\ch, q_M) \in \Gamma \times Q \backslash \{q_a, q_r\} \\
+        (q_a', (\ch, q_M), (R, L)),                                             & q_M = q_a                                              \\
+        (q_r', (\ch, q_M), (R, L)),                                             & q_M = q_r                                              \\
+        (q_r', (\ch, q_M), (R, L)),                                             & else                                                   \\
+    \end{cases}
+    \right\} , \ch, q_M \in \Gamma' \\
+\]
+
+Short explanation: \\
+First tape will hold the input and will simulate the tape of $M$.
+The head above the first tape moves like the head of TM $M$,
+except in the first step - where the second tape is initialized with
+the initial state of $M$, $q_0$.
+
+Second tape is used to track the current state of $M$.
+The head above the second tape always 'moves left' in order to
+stay in the beginning of the tape, above the current state of $M$.
+
+The TM follows the transition between states of $M$ and accepts
+when we reach the accepting state of $M$, if we reach the rejecting state of $M$ - we reject.

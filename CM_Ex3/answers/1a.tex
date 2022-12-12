@@ -1,3 +1,33 @@
 Let $A = (Q, \AB, \de, q_0, F)$ be a DFA. \\
-Formally describe a 2-tape TM with 3 states that accepts $L(A)$.
+Formally describe a 2-tape TM with 3 states that accepts $L(A)$. \\
 
+We will denote the required TM by $M'$. \\
+The formal description of $M'$ will be: \\
+$ M' = (Q', \AB, \Gamma', \de', q_0', q_a', q_r') $ such that: \\
+$ Q'      = \{q_0', q_a', q_r'\} $ \\
+$ \AB'    = \AB $ \\
+$ \Gamma' = \AB \cup Q \cup \{\sqcup\} $ (we assume w.l.o.g. that $\AB \cap Q = \emptyset$) \\
+\[
+    \de'(q_0', (\ch, q_A)) = \left.
+    \begin{cases}
+        (q_0', (\ch, q_0), (L, L)) ,           & (\ch, q_A) \in (\AB' \cup \{\sqcup\}) \times \{\sqcup\} \\
+        (q_0', (\ch, \de(q_A, \ch)), (R, L)) , & (\ch, q_A) \in \AB' \times Q                            \\
+        (q_a', (\ch, q_A), (R, L)),            & (\ch, q_A) \in \{\sqcup\} \times F                      \\
+        (q_r', (\ch, q_A), (R, L)),            & else                                                    \\
+    \end{cases}
+    \right\} , \ch, q_A \in \Gamma' \\
+\]
+
+Short explanation: \\
+First tape will hold the input. In order to read the input
+(like in a DFA) the head above the first tape always moves right,
+except in the first step - where the second tape is initialized with
+the initial state of $A$, $q_0$.
+
+Second tape is used to track the current state of $A$.
+The head above the second tape always 'moves left' in order to
+stay in the beginning of the tape, above the current state of $A$.
+
+The TM follows the transition between states of $A$ and accepts
+when we reach the end of the input and are at an accepting state of $A$,
+if we reach the end of the input and are not at an accepting state - we reject.
