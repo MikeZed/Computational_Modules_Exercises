@@ -14,29 +14,32 @@ and $\de$ is defined by:
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
-        \node[state, initial] (q_0)   {$q_0$};
-        \node[state] (q_is) [below=of q_0] {$q_{is}$};
-        \node[state] (q_i) [below=of q_is] {$q_i$};
-        \node[state] (q_js) [below=of q_i] {$q_{js}$};
-        \node[state] (q_j) [below=of q_js] {$q_j$};
-        \node[state, accepting] (q_a) [below=of q_j] {$q_a$};
+        \node[state, initial]   (q_0)                  {$q_0$};
+        \node[state]            (q_is) [below=of q_0]  {$q_{is}$};
+        \node[state]            (q_i)  [below=of q_is] {$q_i$};
+        \node[state]            (q_js) [below=of q_i]  {$q_{js}$};
+        \node[state]            (q_j)  [below=of q_js] {$q_j$};
+        \node[state, accepting] (q_a)  [below=of q_j]  {$q_a$};
+
         \path[->]
         (q_0)
-        edge node {$(\#, \sqcup) \rightarrow (\#,\sqcup), (R,S)$} (q_is)
+        edge              node {$(\#, \sqcup) \rightarrow (\#,\sqcup), (R,S)$} (q_is)
 
         (q_is)
-        edge node {$(1, \sqcup) \rightarrow (1,1), (R,R)$} (q_i)
+        edge              node {$(1, \sqcup)  \rightarrow (1,1),       (R,R)$} (q_i)
+
         (q_i)
-        edge [loop left] node {$(1, \sqcup) \rightarrow (1,1), (R,R)$} (q_i)
-        edge [loop right] node {$(1, \sqcup) \rightarrow (1, \sqcup), (R,S)$} (q_i)
-        edge node {$(\#, \sqcup) \rightarrow (\#,\#), (L,R)$} (q_js)
+        edge [loop left]  node {$(1, \sqcup)  \rightarrow (1,1),       (R,R)$} (q_i)
+        edge [loop right] node {$(1, \sqcup)  \rightarrow (1, \sqcup), (R,S)$} (q_i)
+        edge              node {$(\#, \sqcup) \rightarrow (\#,\#),     (L,R)$} (q_js)
 
         (q_js)
-        edge node {$(1, \sqcup) \rightarrow (1,1), (L,R)$} (q_j)
+        edge              node {$(1, \sqcup)  \rightarrow (1,1),       (L,R)$} (q_j)
+
         (q_j)
-        edge [loop left] node {$(1, \sqcup) \rightarrow (1,1), (L,R)$} (q_j)
-        edge [loop right] node {$(1, \sqcup) \rightarrow (1, \sqcup), (L,S)$} (q_j)
-        edge node {$(\#, \sqcup) \rightarrow (\#,\sqcup), (S,S)$} (q_a);
+        edge [loop left]  node {$(1, \sqcup)  \rightarrow (1,1),       (L,R)$} (q_j)
+        edge [loop right] node {$(1, \sqcup)  \rightarrow (1, \sqcup), (L,S)$} (q_j)
+        edge              node {$(\#, \sqcup) \rightarrow (\#,\sqcup), (S,S)$} (q_a);
 
     \end{tikzpicture}
     \label{fig:multiple5}
