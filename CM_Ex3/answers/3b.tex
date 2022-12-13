@@ -1,0 +1,27 @@
+$co\REcl$ is closed under intersection.
+
+The claim is true. \\
+
+Proof: \\
+Let there be $\lang_1, \lang_2 \in co\REcl$ we will show that $\lang = \lang_1 \cap \lang_2 \in co\REcl$. \\
+$\lang_1, \lang_2 \in co\REcl$ so there are TM $M_1, M_2$ such that
+$\lang(M_1) = \overline{\lang_1}, \lang(M_2) = \overline{\lang_2}$. \\
+We shall define TM $M$ such that $\lang(M) = \overline{\lang}$:
+
+$M \text{ on input } x$: \\
+1. run $M_1(x)$ and $M_2(x)$ in parallel (step by step). \\
+2. if one of them accepts - accept. \\
+3. if both reject - reject.
+
+So we get: \\
+if $x \in \overline{\lang} = \overline{\lang_1 \cap \lang_2}$ then
+$x \in \overline{\lang_1} \vee x \in \overline{\lang_2}$, so $M_1(x)$ or $M_2(x)$ accept $\rightarrow M$ accepts. \\
+if $x \notin \overline{\lang} = \overline{\lang_1 \cap \lang_2}$  then
+$x \notin \overline{\lang_1} \wedge x \notin \overline{\lang_2}$, so both $M_1(x)$ and $M_2(x)$ reject or stuck in a loop: \\
+- if $M_1(x)$ and $M_2(x)$ reject, then from (3) $M$ rejects. \\
+- if $M_1(x)$ or $M_2(x)$ rejects and the other one is stuck in a loop, then  $M$ is stuck in a loop. \\
+- if $M_1(x)$ and $M_2(x)$ are stuck in a loop, then  $M$ is stuck in a loop. \\
+
+Indeed we get $\lang(M) = \overline{\lang}$. \\
+So we get $\lang = \lang_1 \cap \lang_2 \in co\REcl$, as required. \\
+

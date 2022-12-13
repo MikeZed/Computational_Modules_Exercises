@@ -1,5 +1,9 @@
-$ \REcl$
+$\REcl$ is closed under complement.
 
-$ co\REcl $
+The claim is false. \\
 
-$ \Rcl $
+Proof: \\
+If the claim is true, then for every language $\lang \in \REcl$ we get $\overline{\lang} \in \REcl$ so $\lang \in co\REcl$, \\
+thus $\lang \in \REcl \cap co\REcl = \Rcl \rightarrow \REcl \subseteq \Rcl$ which is not true. \\
+Specifically, we saw that $ACC \in \REcl$ but $\overline{ACC} \notin \REcl$ (since $ACC \notin \Rcl$). \\
+
