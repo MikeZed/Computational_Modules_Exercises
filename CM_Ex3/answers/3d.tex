@@ -3,6 +3,40 @@ Let us define $Prefix(\lang) = \{x : \exists y \text{ such that } xy \in \lang\}
 \begin{enumerate}[i.]
     \item $\REcl$ is closed under Prefix.
 
+          The claim is true. \\
+
+          Proof: \\
+          Let there be $\lang \in \REcl$, we will show that $Prefix(\lang) \in \REcl$. \\
+          $\lang \in \REcl$ so there is TM $M$ that accepts $\lang$. \\
+          We shall build a non-deterministic TM $N$ that accepts $Prefix(\lang)$:
+
+          $N \text{ on input } x$: \\
+          1. order $\AB^*$ in a lexicographic order. \\
+          2. for each word $y$ in that order, run $M$ on $w=xy$ in parallel. \\
+          3. accept iff $M$ accepts for some word $w=xy$. \\
+
+          Note - instead of using a non-deterministic TM, we can run $M$ on each of \\
+          the words in 'parallel' by running each time on an increasing number of \\
+          words for an increasing number of steps, just like we did in the lecture and recitation. \\ \\ \\ \\ \\ \\
+
+
+          \TODO
+          So we get: \\
+          if $x \in Prefix(\lang)$ then
+          $\exists y \in \AB^*: w=xy \in \lang \rightarrow $ in one of the computational
+          paths for input $x$, $N$ will choose $y$ for $x$ and $M$ would accept $w=xy \in \lang$
+          $\rightarrow N$ accepts. \\
+
+          if $x \notin \lang^*$  then
+          $\nexists x_1,...,x_n \in \lang: x=x_1...x_n \rightarrow $ there is no computational
+          path for input $x$, in which $N$ will choose a split such that $M$ would accepts all of its parts.
+          But, because $M$ decides $\lang$ we will get that $M$ will reject at least one of the parts in
+          each of the arbitrary splits and accept the others and wouldn't be stuck in a loop $\rightarrow N$ rejects. \\
+
+          Indeed we get that $N$ decides $\lang^*$. \\
+          So we get that  $\Rcl$ is closed under Kleene star, as required. \\
+
+
 
     \item $\Rcl$ is closed under Prefix.
 
