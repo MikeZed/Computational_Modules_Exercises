@@ -1,12 +1,28 @@
-$f$ is computable so there exists TM $M'$ which computes it
+Prove that if $f$ is computable then $\lang_f \in \Rcl$.
 
-we will define the following TM $M$ that decides $L_f$
+Proof:
+$f$ is computable so there exists TM $M$ that computes it,
+meaning that for any $x \in \AB^*$ on $M$'s tape, $M$ will run
+and halt at some point with $f(x)$ written on its tape.
 
-it gets $(x, f(x))$ as an input and then run $M'$ on $x$ and compare the output of $M'$ (what is written on its tape)
-with $f(x)$, if it is the same then it accepts the input, otherwise it rejects it
+We will define the following TM $M'$ that decides $L_f$: \\
 
-Proof of correctness: \\
-- for $(x, f(x)) \in L_f$ we get $M'(x) = f(x)$ so $M$ will accept the input. \\
-- for $(x, f(x)) \notin L_f$ we get $M'(x) \neq f(x)$ so $M$ will reject the input. \\
+$M' \text{ on input }  (x, f(x))$: \\
+1. If the input is not in a valid format - reject. \\
+2. Run $M$ on $x$ (first element of the pair).  \\
+3. Compare the output of $M$ (what is written on its tape)
+with $f(x)$ (second element of the pair). \\
+4. If equal accept, otherwise reject. \\
 
-In conclusion, we get $L_f \in \mathcal{R}$
+So we get: \\
+- for $(x, f(x)) \in L_f$ we get an input in a valid format and running
+$M$ on $x$ will give us $f(x)$ which is equal to the second element of the input pair.
+$\rightarrow M'$ accepts.
+
+- for $(x, f(x)) \in L_f$ we get an input not in a valid format or $M(x) \neq f(x)$: \\
+If the input is not in a valid format - $M'$ rejects. \\
+If $M(x) \neq f(x)$ - $M'$ reject.
+
+Notice that $M$ halts for any input word, therefore $M'$ halts for any input word.
+
+Indeed we get that $M'$ decides $\lang_f$. So we get $L_f \in \Rcl$. As required. \\

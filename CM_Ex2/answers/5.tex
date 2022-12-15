@@ -2,7 +2,7 @@ Let us define: \\ \\
 $
     \begin{aligned}
         Size(O(1)) = \{ & \lang : \text{ There exists a circuit ensemble } C=\{C_n\}_{n \in \nat} \\
-                        & \text{such that } \lang(C)=\lang \text{ and } |C_n|\in O(1\}
+                        & \text{such that } \lang(C)=\lang \text{ and } |C_n|\in O(1)\}
     \end{aligned}
 $ \\ \\
 We will present a non-regular $\lang$ such that $\lang \in Size(O(1))$.
@@ -20,12 +20,11 @@ the circuit, $C_n$, will return the constant 0.
 
 Presenting the above as a formula:
 $
-    C_n(x_1 ... x_n) = \left.
+    C_n(x_1 ... x_n) =
     \begin{cases}
         1 , & \sqrt[3]{n} \in \nat    \\
         0 , & \sqrt[3]{n} \notin \nat \\
     \end{cases}
-    \right. , x_1...x_n = x \in \lang
 $
 
 Presenting as a diagram:

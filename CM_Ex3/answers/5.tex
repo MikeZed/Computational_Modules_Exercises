@@ -1,0 +1,51 @@
+Recall: \\ \\
+$
+    \begin{aligned}
+        Size(O(1)) = \{ & \lang : \text{ There exists a circuit ensemble } C=\{C_n\}_{n \in \nat} \\
+                        & \text{such that } \lang(C)=\lang \text{ and } |C_n|\in O(1)\}
+    \end{aligned}
+$ \\ \\
+
+Prove that there exists $\lang \in Size(O(1))$ such that $\lang \notin \REcl \cup co\REcl$
+
+Proof: \\
+Let us define the following:
+\[
+    \lang_P = \{w : |w| \in P\}, P \subseteq \nat \cup \{0\}
+\]
+
+A language that is defined only by the length of its words, $\lang_P$, belongs to $Size(O(1))$. \\
+This is because for every input length, $n$, there is a different circuit, $C_n$, that handles it and if the
+language contains all the words of that length ($n \in P$) then the circuit $C_n$ can just return '1'
+and if the language doesn't contain words of that length, it can return 0. \\
+That is similarly to what we saw in question 5 in the previous homework exercise,
+we can define every $C_n$ in the following way:
+\[
+    C_n(w=x_1...x_n) =
+    \begin{aligned}
+        \begin{cases}
+            1 , & |w| \in P    \\
+            0 , & |w| \notin P \\
+        \end{cases}
+        =
+        \begin{cases}
+            x_1 \vee \neg x_1 ,   & |w| \in P    \\
+            x_1 \wedge \neg x_1 , & |w| \notin P \\
+        \end{cases}
+    \end{aligned}
+\]
+
+Indeed we get $|C_n| \leq 2 \in O(1)$.
+
+The amount of options for length of words is the size of the group of the possible lengths, meaning: \\
+Amount of options for length of words $=|\nat \cup \{0\}| = \aleph_0$
+
+Now, the amount of options for  $\lang_P$ is the number of options for $P$. \\
+Because $P \subseteq \nat \cup \{0\} \rightarrow P \in P(\nat \cup \{0\})$, we get: \\
+Number of options for $\lang_P$ $=|P(\nat \cup \{0\})| = 2^{\aleph_0} = \aleph$
+
+Also, we saw in the lecture that $|\REcl \cup co\REcl| \leq \aleph_0$
+
+Thus, from cardinality considerations, there has to be at least one language $\lang_P$ such that $\lang_P \notin \REcl \cup co\REcl$.
+
+In conclusion, we saw that there exists $\lang \in Size(O(1))$ such that $\lang \notin \REcl \cup co\REcl$. As requested. \\

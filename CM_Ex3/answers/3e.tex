@@ -1,10 +1,67 @@
 Let us define $LHS(\lang) = \{x : \exists y \text{ such that } xy \in \lang\ \text{ and } |x| = |y|\}$
 
 \begin{enumerate}[i.]
-    \item $\REcl$ is closed under LHS.
+      \item $\REcl$ is closed under LHS.
 
+            The claim is true. \\
 
-    \item $\Rcl$ is closed under LHS.
+            Proof: \\
+            Let there be $\lang \in \REcl$, we will show that $LHS(\lang) \in \REcl$. \\
+            $\lang \in \REcl$ so there is TM $M$ that accepts $\lang$. \\
+            We shall build a non-deterministic TM $N$ that accepts $LHS(\lang)$:
 
+            $N \text{ on input } x$: \\
+            1. Order $\AB^{|x|}$ in a lexicographic order. \\
+            2. For each word $y$ in that order, run $M$ on $w=xy$ in parallel. \\
+            3. Accept iff $M$ accepts for some word $w=xy$. \\
+
+            Note - instead of using a non-deterministic TM, we can run $M$ on each of \\
+            the words in 'parallel' by running each time on an increasing number of \\
+            words for an increasing number of steps, just like we did in the lecture and recitation. \\
+
+            So we get: \\
+            If $x \in LHS(\lang)$ then: \\
+            $\exists y \in \AB^{|x|}: w=xy \in \lang \rightarrow $ in one of the computational
+            paths for input $x$, $N$ will choose $y$ for input $x$ and $M$ would accept $w=xy$. \\
+            $\rightarrow N$ accepts. \\
+
+            If $x \notin LHS(\lang)$ then: \\
+            $\nexists y \in \AB^{|x|}: w=xy \in \lang \rightarrow $ there is no computational
+            path for input $x$, in which $N$ will choose $y$ such that $w=xy \in \lang$,
+            so $M$ would reject or be stuck in a loop for every $w=xy$. \\
+            $\rightarrow N$ rejects or stuck in a loop. \\
+
+            Indeed we get that $N$ accepts $LHS(\lang)$. \\
+            So we get that $\REcl$ is closed under LHS, as required. \\
+
+      \item $\Rcl$ is closed under LHS.
+
+            The claim is true. \\
+
+            Proof: \\
+            Let there be $\lang \in \Rcl$, we will show that $LHS(\lang) \in \Rcl$. \\
+            $\lang \in \Rcl$ so there is TM $M$ that decides $\lang$. \\
+            We shall build a deterministic TM $M'$ that decides $LHS(\lang)$:
+
+            $M' \text{ on input } x$: \\
+            1. Order $\AB^{|x|}$ in a lexicographic order. \\
+            2. For each word $y$ in that order, run $M$ on $w=xy$. \\
+            3. Accept iff $M$ accepts for some word $w=xy$. \\
+
+            So we get: \\
+            If $x \in LHS(\lang)$ then: \\
+            $\exists y \in \AB^{|x|}: w=xy \in \lang \rightarrow $ at some point, $M$ would run on $w=xy$ and accept it. \\
+            $\rightarrow M'$ accepts. \\ \\
+
+            If $x \notin LHS(\lang)$ then: \\
+            $\nexists y \in \AB^{|x|}: w=xy \in \lang \rightarrow $ $M$ would reject $w=xy$ for every $y \in \AB^{|x|}$. \\
+            $\rightarrow M'$ rejects. \\
+
+            Notice that $M$ doesn't get stuck in a loop for any $w=xy$ because it decides $\lang$.
+            Also there is a finite amount of extensions $y$ for $x$ ($=|\AB|^{|x|}$).
+            Therefore $M'$ doesn't get stuck in a loop. \\
+
+            Indeed we get that $M'$ accepts $LHS(\lang)$. \\
+            So we get that $\Rcl$ is closed under LHS, as required. \\
 
 \end{enumerate}

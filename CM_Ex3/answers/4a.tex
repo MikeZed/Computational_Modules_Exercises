@@ -1,4 +1,22 @@
-use enumerator for $L_f$
-and TM $M'$ will look at the output of the enumerator and look for $x$ in the first part of each pair
-then will take the second part of the pair ($f(x)$) and will write it on its tape. Thus computing $f(x)$
+Prove that if $L_f \in \REcl$ then $f$ is computable.
+
+Proof: \\
+$L_f \in \REcl$ so there is TM $E$ that enumerates the words of $L_f$ on its output tape. \\
+We shall construct TM $M$ that computes $f$:
+
+$M \text{ on input } x$: \\
+1. Run the enumerator $E$. \\
+2. Scan the output of the enumerator $E$ and searches for $x$ in the first part of each pair. \\
+3. When finds the proper pair, takes the second part of the pair, which is $f(x)$. \\
+4. Write $f(x)$ on the tape. \\
+5. Accept. \\
+
+Indeed, $\forall x \in \AB^*$ we get that for $M(x)$: \\
+- At some point the enumerator $E$ will write the pair $(x, f(x))$ on its
+output tape (since $(x, f(x)) \in \lang_f$). \\
+- While scanning the enumerator's output tape, $M$ will find a pair with $x$ as its first element. \\
+- $M$ will extract the second element from the pair - $f(x)$ and write it on its tape,
+thus computing $f(x)$. \\
+
+In conclusion, we constructed a TM that computes $f$, thus $f$ is computable. As required. \\
 

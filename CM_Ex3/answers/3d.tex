@@ -11,34 +11,94 @@ Let us define $Prefix(\lang) = \{x : \exists y \text{ such that } xy \in \lang\}
           We shall build a non-deterministic TM $N$ that accepts $Prefix(\lang)$:
 
           $N \text{ on input } x$: \\
-          1. order $\AB^*$ in a lexicographic order. \\
-          2. for each word $y$ in that order, run $M$ on $w=xy$ in parallel. \\
-          3. accept iff $M$ accepts for some word $w=xy$. \\
+          1. Order $\AB^*$ in a lexicographic order. \\
+          2. For each word $y$ in that order, run $M$ on $w=xy$ in parallel. \\
+          3. Accept iff $M$ accepts for some word $w=xy$. \\
 
           Note - instead of using a non-deterministic TM, we can run $M$ on each of \\
           the words in 'parallel' by running each time on an increasing number of \\
-          words for an increasing number of steps, just like we did in the lecture and recitation. \\ \\ \\ \\ \\ \\
+          words for an increasing number of steps, just like we did in the lecture and recitation. \\
 
-
-          \TODO
           So we get: \\
-          if $x \in Prefix(\lang)$ then
+          If $x \in Prefix(\lang)$ then: \\
           $\exists y \in \AB^*: w=xy \in \lang \rightarrow $ in one of the computational
-          paths for input $x$, $N$ will choose $y$ for $x$ and $M$ would accept $w=xy \in \lang$
+          paths for input $x$, $N$ will choose $y$ for input $x$ and $M$ would accept $w=xy$. \\
           $\rightarrow N$ accepts. \\
 
-          if $x \notin \lang^*$  then
-          $\nexists x_1,...,x_n \in \lang: x=x_1...x_n \rightarrow $ there is no computational
-          path for input $x$, in which $N$ will choose a split such that $M$ would accepts all of its parts.
-          But, because $M$ decides $\lang$ we will get that $M$ will reject at least one of the parts in
-          each of the arbitrary splits and accept the others and wouldn't be stuck in a loop $\rightarrow N$ rejects. \\
+          If $x \notin Prefix(\lang)$ then: \\
+          $\nexists y \in \AB^*: w=xy \in \lang \rightarrow $ there is no computational
+          path for input $x$, in which $N$ will choose $y$ such that $w=xy \in \lang$,
+          so $M$ would reject or be stuck in a loop for every $w=xy$. \\
+          $\rightarrow N$ rejects or stuck in a loop. \\
 
-          Indeed we get that $N$ decides $\lang^*$. \\
-          So we get that  $\Rcl$ is closed under Kleene star, as required. \\
-
-
+          Indeed we get that $N$ accepts $Prefix(\lang)$. \\
+          So we get that $\REcl$ is closed under Prefix, as required. \\
 
     \item $\Rcl$ is closed under Prefix.
 
+          The claim is false. \\
+
+          Proof: \\
+          Lets assume that $\Rcl$ is closed under Prefix. We saw that $HALT \in \REcl \backslash \Rcl$
+          so there is TM $M_{HALT}$ that accepts it. \\
+          Observe the following language (over $\AB_1 = \AB \cup \{\#, 0\} \text{ assuming w.l.o.g. } \AB \cap \{\#\} = \emptyset$):
+          \[
+              \lang = \{\langle M, w \rangle \#0^k : M_{HALT} \text{ accepts } \langle M, w \rangle \text{ in k steps}\}
+          \]
+          Notice that $\lang \in \Rcl$, since we can build TM $M$ that decides it:
+
+          $M \text{ on input } x$: \\
+          1. If $x$ is not in the format of $\langle M, w \rangle \#0^k$ for some $k \in \nat$ - reject. \\
+          2. If $\langle M, w \rangle$ is not a valid encoding - reject. \\
+          3. Count the number of 0's after \#, denote the number as $k$. \\
+          4. Run $M_{HALT}$ on $\langle M, w \rangle$ for $k$ steps. \\
+          5. Accept iff $M_{HALT}$ accepts. \\
+
+          So we get: \\
+          If $x \in \lang$ then: \\
+          $x$ is of the required format and $\langle M, w \rangle$ is a valid encoding. if the number of 0's after \# is $k$, then
+          $M_{HALT} \text{ accepts } \langle M, w \rangle \text{ in k steps}$.  \\
+          $\rightarrow M$ accepts. \\
+
+          If $x \notin \lang$ then: \\
+          $x$ is not of the required format or $\langle M, w \rangle$ is not a valid encoding or
+          if the number of 0's after \# is $k$, then $M_{HALT}$ on $\langle M, w \rangle$ would not accept after $k$ steps: \\
+          If $x$ is not of the required format or $\langle M, w \rangle$ is not a valid encoding - we reject. \\
+          If the number of 0's after \# is $k$, then $M_{HALT}$ on $\langle M, w \rangle$ would not accept after $k$ steps,
+          in that case we also reject. \\
+          $\rightarrow M$ rejects. \\
+
+          We got that $M$ decides $\lang$ so $\lang \in \Rcl$.\\
+          we assumed that $\Rcl$ is closed under Prefix, so $Prefix(\lang) \in \Rcl$.
+          Therefore there is TM $M'$ that decides $Prefix(\lang)$.
+          But, now we get that we can construct TM $M''$ that decides HALT: \\
+
+          $M'' \text{ on input } \langle M, w \rangle$: \\
+          1. If $\langle M, w \rangle$ is not a valid encoding - reject. \\
+          2. Run $M'$ on $\langle M, w \rangle \#$. \\
+          3. Accept iff $M'$ accepts. \\
+
+          So we get: \\
+          if $\langle M, w \rangle \in HALT$ then: \\
+          $\langle M, w \rangle$ is a valid encoding and $M_{HALT}$ on
+          input $x$ stops after $k$ steps. \\
+          $\rightarrow \langle M, w \rangle \#0^k \in \lang$ \\
+          $\rightarrow \langle M, w \rangle \# \in Prefix(\lang)$. \\
+          $\rightarrow M'$ accepts. \\
+          $\rightarrow M''$ accepts. \\
+
+          If $\langle M, w \rangle \notin HALT$ then: \\
+          $\langle M, w \rangle$ is not a valid encoding or $M_{HALT}$ on
+          Input $\langle M, w \rangle$ doesn't halt. \\
+          If $\langle M, w \rangle$ is not a valid encoding - we reject. \\
+          If $M_{HALT}$ on input $\langle M, w \rangle$ doesn't halt, then there is no $k$
+          such that $\langle M, w \rangle \#0^k \in \lang$.  \\
+          $\rightarrow \langle M, w \rangle \# \notin Prefix$. \\
+          $\rightarrow M'$ rejects. \\
+          $\rightarrow M''$ rejects. \\
+
+          So $HALT \in \Rcl$.
+          We got $HALT \in \Rcl$ in contradiction with $HALT \notin \Rcl$. \\
+          Hence we get that $\Rcl$ is not closed under Prefix, as required. \\
 
 \end{enumerate}
