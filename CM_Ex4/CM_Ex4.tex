@@ -1,0 +1,88 @@
+\documentclass{article}
+
+\input{aux_tex/packages.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PDF COLOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor} \pagecolor[rgb]{0,0,0} \color[rgb]{0.9,0.9,0.9}
+%%%%%%%%%%%%%%%%%%%%%%%%% SUPPRESS UNDERFULL HBOX %%%%%%%%%%%%%%%%%%%%%%%
+\hbadness = 20000
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Basic Document Settings 
+%
+\input{aux_tex/doc_formatting.tex}
+\input{aux_tex/cm_defs.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{aux_tex/personal_info.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% Title 
+%
+
+\title{
+    \textmd{\bd{\hmwkClass:\ \hmwkTitle}}\\
+}
+\author{\hmwkAuthorName}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+      \item Prove / Disprove:
+            \begin{enumerate}
+                  \item \input{answers/1a.tex}
+                  \item \input{answers/1b.tex}
+                  \item \input{answers/1c.tex}
+                  \item \input{answers/1d.tex}
+            \end{enumerate}
+
+            \pagebreak
+
+      \item Prove / Disprove:
+            \begin{enumerate}
+                  \item \input{answers/2a.tex}
+                  \item \input{answers/2b.tex}
+                  \item \input{answers/2c.tex}
+            \end{enumerate}
+
+            \pagebreak
+
+      \item Given $C \subseteq \REcl$, recall that $\lang_C = \{\langle M \rangle : \lang(M) \in C\}$.
+            Let $C \subseteq \REcl$ such that $ C \neq \emptyset$.
+            \begin{enumerate}
+                  \item \input{answers/3a.tex}
+                  \item \input{answers/3b.tex}
+            \end{enumerate}
+
+            \pagebreak
+
+      \item For each of the following languages, find the minimal (relative to inclusion)
+            class it belongs to between $\Rcl/\REcl/co\REcl/\REcl \cup co\REcl$:
+            \begin{enumerate}
+                  \item \input{answers/4a.tex}
+                  \item \input{answers/4b.tex}
+                  \item \input{answers/4c.tex}
+                  \item \input{answers/4d.tex}
+            \end{enumerate}
+
+            \pagebreak
+
+      \item Recall that a verifier $V$ for a language $\lang \subseteq \AB^*$ is a deterministic TM such
+            that for every $x \in \AB^*$: \\
+            - If $x \in \lang$ then there exists $c \in \AB^*$ such that $V$ accepts $(x, c)$. \\
+            - If $x \notin \lang$ then $V$ rejects $(x, c)$ for every $c \in \AB^*$. \\
+            Prove that the following definitions are equivalent to the aforementioned one
+            (i.e a language has a verifier iff it has a modified verifier):
+
+            \begin{enumerate}
+                  \item \input{answers/5a.tex}
+                  \item \input{answers/5b.tex}
+            \end{enumerate}
+\end{enumerate}
+
+\end{document}
