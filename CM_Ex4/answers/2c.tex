@@ -3,4 +3,75 @@ If $\lang \leq_m \overline{\lang}$, then $\lang \in \Rcl$ \\
 The claim is false. \\
 
 Proof: \\
-\TODO \\
+Let us observe the following language:
+\[
+    \lang = \{0w: w \in ACC\} \cup \{1w: w \in \overline{ACC}\}
+\]
+First we will show that $\lang \notin co\REcl$ by showing the reduction - $ACC \leq_m \lang$.
+
+We can define function $f: \AB^* \rightarrow \AB^*$ such that $\forall w \in \AB^*: f(w) = 0w$
+
+Notice that $f$ is computable and $\forall w \in \AB^*$: \\
+$w \in ACC \\
+    \Longrightarrow f(w) = 0w \in \{0w: w \in ACC\} \\
+    \Longrightarrow f(w) = 0w \in \lang$
+
+$w \notin ACC \\
+    \Longrightarrow f(w) = 0w \notin \{0w: w \in ACC\} \wedge f(w) = 0w \notin \{1w: w \in \overline{ACC}\} \\
+    \Longrightarrow f(w) = 0w \notin \lang$
+
+Hence we get $ACC \leq_m \lang$. \\
+We saw in class that $ACC \in \REcl \backslash \Rcl \Rightarrow ACC \notin co\REcl$.
+Therefore we get that $\lang \notin co\REcl \Rightarrow \underline{\lang \notin \Rcl}$. \\
+
+Now we will show that the reduction $\lang \leq_m \overline{\lang}$ exists. \\
+We can define function $g: \AB^* \rightarrow \AB^*$ such that $\forall x \in \AB^*$:
+\[
+    g(x) =
+    \begin{cases}
+        1w, & x = 0w \wedge w \in \AB^* \\
+        0w, & x = 1w \wedge w \in \AB^* \\
+        1,  & x = \empw                 \\
+    \end{cases}
+\]
+Note - we assume w.l.o.g. that $\empw \notin ACC$ since it depends on
+how we encode $\langle M, w \rangle$ for TM $M$.
+In case $\empw \notin ACC$, we just need to change $g(x)$ to return $0$ for $x = \empw$. \\
+
+Notice that $g$ is computable and $\forall x \in \AB^*$: \\
+$x \in \lang \\
+    \Longrightarrow x \in \{0w: w \in ACC\} \vee x \in \{1w: w \in \overline{ACC}\}$
+
+If $x \in \{0w: w \in ACC\}
+    \Longrightarrow g(x) \in \{1w: w \in ACC\}
+    \Longrightarrow g(x) \notin \lang
+    \Longrightarrow g(x) \in \overline{\lang}$
+
+If $x \in \{1w: w \in \overline{ACC}\}
+    \Longrightarrow g(x) \in \{0w: w \in \overline{ACC}\}
+    \Longrightarrow g(x) \notin \lang
+    \Longrightarrow g(x) \in \overline{\lang}$ \\
+
+$x \notin \lang \\
+    \Longrightarrow x \notin \{0w: w \in ACC\} \wedge x \notin \{1w: w \in \overline{ACC}\} \\
+    \Longrightarrow x = \empw \vee x \in \{1w: w \in ACC\} \vee x \in \{0w: w \in \overline{ACC}\}$
+
+If $x = \empw
+    \Longrightarrow g(x) = 1 \in \{1w: w \in \overline{ACC}\}
+    \Longrightarrow g(x) \in \lang
+    \Longrightarrow g(x) \notin \overline{\lang}$
+
+If $x \in \{1w: w \in ACC\}
+    \Longrightarrow g(x) \in \{0w: w \in ACC\}
+    \Longrightarrow g(x) \in \lang
+    \Longrightarrow g(x) \notin \overline{\lang}$
+
+If $x \in \{0w: w \in \overline{ACC}\}
+    \Longrightarrow g(x) \in \{1w: w \in \overline{ACC}\}
+    \Longrightarrow g(x) \in \lang
+    \Longrightarrow g(x) \notin \overline{\lang}$ \\
+
+Hence we get $\underline{\lang \leq_m \overline{\lang}}$. \\
+
+In conclusion, we saw that $\lang \leq_m \overline{\lang}$ and $\lang \notin \Rcl$. \\
+Hence the claim is false.

@@ -1,0 +1,39 @@
+Prove that if $\AB^* \notin \bigC$ then $\lang_\bigC \notin \REcl$
+
+Proof: \\
+$\bigC \neq \emptyset$ so there is language $A$, such that $A \in \bigC \subseteq \REcl$,
+let $M_A$ denote the TM that accepts $A$ (it exists since $A \in \REcl$). \\
+
+We will show that the reduction - $\overline{ACC} \leq_m \lang_\bigC$, exists. \\
+
+For every TM $M$ and input $x$, we shall define the following TM - $M_x^A$: \\
+$M_x^A$ on input $w$: \\
+1. Run $M$ on $x$ and run $M_A$ on $w$ in parallel (step by step). \\
+2. Accept if one of them accepts. \\
+
+Notice that if $\langle M, x \rangle \in \overline{ACC}$ and $\langle M, x \rangle$ is a valid encoding, \\
+then $M$ does not accept $x$ and $\lang(M_x^A) = \lang(M_A) = A \in \bigC$. \\
+And if $\langle M, x \rangle \notin \overline{ACC}$,
+then $M$ accepts $x$ and $\lang(M_x^A) = \AB^* \notin \bigC$. \\
+
+Now, we can define reduction function $f: \AB^* \rightarrow \AB^*$ such that $\forall w \in \AB^*$:\\
+$f(w):$ \\
+1. If $w = \langle M, x \rangle$ is not a valid encoding - return $M_A$ \\
+2. $w = \langle M, x \rangle$ is a valid encoding - return $M_x^A$ \\
+
+Notice that $f$ is computable and $\forall w \in \AB^*$: \\
+$w \in \overline{ACC} \\
+    \Longrightarrow w = \langle M, x \rangle \text{ is not a valid encoding or it is valid and } x \notin \lang(M)$
+
+If $w = \langle M, x \rangle \text{ is not a valid encoding}
+    \Longrightarrow f(w) = M_A \in \lang_\bigC (\text{since } \lang(M_A) = A \in \bigC)$ \\
+If $w = \langle M, x \rangle \text{ is a valid encoding and } x \notin \lang(M)
+    \Longrightarrow f(w) = M_x^A \in \lang_\bigC (\text{since } \lang(M_x^A) = \lang(M_A) = A \in \bigC)$ \\
+
+$w \notin \overline{ACC} \\
+    \Longrightarrow w = \langle M, x \rangle \text{ is a valid encoding and } x \in \lang(M) \\
+    \Longrightarrow f(w) = M_x^A \notin \lang_\bigC (\text{since } \lang(M_x^A) = \AB^* \notin \bigC)$ \\
+
+Hence we get $\overline{ACC} \leq_m \lang_\bigC$. \\
+We saw in class that $ACC \in \REcl \backslash \Rcl$, hence $\overline{ACC} \notin \REcl$. \\
+So we get that $\lang_\bigC \notin \REcl$. As required. \\

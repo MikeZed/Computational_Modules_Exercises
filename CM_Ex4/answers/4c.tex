@@ -1,0 +1,26 @@
+$\lang = \{\langle M \rangle : \exists \lang' \text { s.t. } \lang' \cup \lang(M) \text{ is regular}\}$ \\
+
+We will show that $\lang \in \Rcl$. \\
+
+Notice that for any TM $M$ we can choose $\lang' = \overline{\lang(M)}$ so that we will get: \\
+$\lang' \cup \lang(M) =  \overline{\lang(M)} \cup \lang(M) = \AB^*$ which is of course regular.
+Hence we can say that: \\
+$\lang = \{\langle M \rangle : \exists \lang' \text { s.t. } \lang' \cup \lang(M) \text{ is regular}\}
+    = \{\langle M \rangle : M \text{ is a TM}\}$ \\
+
+Now we will build TM $M'$ that decides $\lang$: \\
+$M'$ on input $\langle M \rangle$: \\
+1. Check whether $\langle M \rangle$ is a valid encoding of a TM. \\
+2. If it is - accept. \\
+3. Reject. \\
+
+So we get: \\
+If $\langle M \rangle \in \lang$ then: \\
+$\langle M \rangle$ is a valid encoding of a TM. \\
+$\Rightarrow M'$ accepts. \\
+
+If $\langle M \rangle \notin \lang$ then: \\
+$\langle M \rangle$ is not a valid encoding of a TM. \\
+$\Rightarrow M'$ rejects. \\
+
+We got that $M'$ accepts every $w \in \lang$ and rejects every $w \notin \lang$. Hence $\lang \in \Rcl$. \\
