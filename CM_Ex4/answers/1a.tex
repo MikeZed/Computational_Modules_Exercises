@@ -1,0 +1,19 @@
+If $\lang \leq_m \lang'$ and $\lang' \leq_m \lang''$ then $\lang \leq_m \lang''$ \\
+
+The claim is true. \\
+
+Proof: \\
+$\lang \leq_m \lang'$  so there is a computable function  $f: \AB^* \rightarrow \AB^*$ such that: \\
+$\forall x \in \AB^*: x \in \lang  \iff f(x) \in \lang'$.
+
+$\lang'\leq_m \lang''$ so there is a computable function $g: \AB^* \rightarrow \AB^*$ such that: \\
+$\forall x \in \AB^*: x \in \lang' \iff g(x) \in \lang''$.
+
+So we can define the following function $h: \AB^* \rightarrow \AB^*$:
+$h(x) = g(f(x))$
+
+Notice that $h$ is computable since $f$ and $g$ are computable and $\forall x \in \AB^*$: \\
+$x \in    \lang \Rightarrow f(x) \in    \lang' \Rightarrow h(x) = g(f(x)) \in    \lang''$ \\
+$x \notin \lang \Rightarrow f(x) \notin \lang' \Rightarrow h(x) = g(f(x)) \notin \lang''$ \\
+
+Hence we get $\lang \leq_m \lang''$. \\
