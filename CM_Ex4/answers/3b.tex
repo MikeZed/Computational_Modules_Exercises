@@ -1,0 +1,24 @@
+Prove that if $\AB^* \in \bigC$ then $\lang_\bigC \notin co\REcl$
+
+Proof: \\
+Notice that $\AB^* \in \bigC \subset \REcl$, then $\overline{\bigC} \subset \REcl \backslash  \{\AB^*\}$. \\
+Then, from the previous section we get $\overline{ACC} \leq_m \lang_{\overline{\bigC}}$. \\
+Hence $ACC \leq_m \overline{\lang}_{\overline{\bigC}}$ and then from $ACC \in \REcl \backslash \Rcl$ we get $ACC \notin co\REcl \Rightarrow \overline{\lang}_{ \overline{\bigC}} \notin co\REcl$. \\
+It holds that: \\
+$\overline{\lang}_{\overline{\bigC}} = \overline{\{\langle M \rangle : \lang(M) \in \overline{\bigC}\}} \\
+    = \{\langle M \rangle : \langle M \rangle \text{ is not valid encoding of a TM }\} \cup \{\langle M \rangle : \lang(M) \in \bigC\}  \\
+    = \{\langle M \rangle : \langle M \rangle \text{ is not valid encoding of a TM }\} \cup \lang_\bigC$ \\
+
+Notice that $\lang_{M\_invalid} = \{\langle M \rangle : \langle M \rangle \text{ is not valid encoding of a TM }\} \in \Rcl$ \\
+since we can build a TM that gets $w \in \AB^*$ and checks if it is a valid encoding $w = \langle M \rangle$, if it is ($w \notin \lang_{M\_invalid}$) - it rejects, \\
+otherwise ($w \in \lang_{M\_invalid}$) it accepts.
+
+So we got that: \\
+1. $\overline{\lang}_{\overline{\bigC}} = \lang_{M\_invalid} \cup \lang_\bigC$. \\
+2. $\lang_{M\_invalid} \in \Rcl \Rightarrow \lang_{M\_invalid} \in co\REcl$. \\
+3. $\overline{\lang}_{\overline{\bigC}} \notin co\REcl$. \\
+
+Since $co\REcl$ is closed to union (just like $\REcl$ is closed to union) we get that $\lang_\bigC \notin co\REcl$, \\
+because otherwise we will get from (1) and (2) that $\overline{\lang}_{\overline{\bigC}} \in co\REcl$ in contradiction with (3). \\
+
+In conclusion, we get that $\lang_\bigC \notin co\REcl$. As required. \\
