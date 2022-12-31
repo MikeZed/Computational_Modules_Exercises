@@ -1,0 +1,45 @@
+For every $x \in \AB^*$:
+\begin{enumerate}[(i)]
+    \item If $x \in \lang$ then there exists $c \in \AB^*$ such that $V$ accepts $(x, c)$.
+    \item If $x \notin \lang$ then $V$ rejects $(x, c)$ for every $c \in \AB^*$.
+    \item $V$ \textit{always} halts.
+\end{enumerate}
+
+We will show that $(0) \iff (b)$: \\
+
+\underline{$(0) \Leftarrow (b)$}: \\
+Let $V$ meet definition (b) for language $\lang$. $V$ also meets definition (0) for language $\lang$: \\
+- (i) of (b) gives us directly (i) of (0). \\
+- (ii) of (b) gives us directly (ii) of (0). \\
+Hence we get $(0) \Leftarrow (b)$. \\
+
+\underline{$(0) \Rightarrow (b)$}: \\
+Let $V$ meet definition (0) for language $\lang$. \\
+We saw in the recitation that $\exists V: V \text{ meets definition } (0) \text{ for } \lang \iff \lang \in \REcl$ \\
+Therefore its enough to show that $\lang \in \REcl \Rightarrow \exists V: V \text{ meets definition } (b) \text{ for } \lang$  \\
+Let $M$ be TM that accepts $\lang$. \\
+We shall construct TM $V'$ that meets definition (b) for $\lang$. \\
+$V'$ on input $(x, c)$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Run $M$ on input $x$ for $|c|$ steps.
+    \item Accept if $M$ accepts.
+    \item Reject.
+\end{enumerate}
+
+So we get: \\
+If $x \in \lang$ \\
+$\Longrightarrow \exists i \in \AB^*$ such that $M$ accepts $x$ (w.l.o.g.) after $i$ steps. \\
+$\Longrightarrow \exists c_j \in \AB^*$ such that $M$ accepts $x$ after $|c_j|=i$ steps. \\
+$\Longrightarrow \exists c_j \in \AB^*$ s.t. $V'$ accepts $(x, c_j)$. \\
+
+If $x \notin \lang$ \\
+$\Longrightarrow M$ does not accept $x$ after any amount of steps. \\
+$\Longrightarrow V'$ rejects $(x, c)$ for every $c \in \AB^*$. \\
+
+Also, notice that for every $(x, c)$, $V'$ will run $M$ for finite amount of steps and \\
+then accept or reject, hence $V'$ halts for any input $(x, c)$. \\
+
+Indeed, we get that $V'$ meets definition (b) for $\lang$. \\
+So we get: \\
+$\exists V: V \text{ meets definition } (0) \text{ for } \lang \Longrightarrow \lang \in \REcl \Longrightarrow \exists V: V \text{ meets definition } (b) \text{ for } \lang$ \\
+Hence we get $(0) \Rightarrow (b)$. \\

@@ -1,0 +1,51 @@
+For every $x \in \AB^*$:
+\begin{enumerate}[(i)]
+    \item If $x \in \lang$ then there exists $c \in \AB^*$ such that $V$ accepts $(x, c)$.
+    \item If $x \notin \lang$ then $V$ \textit{does not accept} $(x, c)$ for every $c \in \AB^*$.
+\end{enumerate}
+
+We will show that $(0) \iff (a)$: \\
+
+\underline{$(0) \Rightarrow (a)$}: \\
+Let $V$ meet definition (0) for language $\lang$. $V$ also meets definition (a) for language $\lang$ \\
+- (i) of (0) gives us directly (i) of (a). \\
+- From (ii) of (0) - if $x \notin \lang$ then $V$ rejects $(x, c)$ for every $c \in \AB^*$,
+meaning that if $x \notin \lang$ then $V$ does not accept $(x, c)$ for every $c \in \AB^*$,
+so we get (ii) of (a). \\
+Hence we get $(0) \Rightarrow (a)$. \\
+
+\underline{$(0) \Leftarrow (a)$}: \\
+Let $V$ meet definition (a) for language $\lang$. \\
+We saw in the recitation that $\exists V: V \text{ meets definition } (0) \text{ for } \lang \iff \lang \in \REcl$ \\
+Therefore its enough to show that $\exists V: V \text{ meets definition } (a) \text{ for } \lang \Rightarrow \lang \in \REcl$ \\
+We shall construct TM $M$ that accepts $\lang$. \\
+$M$ on input $x$:
+\begin{enumerate}[1., itemsep=5pt]
+
+    \item Let $c_1, c_2, ...$ be a lexicographic order of $\AB^*$.
+
+    \item For every $i$ starting from 1 (and increasing by 1 after every loop)
+
+          \begin{enumerate}[a., itemsep=5pt]
+              \item \qquad Run $V$ on $(x, c_1), (x, c_2), ..., (x, c_i)$ for $i$ steps.
+
+              \item \qquad Accept iff $V$ accepts some $(x, c_j)$.
+          \end{enumerate}
+
+\end{enumerate}
+
+So we get: \\
+If $x \in \lang$ \\
+$\Longrightarrow \exists c \in \AB^*$ such that $V$ accepts $(x, c)$. \\
+$\Longrightarrow \exists j, k$ s.t. $V$ accepts $(x, c_j)$ (w.l.o.g.) after $k$ steps. \\
+$\Longrightarrow$ after $max(j, k)$ iterations $M$ will accept $(x, c_j)$. \\
+$\Longrightarrow M$ accepts. \\
+
+If $x \notin \lang$ \\
+$\Longrightarrow V$ does not accept $(x, c)$ for every $c \in \AB^*$. \\
+$\Longrightarrow M$ will be stuck in a loop (and would not accept). \\
+
+Indeed, we get that $M$ accepts $\lang$, therefore $\lang \in \REcl$. \\
+So we get: \\
+$\exists V: V \text{ meets definition } (a) \text{ for } \lang \Longrightarrow \lang \in \REcl \Longrightarrow \exists V: V \text{ meets definition } (0) \text{ for } \lang$ \\
+Hence we get $(0) \Leftarrow (a)$. \\

@@ -13,27 +13,36 @@ Hence, from Rice Theorem and its extension, we get that $\lang \notin co\REcl$, 
 Now we will show that $\lang \in \REcl$. \\
 We shall build a TM $M'$ that accepts $\lang$:
 
-$M'$ on input $\langle M \rangle$: \\
-1. Check whether $\langle M \rangle$ is a valid encoding of a TM. \\
-2. If it is not - reject. \\
-3. Let $w_1, w_2, ...$ be a lexicographic order of $\AB^*$. \\
-4. For every $i$ starting from 1 (and increasing by 1 after every loop) \\
-4a.\qquad Run $M$ on $w _1, w_2, ..., w_i$ for $i$ steps. \\
-4b.\qquad Accept iff $M$ accepts at least two words. \\
+$M'$ on input $\langle M \rangle$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Check whether $\langle M \rangle$ is a valid encoding of a TM.
+
+    \item If it is not - reject.
+
+    \item Let $w_1, w_2, ...$ be a lexicographic order of $\AB^*$.
+
+    \item For every $i$ starting from 1 (and increasing by 1 after every loop)
+
+          \begin{enumerate}[a., itemsep=5pt]
+              \item \qquad Run $M$ on $w_1, w_2, ..., w_i$ for $i$ steps.
+              \item \qquad Accept iff $M$ accepts at least two words.
+          \end{enumerate}
+
+\end{enumerate}
 
 So we get: \\
-If $\langle M \rangle \in \lang$ then: \\
-$\langle M, w \rangle$ is a valid encoding of a TM and $|\lang(M)| > 1$. \\
-$\Rightarrow \exists w_{j_1}, w_{j_2} \in \lang(M)$ s.t. $M$ accepts $w_{j_1}, w_{j_2}$ (w.l.o.g.) after $k_1, k_2$ steps, respectively. \\
-$\Rightarrow$ after $max(j_1, j_2, k_1, k_2)$ iterations $M$ will accept both words. \\
-$\Rightarrow M'$ accepts. \\
+If $\langle M \rangle \in \lang$ \\
+$\Longrightarrow \langle M, w \rangle$ is a valid encoding of a TM and $|\lang(M)| > 1$. \\
+$\Longrightarrow \exists w_{j_1}, w_{j_2} \in \lang(M)$ s.t. $M$ accepts $w_{j_1}, w_{j_2}$ (w.l.o.g.) after $k_1, k_2$ steps, respectively. \\
+$\Longrightarrow$ after $max(j_1, j_2, k_1, k_2)$ iterations $M$ will accept both words. \\
+$\Longrightarrow M'$ accepts. \\
 
-If $\langle M \rangle \notin \lang$ then: \\
-$\langle M, w \rangle$ is not a valid encoding of a TM or $|\lang(M)| \leq 1$. \\
+If $\langle M \rangle \notin \lang$ \\
+$\Longrightarrow \langle M, w \rangle$ is not a valid encoding of a TM or $|\lang(M)| \leq 1$. \\
 If $\langle M, w \rangle$ is not a valid encoding of a TM - $M'$ rejects. \\
 If $|\lang(M)| \leq 1$: \\
-$\Rightarrow M$ accepts at most one word. \\
-$\Rightarrow M'$ will be stuck in the loop. \\
+$\Longrightarrow M$ accepts at most one word. \\
+$\Longrightarrow M'$ will be stuck in the loop. \\
 
 We got that $M'$ accepts every $w \in \lang$ and doesn't accept every $w \notin \lang$. Hence $\underline{\lang \in \REcl}$. \\
 In conclusion, $\lang \in \REcl \backslash \Rcl$. \\

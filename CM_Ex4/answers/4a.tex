@@ -46,7 +46,7 @@ $w \notin HALT_\empw \\
                       \Longrightarrow f(w) = \langle M'', q, q' \rangle \notin \lang$
 \end{itemize}
 
-So we got that \underline{$HALT_\empw \leq_m \lang$}. \\
+So we got that \underline{$HALT_\empw \leq_m \lang$}. \pagebreak
 
 Now, we show that $\lang \notin co\REcl$ which is equivalent to $\overline{\lang} \notin \REcl$,
 by reduction from $HALT_\empw$: $HALT_\empw \leq_m \overline{\lang}$. \\
@@ -70,30 +70,30 @@ $g$ on input $w = \langle M \rangle$:
 \end{enumerate}
 
 Notice that $g$ is computable (similarly to the function in the exercise in recitation 07) and $\forall w \in \AB^*$: \\
-$w \in HALT_\empw \\
+If $w \in HALT_\empw \\
         \Longrightarrow w = \langle M \rangle \text{ is a valid encoding and } M \text{ halts on } \empw \\
         \Longrightarrow g(w) = \langle M'', q, q' \rangle \text{ is a valid encoding such that $M''$ on input $x = \empw$ will } \\
-        \text{run $M$ on $x = \empw$ which will halt and then visit $q'$ once and accept } \\
+        \text{run $M$ on $x = \empw$ which will halt and then visit $q$ once and accept } \\
         \Longrightarrow \text{$M''$ visits $q$ and $q'$ unequal number of times (1 and 0 times, respectively) } \\
         \Longrightarrow g(w) = \langle M'', q, q' \rangle \notin \lang \\
         \Longrightarrow g(w) = \langle M'', q, q' \rangle \in \overline{\lang}$ \\
 
-$w \notin HALT_\empw \\
+If $w \notin HALT_\empw \\
         \Longrightarrow w = \langle M \rangle \text{ is not a valid encoding or } M \text{ doesn't halts on } \empw$
 \begin{itemize}
-        \item If $w = \langle M \rangle \text{ is not a valid encoding} \\
-                      \Longrightarrow g(w) = \langle M', q, q' \rangle \text{ is a valid encoding of a TM and 2 states, } \\
-                      \text{such that $M'$ doesn't reach $q, q'$ for any input. } \\
-                      \Longrightarrow \text{ $M''$ visits $q$ and $q'$ equal number of times (zero times each) } \\
-                      \Longrightarrow g(w) = \langle M', q, q' \rangle \in \lang \\
-                      \Longrightarrow g(w) = \langle M', q, q' \rangle \notin \overline{\lang}$
+        \item If $w = \langle M \rangle$ is not a valid encoding \\
+              $\Longrightarrow g(w) = \langle M', q, q' \rangle$ is a valid encoding of a TM and 2 states, \\
+              such that $M'$ doesn't reach $q, q'$ for any input.  \\
+              $\Longrightarrow M''$ visits $q$ and $q'$ equal number of times (zero times each) \\
+              $\Longrightarrow g(w) = \langle M', q, q' \rangle \in \lang$ \\
+              $\Longrightarrow g(w) = \langle M', q, q' \rangle \notin \overline{\lang}$
 
-        \item If $w = \langle M \rangle \text{ is a valid encoding and } M \text{ doesn't halts on } \empw \\
-                      \Longrightarrow g(w) = \langle M'', q, q' \rangle \text{ is a valid encoding such that $M''$ on input $x = \empw$ will } \\
-                      \text{run $M$ on $x = \empw$ which will not halt, meaning it would not reach $q'$}  \\
-                      \Longrightarrow \text{$M''$ visits $q$ and $q'$ equal number of times (zero times each) } \\
-                      \Longrightarrow g(w) = \langle M', q, q' \rangle \in \lang \\
-                      \Longrightarrow g(w) = \langle M', q, q' \rangle \notin \overline{\lang}$
+        \item If $w = \langle M \rangle$ is a valid encoding and $M$ doesn't halts on $\empw$ \\
+              $\Longrightarrow g(w) = \langle M'', q, q' \rangle$ is a valid encoding such that $M''$ on input $x = \empw$ will  \\
+              run $M$ on $x = \empw$ which will not halt, meaning it would not reach $q'$  \\
+              $\Longrightarrow M''$ visits $q$ and $q'$ equal number of times (zero times each)  \\
+              $\Longrightarrow g(w) = \langle M', q, q' \rangle \in \lang$ \\
+              $\Longrightarrow g(w) = \langle M', q, q' \rangle \notin \overline{\lang}$
 \end{itemize}
 
 So we got that \underline{$HALT_\empw \leq_m \overline{\lang}$}. \\
@@ -102,6 +102,6 @@ In summary we showed that $HALT_\empw \leq_m \lang$ and $HALT_\empw \leq_m \over
 We saw in the lecture that $HALT_\empw \in \REcl \backslash \Rcl \Rightarrow HALT_\empw \notin co\REcl$, \\
 Therefore $\lang \notin co\REcl \wedge \overline{\lang} \notin co\REcl \Rightarrow \lang \notin co\REcl \wedge  \lang \notin \REcl
         \Rightarrow \lang \in \overline{co\REcl} \wedge \lang \in \overline{\REcl} \\
-        \Rightarrow \lang \in \overline{co\REcl} \cap \overline{\REcl} = \overline{\REcl \cup co\REcl}$ (from De Morgan). As required. \\
+        \Rightarrow \lang \in \overline{co\REcl} \cap \overline{\REcl} = \overline{\REcl \cup co\REcl}$ (from De Morgan). As required. \pagebreak
 
 
