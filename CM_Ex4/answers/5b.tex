@@ -8,15 +8,17 @@ For every $x \in \AB^*$:
 We will show that $(0) \iff (b)$: \\
 
 \underline{$(0) \Leftarrow (b)$}: \\
+Let there be language $\lang \subseteq \AB^*$. \\
 Let $V$ meet definition (b) for language $\lang$. $V$ also meets definition (0) for language $\lang$: \\
 - (i) of (b) gives us directly (i) of (0). \\
 - (ii) of (b) gives us directly (ii) of (0). \\
 Hence we get $(0) \Leftarrow (b)$. \\
 
 \underline{$(0) \Rightarrow (b)$}: \\
+Let there be language $\lang \subseteq \AB^*$. \\
 Let $V$ meet definition (0) for language $\lang$. \\
-We saw in the recitation that $\exists V: V \text{ meets definition } (0) \text{ for } \lang \iff \lang \in \REcl$ \\
-Therefore its enough to show that $\lang \in \REcl \Rightarrow \exists V: V \text{ meets definition } (b) \text{ for } \lang$  \\
+We saw in the recitation that $\exists V: V \text{ meets definition } (0) \text{ for } \lang \iff \lang \in \REcl$, \\
+so we get that $\lang \in \REcl$ and its enough to show that $\lang \in \REcl \Rightarrow \exists V: V \text{ meets definition } (b) \text{ for } \lang$  \\
 Let $M$ be TM that accepts $\lang$. \\
 We shall construct TM $V'$ that meets definition (b) for $\lang$. \\
 $V'$ on input $(x, c)$:

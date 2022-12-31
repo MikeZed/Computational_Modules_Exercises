@@ -3,8 +3,10 @@ $\lang = \{\langle M \rangle : \nexists M' \text{ a 2-tape TM } (\text{with } q'
 
 We will show that $\lang \in \Rcl$. \\
 
-From the previous homework exercise (HW03) question 1b, for any 1-tape TM there is 2-tape TM with 3 states that simulates it. \\
-Therefore all the TM in $\lang$ have exactly 2 states (there can't be less than 2 states since for every TM $q_a \neq q_r$)
+From the previous homework exercise (HW03) question 1b, for any 1-tape TM there is 2-tape TM with 3 states that simulates it.
+Notice that the 2-tape TM has at least 3 states ($q'_0 \neq q'_a \neq q'_r$).
+
+Therefore all the TM in $\lang$ have exactly 2 states (there can't be less than 2 states since for every TM: $q_a \neq q_r$)
 meaning that for every TM in $\lang$ - $q_0 = q_a$ or $q_0 = q_r$ (so the TM accepts or rejects every word
 $\Rightarrow \lang(M) = \AB^*$ or $\lang(M) = \emptyset$)
 

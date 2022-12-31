@@ -7,7 +7,8 @@ For every $x \in \AB^*$:
 We will show that $(0) \iff (a)$: \\
 
 \underline{$(0) \Rightarrow (a)$}: \\
-Let $V$ meet definition (0) for language $\lang$. $V$ also meets definition (a) for language $\lang$ \\
+Let there be language $\lang \subseteq \AB^*$. \\
+Let $V$ meet definition (0) for language $\lang$. $V$ also meets definition (a) for language $\lang$: \\
 - (i) of (0) gives us directly (i) of (a). \\
 - From (ii) of (0) - if $x \notin \lang$ then $V$ rejects $(x, c)$ for every $c \in \AB^*$,
 meaning that if $x \notin \lang$ then $V$ does not accept $(x, c)$ for every $c \in \AB^*$,
@@ -15,6 +16,7 @@ so we get (ii) of (a). \\
 Hence we get $(0) \Rightarrow (a)$. \\
 
 \underline{$(0) \Leftarrow (a)$}: \\
+Let there be language $\lang \subseteq \AB^*$. \\
 Let $V$ meet definition (a) for language $\lang$. \\
 We saw in the recitation that $\exists V: V \text{ meets definition } (0) \text{ for } \lang \iff \lang \in \REcl$ \\
 Therefore its enough to show that $\exists V: V \text{ meets definition } (a) \text{ for } \lang \Rightarrow \lang \in \REcl$ \\
@@ -45,7 +47,6 @@ If $x \notin \lang$ \\
 $\Longrightarrow V$ does not accept $(x, c)$ for every $c \in \AB^*$. \\
 $\Longrightarrow M$ will be stuck in a loop (and would not accept). \\
 
-Indeed, we get that $M$ accepts $\lang$, therefore $\lang \in \REcl$. \\
-So we get: \\
+Indeed, we get that $M$ accepts $\lang$, therefore $\lang \in \REcl$. So we get: \\
 $\exists V: V \text{ meets definition } (a) \text{ for } \lang \Longrightarrow \lang \in \REcl \Longrightarrow \exists V: V \text{ meets definition } (0) \text{ for } \lang$ \\
 Hence we get $(0) \Leftarrow (a)$. \\

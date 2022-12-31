@@ -2,19 +2,18 @@ For every $\lang$ and $\lang'$, either $\lang \leq_m \lang'$ or $\lang' \leq_m \
 The claim is false. \\
 
 Proof: \\
-We saw in class that $HALT \in \REcl \backslash \Rcl$, therefore $\overline{HALT} \in co\REcl \backslash \Rcl$. \\
+We saw in class that $HALT \in \REcl \backslash \Rcl$, therefore $\overline{HALT} \in co\REcl \backslash \Rcl$ and $HALT \notin co\REcl$. \\
 Assuming that the claim is true, for $\lang=HALT$ and $\lang'=\overline{HALT}$ we get that: \\
 $HALT \leq_m \overline{HALT}$ or $\overline{HALT} \leq_m HALT$. \\
 
-If $HALT \leq_m \overline{HALT} \\
-    \Longrightarrow HALT \in co\REcl \text{ since } \overline{HALT} \in co\REcl \\
-    \Longrightarrow HALT \in \Rcl$ \\
-in contradiction with $HALT \notin \Rcl$. \\
+If $HALT \leq_m \overline{HALT}$ \\
+$\Longrightarrow HALT \in co\REcl$ (since $\overline{HALT} \in co\REcl$) \\
+In contradiction with $HALT \notin co\REcl$. \\
 
-If $\overline{HALT} \leq_m HALT \\
-    \Longrightarrow \overline{HALT} \in \REcl \text{ since } HALT \in \REcl \\
-    \Longrightarrow HALT \in \Rcl$ \\
-in contradiction with $HALT \notin \Rcl$ \\
+If $\overline{HALT} \leq_m HALT$ \\
+$\Longrightarrow \overline{HALT} \in \REcl$ (since $HALT \in \REcl$) \\
+$\Longrightarrow HALT \in co\REcl$ \\
+In contradiction with $HALT \notin co\REcl$ \\
 
 Hence that claim is false. \\
 

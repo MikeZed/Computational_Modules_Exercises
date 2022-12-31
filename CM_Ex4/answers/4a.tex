@@ -3,7 +3,7 @@ $\lang = \{\langle M, q, q' \rangle : M \text{ is a TM that visits state } q \\ 
 
 We will show that $\lang \in \overline{\REcl \cup co\REcl}$. \\
 
-First we show that $\lang \notin \REcl$, by reduction from $HALT_\empw$: $HALT_\empw \leq_m \lang$. \\
+First we show that $\lang \notin co\REcl$, by reduction from $HALT_\empw$: $HALT_\empw \leq_m \lang$. \\
 
 We define the reduction function $f: \AB^* \rightarrow \AB^*$ such that $\forall w \in \AB^*$:\\
 $f$ on input $w = \langle M \rangle$:
@@ -25,30 +25,30 @@ $f$ on input $w = \langle M \rangle$:
 \end{enumerate}
 
 Notice that $f$ is computable (similarly to the function in the exercise in recitation 07) and $\forall w \in \AB^*$: \\
-$w \in HALT_\empw \\
-        \Longrightarrow w = \langle M \rangle \text{ is a valid encoding and } M \text{ halts on } \empw \\
-        \Longrightarrow f(w) = \langle M'', q, q' \rangle \text{ is a valid encoding such that $M''$ on input $x = \empw$ will visit $q$ once } \\
-        \text{and then run $M$ on $x = \empw$ which will halt and then visit $q'$ once and accept } \\
-        \Longrightarrow \text{ $M''$ visits $q$ and $q'$ equal number of times (one time each) } \\
-        \Longrightarrow f(w) = \langle M'', q, q' \rangle \in \lang$ \\
+If $w \in HALT_\empw$ \\
+$\Longrightarrow w = \langle M \rangle \text{ is a valid encoding and } M \text{ halts on } \empw$ \\
+$\Longrightarrow f(w) = \langle M'', q, q' \rangle$ is a valid encoding, such that $M''$ on input $x = \empw$ will visit $q$ once \\
+and then run $M$ on $x = \empw$, which will halt, and then visit $q'$ once and accept \\
+$\Longrightarrow M''$ visits $q$ and $q'$ equal number of times (one time each) \\
+$\Longrightarrow f(w) = \langle M'', q, q' \rangle \in \lang$ \\
 
-$w \notin HALT_\empw \\
-        \Longrightarrow w = \langle M \rangle \text{ is not a valid encoding or } M \text{ doesn't halts on } \empw$
+If $w \notin HALT_\empw$ \\
+$\Longrightarrow w = \langle M \rangle$ is not a valid encoding or $M$ doesn't halts on $\empw$
 \begin{itemize}
-        \item If $w = \langle M \rangle \text{ is not a valid encoding} \\
-                      \Longrightarrow f(w) = \langle M', q, q' \rangle \text{ is not a valid encoding } \\
-                      \Longrightarrow f(w) = \langle M', q, q' \rangle \notin \lang$
+        \item If $w = \langle M \rangle$ is not a valid encoding \\
+              $\Longrightarrow f(w) = \langle M', q, q' \rangle$ is not a valid encoding  \\
+              $\Longrightarrow f(w) = \langle M', q, q' \rangle \notin \lang$
 
-        \item If $w = \langle M \rangle \text{ is a valid encoding and } M \text{ doesn't halts on } \empw \\
-                      \Longrightarrow f(w) = \langle M'', q, q' \rangle \text{ is a valid encoding such that $M''$ on input $x = \empw$ will visit $q$ once } \\
-                      \text{and then run $M$ on $x = \empw$ which will not halt, meaning it would not reach $q'$}  \\
-                      \Longrightarrow \text{ $M''$ visits $q$ and $q'$ unequal number of times (1 and 0 times, respectively) } \\
-                      \Longrightarrow f(w) = \langle M'', q, q' \rangle \notin \lang$
+        \item If $w = \langle M \rangle$ is a valid encoding and $M$ doesn't halts on $\empw$ \\
+              $\Longrightarrow f(w) = \langle M'', q, q' \rangle$ is a valid encoding, such that $M''$ on input $x = \empw$ will visit $q$ once  \\
+              and then run $M$ on $x = \empw$ which will not halt, meaning it would not reach $q'$  \\
+              $\Longrightarrow M''$ visits $q$ and $q'$ unequal number of times (1 and 0 times, respectively)  \\
+              $\Longrightarrow f(w) = \langle M'', q, q' \rangle \notin \lang$
 \end{itemize}
 
 So we got that \underline{$HALT_\empw \leq_m \lang$}. \pagebreak
 
-Now, we show that $\lang \notin co\REcl$ which is equivalent to $\overline{\lang} \notin \REcl$,
+Now, we show that $\lang \notin \REcl$ which is equivalent to $\overline{\lang} \notin co\REcl$,
 by reduction from $HALT_\empw$: $HALT_\empw \leq_m \overline{\lang}$. \\
 
 We define the reduction function $g: \AB^* \rightarrow \AB^*$ such that $\forall w \in \AB^*$:\\
@@ -70,16 +70,16 @@ $g$ on input $w = \langle M \rangle$:
 \end{enumerate}
 
 Notice that $g$ is computable (similarly to the function in the exercise in recitation 07) and $\forall w \in \AB^*$: \\
-If $w \in HALT_\empw \\
-        \Longrightarrow w = \langle M \rangle \text{ is a valid encoding and } M \text{ halts on } \empw \\
-        \Longrightarrow g(w) = \langle M'', q, q' \rangle \text{ is a valid encoding such that $M''$ on input $x = \empw$ will } \\
-        \text{run $M$ on $x = \empw$ which will halt and then visit $q$ once and accept } \\
-        \Longrightarrow \text{$M''$ visits $q$ and $q'$ unequal number of times (1 and 0 times, respectively) } \\
-        \Longrightarrow g(w) = \langle M'', q, q' \rangle \notin \lang \\
-        \Longrightarrow g(w) = \langle M'', q, q' \rangle \in \overline{\lang}$ \\
+If $w \in HALT_\empw$ \\
+$\Longrightarrow w = \langle M \rangle$ is a valid encoding and $M$ halts on $\empw$ \\
+$\Longrightarrow g(w) = \langle M'', q, q' \rangle$ is a valid encoding, such that $M''$ on input $x = \empw$ will \\
+run $M$ on $x = \empw$, which will halt, and then visit $q$ once and accept \\
+$\Longrightarrow M''$ visits $q$ and $q'$ unequal number of times (1 and 0 times, respectively) \\
+$\Longrightarrow g(w) = \langle M'', q, q' \rangle \notin \lang$ \\
+$\Longrightarrow g(w) = \langle M'', q, q' \rangle \in \overline{\lang}$ \\
 
-If $w \notin HALT_\empw \\
-        \Longrightarrow w = \langle M \rangle \text{ is not a valid encoding or } M \text{ doesn't halts on } \empw$
+If $w \notin HALT_\empw$ \\
+$\Longrightarrow w = \langle M \rangle$ is not a valid encoding or $M$ doesn't halts on $\empw$
 \begin{itemize}
         \item If $w = \langle M \rangle$ is not a valid encoding \\
               $\Longrightarrow g(w) = \langle M', q, q' \rangle$ is a valid encoding of a TM and 2 states, \\
@@ -89,7 +89,7 @@ If $w \notin HALT_\empw \\
               $\Longrightarrow g(w) = \langle M', q, q' \rangle \notin \overline{\lang}$
 
         \item If $w = \langle M \rangle$ is a valid encoding and $M$ doesn't halts on $\empw$ \\
-              $\Longrightarrow g(w) = \langle M'', q, q' \rangle$ is a valid encoding such that $M''$ on input $x = \empw$ will  \\
+              $\Longrightarrow g(w) = \langle M'', q, q' \rangle$ is a valid encoding, such that $M''$ on input $x = \empw$ will  \\
               run $M$ on $x = \empw$ which will not halt, meaning it would not reach $q'$  \\
               $\Longrightarrow M''$ visits $q$ and $q'$ equal number of times (zero times each)  \\
               $\Longrightarrow g(w) = \langle M', q, q' \rangle \in \lang$ \\

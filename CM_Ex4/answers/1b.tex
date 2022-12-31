@@ -2,6 +2,7 @@ If $\lang \leq_m \lang'$ and $\lang' \leq_m \lang$ then $\lang = \lang'$ \\
 The claim is false. \\
 
 Proof: \\
+\textbf{Note} - I assume that $0 \in \nat$. \\
 Notice that for $\lang = \{1^{2i} : i \in \nat\}$ and
 $\lang' = \{1^{2i+1} : i \in \nat\}$
 
@@ -18,7 +19,7 @@ $w \notin \lang \\
     \Longrightarrow f(w) = w1 \notin \lang(1^*) \vee \exists i \in \nat: |f(w)| = |w1| = 2i \\
     \Longrightarrow f(w) \notin \lang'$ \\
 
-Hence we get $\lang \leq_m \lang'$. \\
+Hence we get \underline{$\lang \leq_m \lang'$}. \\
 
 And also: \\
 $w \in \lang' \\
@@ -31,6 +32,6 @@ $w \notin \lang' \\
     \Longrightarrow f(w) = w1 \notin \lang(1^*) \vee \exists i \in \nat: |f(w)| = |w1| = 2i+1 \\
     \Longrightarrow f(w) \notin \lang$ \\
 
-Hence we get $\lang' \leq_m \lang$.
+Hence we get \underline{$\lang' \leq_m \lang$}.
 
-But $11 \in \lang \wedge 11 \notin \lang' \rightarrow \lang \neq \lang'$. Thus the claim is false. \\
+But $11 \in \lang \wedge 11 \notin \lang' \Rightarrow \lang \neq \lang'$. Thus the claim is false. \\

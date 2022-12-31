@@ -8,7 +8,7 @@ Let us observe the following language:
 \]
 First we will show that $\lang \notin co\REcl$ by showing the reduction - $ACC \leq_m \lang$.
 
-We can define function $f: \AB^* \rightarrow \AB^*$ such that $\forall w \in \AB^*: f(w) = 0w$
+We can define the reduction function $f: \AB^* \rightarrow \AB^*$ such that $\forall w \in \AB^*: f(w) = 0w$
 
 Notice that $f$ is computable and $\forall w \in \AB^*$: \\
 $w \in ACC \\
@@ -33,7 +33,7 @@ We can define function $g: \AB^* \rightarrow \AB^*$ such that $\forall x \in \AB
         1,  & x = \empw                 \\
     \end{cases}
 \]
-Note - we assume w.l.o.g. that $\empw \notin ACC$ since it depends on
+Note - we assume w.l.o.g. that $\empw \notin ACC$, since it depends on
 how we encode $\langle M, w \rangle$ for TM $M$.
 In case $\empw \notin ACC$, we just need to change $g(x)$ to return $0$ for $x = \empw$. \\
 
