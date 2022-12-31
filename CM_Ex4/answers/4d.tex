@@ -3,27 +3,27 @@ $\lang = \{\langle M \rangle : \nexists M' \text{ a 2-tape TM } (\text{with } q'
 
 We will show that $\lang \in \Rcl$. \\
 
-from previous exercise there is 2 tape TM with 3 states that emulates 1 tape TM
-so for there to not exist a 2 tape TM that emulates 1 tape TM then 1 tape TM must have at most two states
-meaning $q_0 = q_a$ or $q_0 = q_r$.
-so the 1 tape TM accepts or rejects every word so $\lang(M) = \AB^*$ or $\lang(M) = \emptyset$
+From the previous homework exercise (HW03) question 1b, for any 1-tape TM there is 2-tape TM with 3 states that simulates it. \\
+Therefore all the TM in $\lang$ have exactly 2 states (there can't be less than 2 states since for every TM $q_a \neq q_r$)
+meaning that for every TM in $\lang$ - $q_0 = q_a$ or $q_0 = q_r$ (so the TM accepts or rejects every word
+$\Rightarrow \lang(M) = \AB^*$ or $\lang(M) = \emptyset$)
 
-so we get that: \\
+So we get that: \\
 $\lang = \{\langle M \rangle : M \text{ has only 2 states such that } q_0 = q_a \text{ or }q_0 = q_r\}$ \\
 
 Now we can build TM $M''$ that decides $\lang$: \\
 $M''$ on input $\langle M \rangle$: \\
 1. Check whether $\langle M \rangle$ is a valid encoding of a TM. \\
 2. If it is not - reject. \\
-3. If $M$ has only 2 states such that $q_0 = q_a$ $q_0 = q_r$ - accept, otherwise reject. \\
+3. If $M$ has only 2 states such that $q_0 = q_a$ or $q_0 = q_r$ - accept, otherwise reject. \\
 
 So we get: \\
 If $\langle M \rangle \in \lang$ then: \\
-$\langle M \rangle$ is a valid encoding of a TM and has only 2 states such that $q_0 = q_a$ $q_0 = q_r$. \\
-$\Rightarrow M'$ accepts. \\
+$\langle M \rangle$ is a valid encoding of a TM and has only 2 states such that $q_0 = q_a$ or $q_0 = q_r$. \\
+$\Rightarrow M''$ accepts. \\
 
 If $\langle M \rangle \notin \lang$ then: \\
-$\langle M \rangle$ is not a valid encoding of a TM or $M$ doesn't have only 2 states such that $q_0 = q_a$ $q_0 = q_r$. \\
-$\Rightarrow M'$ rejects. \\
+$\langle M \rangle$ is not a valid encoding of a TM or $M$ doesn't have only 2 states such that $q_0 = q_a$ or $q_0 = q_r$. \\
+$\Rightarrow M''$ rejects. \\
 
-We got that $M'$ accepts every $w \in \lang$ and rejects every $w \notin \lang$. Hence $\lang \in \Rcl$. \\
+We got that $M''$ accepts every $w \in \lang$ and rejects every $w \notin \lang$. Hence $\lang \in \Rcl$. \\

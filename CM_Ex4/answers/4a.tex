@@ -1,2 +1,107 @@
 $\lang = \{\langle M, q, q' \rangle : M \text{ is a TM that visits state } q \\ \text{ the same number of times
-        as it visits state } q' \text{ when running on } \empw\}$ \\
+                as it visits state } q' \text{ when running on } \empw\}$ \\
+
+We will show that $\lang \in \overline{\REcl \cup co\REcl}$. \\
+
+First we show that $\lang \notin \REcl$, by reduction from $HALT_\empw$: $HALT_\empw \leq_m \lang$. \\
+
+We define the reduction function $f: \AB^* \rightarrow \AB^*$ such that $\forall w \in \AB^*$:\\
+$f$ on input $w = \langle M \rangle$:
+\begin{enumerate}[1., itemsep=5pt]
+
+        \item If $\langle M \rangle$ is not a valid encoding of a TM - return $\langle M', q, q' \rangle$
+              that is not a valid encoding of a TM and 2 states.
+
+        \item Return $\langle M'', q, q' \rangle$ such that $M''$ is a TM that has states $q, q'$
+              that are not in $M$. \\
+              \qquad $M''$ on input $x$:
+
+              \begin{enumerate}[a., itemsep=5pt]
+                      \item Go once to state $q$.
+                      \item Run $M$ on $x$.
+                      \item Go once to state $q'$ and accept.
+              \end{enumerate}
+
+\end{enumerate}
+
+Notice that $f$ is computable (similarly to the function in the exercise in recitation 07) and $\forall w \in \AB^*$: \\
+$w \in HALT_\empw \\
+        \Longrightarrow w = \langle M \rangle \text{ is a valid encoding and } M \text{ halts on } \empw \\
+        \Longrightarrow f(w) = \langle M'', q, q' \rangle \text{ is a valid encoding such that $M''$ on input $x = \empw$ will visit $q$ once } \\
+        \text{and then run $M$ on $x = \empw$ which will halt and then visit $q'$ once and accept } \\
+        \Longrightarrow \text{ $M''$ visits $q$ and $q'$ equal number of times (one time each) } \\
+        \Longrightarrow f(w) = \langle M'', q, q' \rangle \in \lang$ \\
+
+$w \notin HALT_\empw \\
+        \Longrightarrow w = \langle M \rangle \text{ is not a valid encoding or } M \text{ doesn't halts on } \empw$
+\begin{itemize}
+        \item If $w = \langle M \rangle \text{ is not a valid encoding} \\
+                      \Longrightarrow f(w) = \langle M', q, q' \rangle \text{ is not a valid encoding } \\
+                      \Longrightarrow f(w) = \langle M', q, q' \rangle \notin \lang$
+
+        \item If $w = \langle M \rangle \text{ is a valid encoding and } M \text{ doesn't halts on } \empw \\
+                      \Longrightarrow f(w) = \langle M'', q, q' \rangle \text{ is a valid encoding such that $M''$ on input $x = \empw$ will visit $q$ once } \\
+                      \text{and then run $M$ on $x = \empw$ which will not halt, meaning it would not reach $q'$}  \\
+                      \Longrightarrow \text{ $M''$ visits $q$ and $q'$ unequal number of times (1 and 0 times, respectively) } \\
+                      \Longrightarrow f(w) = \langle M'', q, q' \rangle \notin \lang$
+\end{itemize}
+
+So we got that \underline{$HALT_\empw \leq_m \lang$}. \\
+
+Now, we show that $\lang \notin co\REcl$ which is equivalent to $\overline{\lang} \notin \REcl$,
+by reduction from $HALT_\empw$: $HALT_\empw \leq_m \overline{\lang}$. \\
+
+We define the reduction function $g: \AB^* \rightarrow \AB^*$ such that $\forall w \in \AB^*$:\\
+$g$ on input $w = \langle M \rangle$:
+\begin{enumerate}[1., itemsep=5pt]
+
+        \item If $\langle M \rangle$ is not a valid encoding of a TM - return $\langle M', q, q' \rangle$
+              that is a valid encoding of a TM and 2 states, such that $M'$ doesn't reach $q, q'$ for any input.
+
+        \item Return $\langle M'', q, q' \rangle$ such that $M''$ is a TM that has states $q, q'$
+              that are not in $M$, and $M''$ can't reach $q'$ for any input. \\
+              \qquad $M''$ on input $x$:
+
+              \begin{enumerate}[a., itemsep=5pt]
+                      \item Run $M$ on $x$.
+                      \item Go once to state $q$ and accept.
+              \end{enumerate}
+
+\end{enumerate}
+
+Notice that $g$ is computable (similarly to the function in the exercise in recitation 07) and $\forall w \in \AB^*$: \\
+$w \in HALT_\empw \\
+        \Longrightarrow w = \langle M \rangle \text{ is a valid encoding and } M \text{ halts on } \empw \\
+        \Longrightarrow g(w) = \langle M'', q, q' \rangle \text{ is a valid encoding such that $M''$ on input $x = \empw$ will } \\
+        \text{run $M$ on $x = \empw$ which will halt and then visit $q'$ once and accept } \\
+        \Longrightarrow \text{$M''$ visits $q$ and $q'$ unequal number of times (1 and 0 times, respectively) } \\
+        \Longrightarrow g(w) = \langle M'', q, q' \rangle \notin \lang \\
+        \Longrightarrow g(w) = \langle M'', q, q' \rangle \in \overline{\lang}$ \\
+
+$w \notin HALT_\empw \\
+        \Longrightarrow w = \langle M \rangle \text{ is not a valid encoding or } M \text{ doesn't halts on } \empw$
+\begin{itemize}
+        \item If $w = \langle M \rangle \text{ is not a valid encoding} \\
+                      \Longrightarrow g(w) = \langle M', q, q' \rangle \text{ is a valid encoding of a TM and 2 states, } \\
+                      \text{such that $M'$ doesn't reach $q, q'$ for any input. } \\
+                      \Longrightarrow \text{ $M''$ visits $q$ and $q'$ equal number of times (zero times each) } \\
+                      \Longrightarrow g(w) = \langle M', q, q' \rangle \in \lang \\
+                      \Longrightarrow g(w) = \langle M', q, q' \rangle \notin \overline{\lang}$
+
+        \item If $w = \langle M \rangle \text{ is a valid encoding and } M \text{ doesn't halts on } \empw \\
+                      \Longrightarrow g(w) = \langle M'', q, q' \rangle \text{ is a valid encoding such that $M''$ on input $x = \empw$ will } \\
+                      \text{run $M$ on $x = \empw$ which will not halt, meaning it would not reach $q'$}  \\
+                      \Longrightarrow \text{$M''$ visits $q$ and $q'$ equal number of times (zero times each) } \\
+                      \Longrightarrow g(w) = \langle M', q, q' \rangle \in \lang \\
+                      \Longrightarrow g(w) = \langle M', q, q' \rangle \notin \overline{\lang}$
+\end{itemize}
+
+So we got that \underline{$HALT_\empw \leq_m \overline{\lang}$}. \\
+
+In summary we showed that $HALT_\empw \leq_m \lang$ and $HALT_\empw \leq_m \overline{\lang}$. \\
+We saw in the lecture that $HALT_\empw \in \REcl \backslash \Rcl \Rightarrow HALT_\empw \notin co\REcl$, \\
+Therefore $\lang \notin co\REcl \wedge \overline{\lang} \notin co\REcl \Rightarrow \lang \notin co\REcl \wedge  \lang \notin \REcl
+        \Rightarrow \lang \in \overline{co\REcl} \wedge \lang \in \overline{\REcl} \\
+        \Rightarrow \lang \in \overline{co\REcl} \cap \overline{\REcl} = \overline{\REcl \cup co\REcl}$ (from De Morgan). As required. \\
+
+
