@@ -10,38 +10,38 @@ $M'$ on input $x$:
 
 {
 \color{red}
-{
 
-    \begin{enumerate}[1., itemsep=5pt]
 
-        \item Choose an arbitrary split of $x$ to parts.
+\begin{enumerate}[1., itemsep=5pt]
 
-        \item Run $M$ on each of the parts (one after the other).
+    \item Choose an arbitrary split of $x$ to parts.
 
-        \item Accept iff $M$ accepts all parts.
+    \item Run $M$ on each of the parts (one after the other).
 
-    \end{enumerate}
+    \item Accept iff $M$ accepts all parts.
 
-    So we get: \\
-    If $x \in \lang^*$ then: \\
-    $\exists x_1,...,x_n \in \lang: x=x_1...x_n \Rightarrow $ in one of the computational
-    paths for input $x$, $M'$ will choose the $x=x_1...x_M$ split for $x$ and $M$ would accepts all of its parts
-    (since $\forall 1 \leq i \leq n: x_i \in \lang$). \\
-    $\Rightarrow M'$ accepts. \\
+\end{enumerate}
 
-    If $x \notin \lang^*$ then: \\
-    $\nexists x_1,...,x_n \in \lang: x=x_1...x_n \Rightarrow $ there is no computational
-    path for input $x$, in which $M'$ will choose a split such that $M$ would accepts all of its parts.
-    Because $M$ decides $\lang$, we will get that $M$ will reject at least one of the parts in
-    each of the arbitrary splits and accept the others and wouldn't be stuck in a loop. \\
-    $\Rightarrow M'$ rejects. \\
+So we get: \\
+If $x \in \lang^*$ then: \\
+$\exists x_1,...,x_n \in \lang: x=x_1...x_n \Rightarrow $ in one of the computational
+paths for input $x$, $M'$ will choose the $x=x_1...x_M$ split for $x$ and $M$ would accepts all of its parts
+(since $\forall 1 \leq i \leq n: x_i \in \lang$). \\
+$\Rightarrow M'$ accepts. \\
 
-    Indeed, we get that $M'$ decides $\lang^*$. \\
-    And its runtime on input $x$ is: \\
-    - For step (1): $O(|x|)$ \\
-    - For step (2): $p(|x|) \cdot$(number of parts of $x$) = $p(|x|) \cdot O(|x|)$ \\
-    - For step (3): $O(|x|)$
-}
+If $x \notin \lang^*$ then: \\
+$\nexists x_1,...,x_n \in \lang: x=x_1...x_n \Rightarrow $ there is no computational
+path for input $x$, in which $M'$ will choose a split such that $M$ would accepts all of its parts.
+Because $M$ decides $\lang$, we will get that $M$ will reject at least one of the parts in
+each of the arbitrary splits and accept the others and wouldn't be stuck in a loop. \\
+$\Rightarrow M'$ rejects. \\
+
+Indeed, we get that $M'$ decides $\lang^*$. \\
+And its runtime on input $x$ is: \\
+- For step (1): $O(|x|)$ \\
+- For step (2): $p(|x|) \cdot$(number of parts of $x$) = $p(|x|) \cdot O(|x|)$ \\
+- For step (3): $O(|x|)$
+
 }
 
 Thus, the total runtime of $M'$ on input $x$ is polynomial in $|x|$, so $\lang^* \in \NPcl$. \\
