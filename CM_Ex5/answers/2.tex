@@ -1,0 +1,44 @@
+Prove that if $\Pcl = \NPcl$, then there exists a polynomial-time TM that given a CNF formula \\
+$\phi$ outputs a satisfying assignment for $\phi$ or indicates one does not exists.
+
+Proof:
+First notice that $CNFSAT = \{\phi: \phi is a satisfiable CNF formula\} \in \NPcl$
+since we can build a polynomial verifier $V$ for it:
+
+$V$ for input $(\langle \phi \rangle, w)$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Verify that $(\langle \phi \rangle$ is an encoding of a valid CNF formula, if it's not - reject.
+
+    \item Verify that and that $w$ is a possible assignment to the variables in $\phi$, if it's not - reject.
+
+    \item Assign values to the variables in $\phi$ according to $w$, if the formula is satisfied - accept, otherwise reject.
+
+\end{enumerate}
+
+Indeed: \\
+If $\langle \phi \rangle \in CNFSAT$ \\
+$\Rightarrow \langle \phi \rangle$ is a valid encoding of a CNF formula
+and there exists assignment to its variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
+$\Rightarrow $ There exists $w \in \AB^*$ such that $V$ accepts $(\langle \phi \rangle, w)$. \\
+
+If $\langle \phi \rangle \notin CNFSAT$ \\
+$\Rightarrow \langle \phi \rangle$ is not a valid encoding of a CNF formula
+or there doesn't exist assignment to its variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
+If $\langle \phi \rangle$ is not a valid encoding of a CNF formula $\Rightarrow V$ rejects. \\
+If there doesn't exist assignment to $\phi$'s variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
+$\Rightarrow V$ does rejects $(\langle \phi \rangle, w)$ for every $c \in \AB^*$.
+
+V is polynomial time
+
+V is in NP so its in P
+
+so there exists TM M that decides it and runs in polynomial time.
+
+assign variable to phi one by one and check if satisfiable
+
+
+
+    {
+        \color{red}
+        \transparent{0.5}
+    }

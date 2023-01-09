@@ -4,46 +4,70 @@ Proof: \\
 
 Let there be $\lang \in \Pcl$, we will show that $\lang^* \in \Pcl$. \\
 $\lang \in \Pcl$ so there is a deterministic TM $M$ that decides $\lang$ in polynomial time $p$. \\
-We shall build a deterministic TM $M'$ that decides $\lang^*$ in a polynomial time of its input's length:
+We shall build a deterministic TM $M'$ (using dynamic programming) that decides $\lang^*$ in a polynomial time of its input's length.
 
-$M'$ on input $x$:
+First note that $w \in \lang^*$ iff one of the following cases holds:
 
-{
-\color{red}
+\begin{enumerate}[(1), itemsep=5pt]
+    \item $w = \empw$
+    \item $w \in \lang$
+    \item $\exists x,y \in \lang^* \backslash \{\empw\}: w=xy$ \\
+\end{enumerate}
+
+We denote: $w_{i,j} = w_i...w_j$ \\
+Now we will define $M'$ according to the cases above working bottom-up: \\
+$M'$ on input $w=w_{1,n}=w_1...w_n$:
+
+\begin{enumerate}[1., itemsep=10pt]
+
+    \item \bd{If $w = \empw$ - accept.} (Check Case (1))
+
+    \item \bd{Initialize array $A$ of size $n^2$: $A[i, j] = 0, \forall 1 \leq i \leq j \leq n$} \\
+          (we will only use $(n^2+n)/2$ cells of $A$ - its diagonal and the cells above it, \\
+          assuming indices start from 1 and end at $n$)
 
 
-\begin{enumerate}[1., itemsep=5pt]
+    \item \bd{For $i \leftarrow 1$ to $n$:}                                                  (Check all substrings of length 1)
+    \item \qquad  \bd{$A[i, i] = 1$ if $M$ accepts $w_i$}                                    (= $w_i \in \lang$) (Check Case (2))
 
-    \item Choose an arbitrary split of $x$ to parts.
+    \item \bd{For $length \leftarrow 2$ to $n$: }                                            (Go over the possible lengths from smallest to largest)
+    \item \qquad  \bd{For $i \leftarrow 1$ to $n - length + 1$:}                             (Go over the relevent starting indices)
+    \item \qquad \qquad  \bd{Let $j = i + length - 1$ }                                      (Infer end of substring from $i$ and $length$)
 
-    \item Run $M$ on each of the parts (one after the other).
+    \item \qquad \qquad  \bd{$A[i, j] = 1$ if $M$ accepts $w_{i,j}$ (= $w_{i,j} \in \lang$)} (Check Case (2))
 
-    \item Accept iff $M$ accepts all parts.
+    \item \qquad \qquad  \bd{For $k \leftarrow i$ to $j-1$:}
+    \item \qquad \qquad \qquad  \bd{$A[i, j] = 1$ if $A[i, k] = 1$ and $A[k + 1, j] = 1$}    (= $w_{i,k}, w_{k+1,j} \in \lang^*$, Case (3))
+
+
+    \item  \bd{If $A[1, n] = 1$ - accept, otherwise reject.}
 
 \end{enumerate}
 
+The algorithm checks whether $w \in \lang^*$ by checking if its substrings are in $\lang^*$ -
+it starts from the shortest substrings (length 1) and incrementaly increases the length
+of the substrings while using the result for shorter strings to get the answer. \\
+
 So we get: \\
-If $x \in \lang^*$ then: \\
-$\exists x_1,...,x_n \in \lang: x=x_1...x_n \Rightarrow $ in one of the computational
-paths for input $x$, $M'$ will choose the $x=x_1...x_M$ split for $x$ and $M$ would accepts all of its parts
-(since $\forall 1 \leq i \leq n: x_i \in \lang$). \\
+If $w \in \lang^*$ \\
+$\Rightarrow w = \empw$ or $w \in \lang$ or $\exists x,y \in \lang^* \backslash \{\empw\}: w=xy$ \\
+If $w = \empw$  $\Rightarrow $ from step 1 - $M'$ accepts. \\
+If $w \in \lang$  $\Rightarrow $ from step 8 - $M'$ accepts. \\
+If $\exists x,y \in \lang^* \backslash \{\empw\}: w=xy$  $\Rightarrow $ from step 10 - $M'$ accepts. \\
 $\Rightarrow M'$ accepts. \\
 
-If $x \notin \lang^*$ then: \\
-$\nexists x_1,...,x_n \in \lang: x=x_1...x_n \Rightarrow $ there is no computational
-path for input $x$, in which $M'$ will choose a split such that $M$ would accepts all of its parts.
-Because $M$ decides $\lang$, we will get that $M$ will reject at least one of the parts in
-each of the arbitrary splits and accept the others and wouldn't be stuck in a loop. \\
+If $w \notin \lang^*$ \\
+$\Rightarrow w \neq \empw$ and $w \notin \lang$ and $\nexists x,y \in \lang^* \backslash \{\empw\}: w=xy$ \\
 $\Rightarrow M'$ rejects. \\
 
 Indeed, we get that $M'$ decides $\lang^*$. \\
-And its runtime on input $x$ is: \\
-- For step (1): $O(|x|)$ \\
-- For step (2): $p(|x|) \cdot$(number of parts of $x$) = $p(|x|) \cdot O(|x|)$ \\
-- For step (3): $O(|x|)$
+And its runtime on input $w$ (where $|w|=n$) is: \\
+- For step  (1):    $O(1)$                            \\
+- For step  (2):    $O(n^2)$                          \\
+- For steps (3-4):  $O(n \cdot p(n))$                 \\
+- For steps (5-10): $O(n^2 \cdot p(n) + n^2 \cdot n)$ \\
+- For steps (11):   $O(1)$                            \\
 
-}
-
-Thus, the total runtime of $M'$ on input $x$ is polynomial in $|x|$, so $\lang^* \in \NPcl$. \\
+Thus, the total runtime of $M'$ on input $x$ is polynomial in $|x|=n$, so $\lang^* \in \Pcl$. \\
 So we get that $\Pcl$ is closed under Kleene Star, as required. \\
 

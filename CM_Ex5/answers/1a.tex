@@ -31,11 +31,11 @@ each of the arbitrary splits and accept the others and wouldn't be stuck in a lo
 $\Rightarrow N'$ rejects. \\
 
 Indeed, we get that $N'$ decides $\lang^*$. \\
-And its runtime on input $x$ is: \\
-- For step (1): $O(|x|)$ \\
-- For step (2): $p(|x|) \cdot$(number of parts of $x$) = $p(|x|) \cdot O(|x|)$ \\
-- For step (3): $O(|x|)$
+And its runtime on input $x$ (where $|x|=n$) is: \\
+- For step (1): $O(n)$ \\
+- For step (2): $p(n) \cdot$(number of parts of $x$) = $p(n) \cdot O(n)$ \\
+- For step (3): $O(n)$
 
-Thus, the total runtime of $N'$ on input $x$ is polynomial in $|x|$, so $\lang^* \in \NPcl$. \\
+Thus, the total runtime of $N'$ on input $x$ is polynomial in $|x|=n$, so $\lang^* \in \NPcl$. \\
 So we get that $\NPcl$ is closed under Kleene Star, as required. \\
 
