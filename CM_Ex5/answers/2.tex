@@ -1,15 +1,15 @@
 Prove that if $\Pcl = \NPcl$, then there exists a polynomial-time TM that given a CNF formula \\
-$\phi$ outputs a satisfying assignment for $\phi$ or indicates one does not exists.
+$\phi$ outputs a satisfying assignment for $\phi$ or indicates one does not exists. \\
 
-Proof:
-First notice that $CNFSAT = \{\phi: \phi is a satisfiable CNF formula\} \in \NPcl$
+Proof: \\
+First notice that $CNFSAT = \{\phi: \phi \text{ is a satisfiable CNF formula}\} \in \NPcl$,
 since we can build a polynomial verifier $V$ for it:
 
 $V$ for input $(\langle \phi \rangle, w)$:
 \begin{enumerate}[1., itemsep=5pt]
     \item Verify that $(\langle \phi \rangle$ is an encoding of a valid CNF formula, if it's not - reject.
 
-    \item Verify that and that $w$ is a possible assignment to the variables in $\phi$, if it's not - reject.
+    \item Verify that $w$ is a possible assignment to the variables in $\phi$, if it's not - reject.
 
     \item Assign values to the variables in $\phi$ according to $w$, if the formula is satisfied - accept, otherwise reject.
 
@@ -18,27 +18,72 @@ $V$ for input $(\langle \phi \rangle, w)$:
 Indeed: \\
 If $\langle \phi \rangle \in CNFSAT$ \\
 $\Rightarrow \langle \phi \rangle$ is a valid encoding of a CNF formula
-and there exists assignment to its variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
+and there exists an assignment to its variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
 $\Rightarrow $ There exists $w \in \AB^*$ such that $V$ accepts $(\langle \phi \rangle, w)$. \\
 
 If $\langle \phi \rangle \notin CNFSAT$ \\
 $\Rightarrow \langle \phi \rangle$ is not a valid encoding of a CNF formula
-or there doesn't exist assignment to its variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
+or there doesn't exist an assignment to its variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
 If $\langle \phi \rangle$ is not a valid encoding of a CNF formula $\Rightarrow V$ rejects. \\
-If there doesn't exist assignment to $\phi$'s variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
-$\Rightarrow V$ does rejects $(\langle \phi \rangle, w)$ for every $c \in \AB^*$.
+If there doesn't exist an assignment to $\phi$'s variables $w \in \AB^*$ such that $\phi$ is satisfied \\
+$\Rightarrow V$ rejects $(\langle \phi \rangle, w)$ for every $w \in \AB^*$.
 
-V is polynomial time
+Also $V$'s runtime on input $(\langle \phi \rangle, w)$ (where $|(\langle \phi \rangle, w)|=n$) is: \\
+- For step (1): $O(n)$ \\
+- For step (2): $O(n)$ \\
+- For step (3): $O(n)$ \\
+Thus, the total runtime of $V$ on input  $(\langle \phi \rangle, w)$ is polynomial in $|(\langle \phi \rangle, w)|=n$, so $CNFSAT \in \NPcl$. \\
+But it is given that $\Pcl = \NPcl$, so $CNFSAT \in \Pcl$.
+Therefore there is a deterministic TM $M$ that decides $CNFSAT$ in polynomial time $p$. \\
 
-V is in NP so its in P
+We shall build a deterministic TM $M'$ that given a CNF formula $\phi$ outputs a satisfying
+assignment for $\phi$ or indicates one does not exists in a polynomial-time. \\
+First we set $M'$'s $\AB_{M'}$ to be $\AB_{M'}=\AB_{M} \cup \{\otimes\}$ assuming w.l.o.g.
+$\AB_{M} \cap \{\otimes\} = \emptyset$ (to indicate if a satisfying assignment doesn't exist)
 
-so there exists TM M that decides it and runs in polynomial time.
+\pagebreak
 
-assign variable to phi one by one and check if satisfiable
+Now we define $M'$: \\
+$M'$ on input $\langle \phi \rangle$:
+\begin{enumerate}[1., itemsep=5pt]
+
+    \item Run $M$ on $\langle \phi \rangle$, if it rejects - output $\otimes$ and reject.
+
+    \item Extract the variables of $\phi$ from $\langle \phi \rangle$, let us denote them as $x_1,...,x_n$.
+
+    \item For $i \leftarrow 1$ to $n$:
+    \item \qquad Add $x_i = 1$ to current assignment $x_1,...,x_{i-1}$
+    \item \qquad Calculate the new CNF formula $\langle \phi_i \rangle$ with current assignment $x_1,...,x_i$
+    \item \qquad Run $M$ on $\langle \phi_i \rangle$, if it rejects - assign $x_i = 0$ instead of $x_i = 1$ in the current assignment.
+
+    \item Output the current assignment $x_1,...,x_n$ and accept.
+
+\end{enumerate}
 
 
+Step (1) verifies that $\langle \phi \rangle$ is a valid CNF formula and is satisfiable, if its not - it indicates that a satisfying
+assignment for $\phi$ does not exists and rejects. If it is a valid CNF formula and is satisfiable - we continue to the next steps.
 
-    {
-        \color{red}
-        \transparent{0.5}
-    }
+Step (2) extracts the variables from the formula.
+
+Steps (3-6) go over the variables one by one, and try assigning values to the variables - it assigns a value to a variable and makes
+sure that the formula is still satisfiable. If it is not, it means that we need to assign the opposite value to the variable
+(since we know that the formula is satisfiable). At the end the variables will hold the satisfying assignment.
+
+Step (7) outputs the satisfying assignment and accepts.
+
+We check that the relevent formula is satisfiable at each step, by running $M$ with the formula's encoding as its input.
+
+$M'$'s runtime on input $\langle \phi \rangle$ (where $|\langle \phi \rangle|=n$) is: \\
+- For step  (1):     $O(p(n))$                         \\
+- For step  (2):     $O(n)$                            \\
+- For steps (3-6):   $O(n \cdot (n+p(n)))$             \\
+- For step (7):      $O(n)$                            \\
+
+Hence $M'$ on a CNF formula $\phi$, outputs a satisfying assignment for $\phi$
+or indicates one does not exists in a polynomial-time. As required. \\
+
+{
+\color{red}
+\transparent{0.5}
+}
