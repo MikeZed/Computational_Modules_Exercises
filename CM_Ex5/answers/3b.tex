@@ -1,5 +1,42 @@
 If $\lang_1, \lang_2 \in \NPcl$ are non-trivial ($\lang_1, \lang_2 \notin \{\emptyset, \AB^*\}$), then there exists a polynomial shrinking
 reduction from $\lang_1$ to $\lang_2$.
 
+The claim is false. \\
+
+Proof: \\
+We will prove by contradiction. Observe $\lang_1 = \lang_2 = SAT (\notin \{\emptyset, \AB^*\})$, we saw in the recitation that
+$SAT \in NPC \subseteq NP \Rightarrow \lang_1 = \lang_2 = SAT \in NPC \subseteq \NPcl$. Therefore there exists a polynomial shrinking
+reduction from $\lang_1$ to $\lang_2$, we will denote the polynomial shrinking reduction function by $f$ and denote by $n_0$,
+the natural number from the shrinking function definition.
+
+Now we shall define the following set:
+$
+    \lang = \{\langle \phi \rangle \in SAT: |\langle \phi \rangle| \leq n_0 \}
+$
+
+
+$\lang$ has a finite number of members, therefore $\lang \in \Pcl$ (since given $x \in \AB^*$ we can check whether $x \in \lang$ by
+comparing it to each of the members of $\lang$, which would take at most $O(k) \cdot O(n)$ where $k=|\lang|$ and $n=|x|$).
+
+Now we will show that there is a polynomial reduction from $SAT$ to $\lang$:
+
+
+{
+\color{red}
+write reduction here
+}
+
+
+
+
+
+
+
+
+
+
+So we get that $SAT \leq_p \lang$, but we saw that $\lang \in \Pcl$ so we get $SAT \in \Pcl$.
+But we know that $SAT \in \NPCcl$, hence from a conclusion from the lecture we get that $\Pcl = \NPcl$.
+
 
 if there is reduction then whole NP is NPC, beacuse P is NP we get P in NPC, then P=NP=NPC

@@ -1,2 +1,38 @@
 If $\lang_1, \lang_2 \in \Pcl$ are non-trivial ($\lang_1, \lang_2 \notin \{\emptyset, \AB^*\}$), then there exists a polynomial shrinking
-reduction from $\lang_1$ to $\lang_2$.
+reduction from $\lang_1$ to $\lang_2$. \\
+The claim is true. \\
+
+Proof: \\
+$\lang_2$ is not trivial, hence $\exists w_1, w_2: w_1 \in \lang_2 \wedge w_2 \notin \lang_2$.
+Therefore we can define the following reduction from $\lang_1$ to $\lang_2$ - $f: \AB^* \rightarrow \AB^*$:
+\[
+    f(x) =
+    \begin{cases}
+        w_1 , & x \in \lang_1    \\
+        w_2 , & x \notin \lang_1 \\
+    \end{cases}
+\]
+
+Notice that $f$ is computable in polynomial time since $\lang_1 \in \Pcl$ (meaning there is a TM
+$M$ that decides $\lang_1$ in a polynomial time, therefore we can use it to check whether
+$x \in \lang_1$ or $x \notin \lang_1$ in a polynomial time and return the relevent word) and $\forall w \in \AB^*$:
+
+If $x \in \lang_1$
+$\Longrightarrow f(x) = w_1 \in \lang_2$
+
+If $x \notin \lang_1$
+$\Longrightarrow f(x) = w_2 \notin \lang_2$
+
+So we get that $\lang_1 \leq_p \lang_2$. \\
+
+Now we will show that $f$ is a polynomial shrinking reduction: \\
+Notice that for $n_0 = \max\{|w_0|, |w_1|\} + 1 \in \nat$ we get that for all $x \in \AB^* \wedge |x| \geq n_0$:
+
+If $x \in \lang_1 \Longrightarrow f(x) = w_1$
+$\Longrightarrow |f(x)| = |w_1| < n_0 \leq |x|$
+
+If $x \notin \lang_1 \Longrightarrow f(x) = w_2$
+$\Longrightarrow |f(x)| = |w_2| < n_0 \leq |x|$
+
+So there exists $n_0 \in \nat$ such that for every $x \in \AB^*$ it holds that if $n_0 \leq |x|$ then $|f(x)| < |x|$,
+meaning that $f$ is a polynomial shrinking reduction. As required.

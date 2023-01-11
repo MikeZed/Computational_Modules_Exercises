@@ -1,0 +1,8 @@
+polynomial verifier runtime is at most $p(|x|)$, hence it would not look beyond the first $p(|x|)$ symbols of $w$,
+hence $w$ can be of length at most $p(|x|)$.
+If the length of $w$ is less than $p(|x|)$, then we can pad $w$ until its length reaches exactly $p(|x|)$
+In conlusion there is a verifier for $\lang$ that only accepts cerificates of length exactly $p(|x|)$
+(its behaviour would be identical to the behaviour of the standard verifier with the addional check
+that the length of the cerificate it receives as input is exactly $p(|x|)$, if it is not - it rejects.)
+
+***build the verfier***
