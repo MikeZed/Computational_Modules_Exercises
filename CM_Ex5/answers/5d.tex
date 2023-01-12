@@ -1,0 +1,84 @@
+Input: a directed graph $G$.
+Question: does there exist a hamiltonian cycle in $G$?
+
+We need to show that: \\
+$HAMCYCLE = \{\langle G \rangle: G \text{ is a directed graph with a hamiltonian cycle }\} \in \NPCcl$ \\
+
+Proof: \\
+We will show that: \\
+1. $HAMCYCLE \in NP$ \\
+2. $\forall \lang' \in \NPcl: \lang' \leq_p HAMCYCLE$ by showing that $HAMPATH \leq_p HAMCYCLE$ (we can do this since $HAMPATH \in NPC$) \\
+
+First we show that $HAMCYCLE \in NP$, by building a polynomial verifier $V$ for it. \\
+$V$ for input $(\langle G \rangle, w)$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Verify that $\langle G \rangle$ is a valid encoding of a directed graph, if it's not - reject.
+    \item Check whether $w$ is an encoding of a hamiltonian cycle in $G$, if it is - accept, otherwise - reject.
+\end{enumerate}
+
+So we get: \\
+If $\langle G \rangle \in HAMCYCLE$ \\
+$\Rightarrow \langle G \rangle$ is a valid encoding of a directed graph with a hamiltonian cycle \\
+$\Rightarrow $ For $w$ that is the encoding of a hamiltonian cycle in graph $G$, $V$ will accept $(\langle G \rangle, w)$
+$\Rightarrow $ There exists $w \in \AB^*$ such that $V$ accepts $(\langle G \rangle, w)$. \\
+
+If $\langle G \rangle \notin HAMCYCLE$ \\
+$\Rightarrow \langle G \rangle$ is not a valid encoding of a directed graph or it doesn't have a hamiltonian cycle \\
+If $\langle G \rangle$ is not a valid encoding a directed graph $\Rightarrow V$ rejects. \\
+If it is a valid encoding of a directed graph but it doesn't have a hamiltonian cycle \\
+$\Rightarrow V$ rejects $(\langle G \rangle, w)$ for every $w \in \AB^*$. \\
+
+Also $V$'s runtime on input $(\langle G \rangle, w)$
+(where $|\langle G \rangle|=n$) is: \\
+- For step (1): $O(n))$  \\
+- For step (2): $O(n))$  \\
+Thus, the total runtime of $V$ on input  $(\langle G \rangle, w)$ is polynomial \\
+in $|\langle G \rangle|=n$, so \underline{$HAMCYCLE \in \NPcl$}. \\
+
+\pagebreak
+
+Now, we will show that there is a polynomial reduction from $HAMPATH$ to $HAMCYCLE$: \\
+We define the following reduction $f: \AB^* \rightarrow \AB^*$:
+
+$
+    f(\langle G, s, t \rangle) =
+    \begin{cases}
+        \langle G'' \rangle, & \langle G, s, t \rangle \text{ is not a valid encoding } \\
+        \langle G' \rangle,  & else                                                     \\
+    \end{cases}
+$
+
+Where graph $G'$ is the same directed graph $G$ with the additional vertex $u$ and 2 additional edges: $(t, u)$ and $(u, s)$. \\
+$\langle G'' \rangle$ is an invalid encoding of a directed graph ($\rightarrow \langle G'' \rangle \notin HAMCYCLE$).
+
+Notice that $f$ is computable in polynomial time in $|\langle G, s, t \rangle|$, since we just check
+if the input's encoding is valid and if it is - we just add an edge in graph $G$.
+
+Also $\forall x = \langle  G, s, t \rangle \in \AB^*$:
+
+If $x = \langle  G, s, t \rangle \in HAMPATH$ \\
+$\Rightarrow G$ is a directed graph with hamiltonian path from $s$ to $t$ \\
+$\Rightarrow f(\langle  G, s, t \rangle) = \langle G' \rangle$, which is the same directed
+graph $G$ with the additional vertex $u$ and 2 additional edges: $(t, u)$ and $(u, s)$,
+meaning that if we take the hamiltonian path from $s$ to $t$ and add to it the additional edges $(t, u)$ and $(u, s)$,
+then we will get a hamiltonian cycle in $G'$. \\
+$\Rightarrow f(\langle  G, s, t \rangle) = \langle G' \rangle \in HAMCYCLE$ \\
+
+If $x = \langle  G, s, t \rangle \notin HAMPATH$ \\
+$\Rightarrow \langle  G, s, t \rangle$ is not valid encoding or $G$ is a directed graph with no hamiltonian path from $s$ to $t$. \\
+If $\langle  G, s, t \rangle$ is not valid encoding \\
+$\Rightarrow f(\langle  G, s, t \rangle) = \langle G'' \rangle \notin HAMCYCLE$ \\
+If $G$ is a directed graph with no hamiltonian path from $s$ to $t$ \\
+$\Rightarrow $ If we assume that $f(\langle  G, s, t \rangle) = \langle G' \rangle \in HAMCYCLE$ \\
+it means that there is a hamiltonian cycle in $G'$ of the following form:\\
+$a \rightarrow b \rightarrow ... \rightarrow t \rightarrow u \rightarrow s \rightarrow w \rightarrow ... \rightarrow a$ \\
+so if we remove the additional vertex $u$ from graph $G'$ and return to the original graph $G$,
+then we have a hamiltonian cycle from $s$ to $t$: \\
+$s \rightarrow w \rightarrow ... \rightarrow a \rightarrow b \rightarrow ... \rightarrow t$\\
+in contradiction with $G$ being a directed graph with no hamiltonian path from $s$ to $t$.
+
+$\Rightarrow f(\langle  G, s, t \rangle) \notin HAMCYCLE$ \\
+
+So we get \underline{$HAMPATH \leq_p HAMCYCLE$}. \\
+In conclusion, $HAMCYCLE \in \NPCcl$. As required.
+

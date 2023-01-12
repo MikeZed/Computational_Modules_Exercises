@@ -1,0 +1,93 @@
+
+Input: sets $A_1, ..., A_n$, and a number $k$. \\
+Question: do there exist $k$ sets $A_{i_1} , ..., A_{i_l}$ such that $A_{i_j} \cap A_{i_l} \neq \emptyset$ for
+every $j \neq l$?
+
+We need to show that: \\
+$\lang = \{\langle A = \{A_1, ..., A_n\}, k \rangle:  A_{i_j} \cap A_{i_l} \neq \emptyset \text{ for
+        every } j \neq l\} \in \NPCcl$ \\
+
+Proof: \\
+We will show that: \\
+1. $\lang \in NP$ \\
+2. $\forall \lang' \in \NPcl: \lang' \leq_p \lang$ by showing that $CLIQUE \leq_p \lang$ (we can do this since $CLIQUE \in NPC$) \\
+
+First we show that $\lang \in NP$, by building a polynomial verifier $V$ for it. \\
+$V$ for input $(\langle A = \{A_1, ..., A_n\}, k \rangle, w)$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Verify that $\langle A = \{A_1, ..., A_n\}, k \rangle$ is a valid encoding of a set of sets and a number, if it's not - reject.
+    \item Verify that $w$ is a valid encoding of a subset of size $k$ in $A$ - $A_{i_1} , ..., A_{i_l}$, if it's not - reject.
+
+    \item For every 2 sets in the subset - $A_j, A_l$
+    \item \qquad If $A_j \cap A_l = \emptyset$ - reject. (Check this by comparing every element in $A_j$ with every element in $A_l$)
+
+    \item Accept.
+
+\end{enumerate}
+
+Notice that steps (3-4) check whether the subset of size $k$ indeed answers the question. \\
+
+So we get: \\
+If $\langle A = \{A_1, ..., A_n\}, k \rangle \in \lang$ \\
+$\Rightarrow \langle A = \{A_1, ..., A_n\}, k \rangle$ is a valid encoding of a set of sets and a number
+and there is a subset of $A$ of size $k$ that answers the problem - $A_{i_1} , ..., A_{i_l}$.\\
+$\Rightarrow $ For $w=\langle A_{i_1} , ..., A_{i_l} \rangle$, $V$ will see that indeed for every 2 sets in the
+subset it holds that $A_{i_j} \cap A_{i_l} \neq \emptyset text{ for } j \neq l$. \\
+$\Rightarrow $ There exists $w \in \AB^*$ such that $V$ accepts $(\langle A = \{A_1, ..., A_n\}, k \rangle, w)$. \\
+
+If $\langle A = \{A_1, ..., A_n\}, k \rangle \notin \lang$ \\
+$\Rightarrow \langle A = \{A_1, ..., A_n\}, k \rangle$ is not a valid encoding of a set of sets and a number
+or there doesn't exist a subset of $A$ of size $k$ that answers the problem. \\
+If $\langle A = \{A_1, ..., A_n\}, k \rangle$ is not a valid encoding of a set of sets and a number $\Rightarrow V$ rejects. \\
+If there doesn't exist a subset of $A$ of $k$ that answers the problem \\
+$\Rightarrow V$ rejects $(\langle A = \{A_1, ..., A_n\}, k \rangle, w)$ for every $w \in \AB^*$. \\
+
+Also $V$'s runtime on input $(\langle A = \{A_1, ..., A_n\}, k \rangle, w)$
+(where $|\langle A = \{A_1, ..., A_n\}, k \rangle|=n$) is: \\
+- For step (1): $O(n))$  \\
+- For step (2): $O(n))$  \\
+- For steps (3-4): (number of sets comparisons) $\cdot$ (number of elements to compare) = \\
+= $O((n-1)+(n-2)+...+1) \cdot O(|A_j| \cdot |A_l|)$ (for $A_j, A_l \in A) = O(n^2) \cdot O(n^2) = O(n^4)$ \\
+- For step (5): $O(1)$ \\
+Thus, the total runtime of $V$ on input  $(\langle A = \{A_1, ..., A_n\}, k \rangle, w)$ is polynomial \\
+in $|\langle A = \{A_1, ..., A_n\}, k \rangle|=n$, so \underline{$\lang \in \NPcl$}. \\
+
+\pagebreak
+
+Now, we will show that there is a polynomial reduction from $CLIQUE$ to $\lang$: \\
+We define the following reduction $f: \AB^* \rightarrow \AB^*$:
+
+$
+    f(\langle G=(V,E), k \rangle) =
+    \begin{cases}
+        F = \langle A=\{\{1\}\}, 5 \rangle,                                  & \langle G=(V,E), k \rangle \text{ is not a valid encoding } \\
+        \langle A=\{A_v = \{\{u,v\} \in E: u \in V\} | v \in V\}, k \rangle, & else                                                        \\
+    \end{cases}
+$
+Notice that $F = \langle A=\{\{1\}\}, 5 \rangle \notin \lang$. \\
+
+Notice that $f$ is computable in polynomial time in $|\langle G=(V,E), k \rangle|$, since it mainly goes over the edges in the graph $G$.
+
+Also $\forall x = \langle G=(V,E), k \rangle \in \AB^*$:
+
+If $x = \langle G=(V,E), k \rangle \in CLIQUE$ \\
+$\Rightarrow G$ is an undirected graph with clique of size $k$ \\
+$\Rightarrow f(\langle G=(V,E), k \rangle) = \langle A=\{A_v = \{\{u,v\} \in E: u \in V\} | v \in V\}, k \rangle$, and A has a subset
+of a size $k$ such that $A_{i_j} \cap A_{i_l} \neq \emptyset$ for every $j \neq l$ in subset (the sets in this subset are the ones that came from the vertices in the clique.
+Each pair of vertices $i_j,i_l$ in the clique has an edge between them, therefore is holds that $\{i_j, i_l\} \in A_{i_j} \cap A_{i_l}$ for every $j \neq l$) \\
+$\Rightarrow f(\langle G=(V,E), k \rangle) \in \lang$ \\
+
+If $x = \langle G=(V,E), k \rangle \notin CLIQUE$ \\
+$\Rightarrow \langle G=(V,E), k \rangle$ is not valid encoding or $G$ is an undirected graph with no CLIQUE of size $k$. \\
+If $\langle G=(V,E), k \rangle$ is not valid encoding \\
+$\Rightarrow f(\langle G=(V,E), k \rangle) = F = \langle A=\{\{1\}\}, 5 \rangle \notin \lang$ \\
+If $G$ is an undirected graph with no clique of size $k$ \\
+$\Rightarrow $ If we assume that $f(\langle G=(V,E), k \rangle) = \langle A=\{A_v = \{\{u,v\} \in E: u \in V\} | v \in V\}, k \rangle \in \lang$ \\
+then we have a subset of A of size k such that $A_{i_j} \cap A_{i_l} \neq \emptyset$ for every $j \neq l$ in subset, meaning that for every 2 sets in the subset - $A_j, A_l$,
+we have that $A_j \cap A_l \neq \emptyset \Rightarrow \{\{u,j\} \in E: u \in V\} \cap \{\{u,l\} \in E: u \in V\} \neq \emptyset$
+which means that there is an edge that connects vertices $j$ and $l$. So we get that the vertices that the subset comes from, are an
+clique of size $k$, which is a contradiction. \\
+$\Rightarrow f(\langle G=(V,E), k \rangle) \notin \lang$ \\
+
+So we get \underline{$CLIQUE \leq_p \lang$}. \\
+In conclusion, $\lang \in \NPCcl$. As required.

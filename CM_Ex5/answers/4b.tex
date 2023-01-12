@@ -1,0 +1,76 @@
+Prove that $CIRSAT \in \NPCcl$ (use ”the heart of Cook-Levin” from Lecture 10).  \\
+
+Proof: \\
+We need to show that: \\
+1. $CIRSAT \in NP$ \\
+2. $\forall \lang \in \NPcl: \lang \leq_p CIRSAT$ \\
+
+First we show that $CIRSAT \in NP$, by building a polynomial verifier $V$ for it. \\
+$V$ for input $(\langle C, x \rangle, w)$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Verify that $\langle C, x \rangle$ is a valid encoding of a boolean circuit and a partial input, if it's not - reject.
+
+    \item Calculate $C(xw)$
+
+    \item If $C(xw)=1$ - accept, otherwise - reject.
+
+\end{enumerate}
+
+Indeed: \\
+If $\langle C, x \rangle \in CIRSAT$ \\
+$\Rightarrow \langle C, x \rangle$ is a valid encoding of boolean circuit and a partial input
+and there exists $w \in \AB^*$ such that $C(xw)=1$. \\
+$\Rightarrow $ There exists $w \in \AB^*$ such that $V$ accepts $(\langle C, x \rangle, w)$. \\
+
+If $\langle C, x \rangle \notin CIRSAT$ \\
+$\Rightarrow \langle \phi \rangle$ is not a valid encoding of a boolean circuit and a partial input
+or there doesn't exist $w \in \AB^*$ such that $C(xw)=1$. \\
+If $\langle C, x \rangle$ is not a valid encoding of a boolean circuit and a partial input $\Rightarrow V$ rejects. \\
+If there doesn't exist $w \in \AB^*$ such that $C(xw)=1$ \\
+$\Rightarrow V$ rejects $(\langle C, x \rangle, w)$ for every $w \in \AB^*$.
+
+Also $V$'s runtime on input $(\langle C, x \rangle, w)$ (where $|\langle C, x \rangle|=n$) is: \\
+- For step (1): $O(q(n))$ for some polynomial function $q$ \\
+- For step (2): $O(k(n))$ for some polynomial function $k$ \\
+- For step (3): $O(1)$ \\
+Thus, the total runtime of $V$ on input  $(\langle C, x \rangle, w)$ is polynomial in $|\langle C, x \rangle|=n$, so \underline{$CIRSAT \in \NPcl$}. \\
+
+\pagebreak
+
+Now we show that $\forall \lang \in \NPcl: \lang \leq_p CIRSAT$ \\
+Let there be $\lang \in \NPcl$, therefore there exists a polynomial verifier $V_\lang$ for $\lang$, that only accepts
+certificates of length exactly $p(|x|)$, where $p$ is the polynomial runtime of the verifier (we get this from the previuos section). \\
+
+From ”the heart of Cook-Levin” in Lecture 10, for a TM $M$ that runs in time $t(n)$
+there exists a function that is computable in time $g(t(n))$ (where $g$ is a polynomial function), that given $1^n$ as input, calculates
+the encoding of a boolean circuit $C_{M,n}: \{0,1\}^n \rightarrow \{0,1\}$
+such that: \\
+1. $\forall z \in \{0,1\}^n: M(z)$ accepts $\iff C_{M,n}(z)=1$ \\
+2. $|C_{M,n}| \leq O(t^2(n))$ \\
+
+We denote the function that calculates the encoding of the boolean circuit in ”the heart of Cook-Levin” by $f$. \\
+We will use the verifier $V_\lang$ as the TM in ”the heart of Cook-Levin”.
+
+Now we will show that there is a polynomial reduction from $\lang$ to $CIRSAT$: \\
+We define the following reduction $h: \AB^* \rightarrow \AB^*$:
+$h(x) = (\langle f(1^{|x|+p(|x|)}), x \rangle)$
+
+Notice that $h$ is computable in polynomial time, since it takes $O(g(p(n+p(n))))$ (where $|x|=n$ and $g$, $p$ are polynomial functions)
+to calculate $f(1^{|x|+p(|x|)})$.
+
+Also $\forall x \in \AB^*$:
+
+If $x \in \lang$ \\
+$\Rightarrow $ There exists $w \in \AB^{p(|x|)}$ such that $V_\lang$ accepts $(x, w)$. \\
+$\Rightarrow $ From (1) of ”the heart of Cook-Levin”, for $h(x) = (\langle f(1^{|x|+p(|x|)}), x \rangle) = (\langle C, x \rangle)$,
+we get $C(xw)=1$ \\
+$\Rightarrow h(x) = (\langle f(1^{|x|+p(|x|)}), x \rangle) \in CIRSAT$ \\
+
+If $x \notin \lang$ \\
+$\Rightarrow V$ rejects $(x, w)$ for every $w \in \AB^*$. \\
+$\Rightarrow $ From (1) of ”the heart of Cook-Levin”, for $h(x) = (\langle f(1^{|x|+p(|x|)}), x \rangle) = (\langle C, x \rangle)$,
+we get $C(xw)=0$ for every $w \in \AB^{p(|x|)}$ \\
+$\Rightarrow h(x) = (\langle f(1^{|x|+p(|x|)}), x \rangle) \notin CIRSAT$ \\
+
+So we get \underline{$\lang \leq_p CIRSAT$}. \\
+In conclusion, $CIRSAT \in \NPCcl$. As required.

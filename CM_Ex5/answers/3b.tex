@@ -4,39 +4,75 @@ reduction from $\lang_1$ to $\lang_2$.
 The claim is false. \\
 
 Proof: \\
-We will prove by contradiction. Observe $\lang_1 = \lang_2 = SAT (\notin \{\emptyset, \AB^*\})$, we saw in the recitation that
+We will prove by contradiction. \\ Observe $\lang_1 = \lang_2 = SAT (\notin \{\emptyset, \AB^*\})$, we saw in the recitation that
 $SAT \in NPC \subseteq NP \Rightarrow \lang_1 = \lang_2 = SAT \in NPC \subseteq \NPcl$. Therefore there exists a polynomial shrinking
-reduction from $\lang_1$ to $\lang_2$, we will denote the polynomial shrinking reduction function by $f$ and denote by $n_0$,
-the natural number from the shrinking function definition.
+reduction from $\lang_1$ to $\lang_2$, we will denote the polynomial shrinking reduction function by $f$ (and its runtime for input $x$
+will be $p(|x|)$ for polynomial function $p$) and denote by $n_0$, the natural number from the shrinking function definition.
 
 Now we shall define the following set:
 $
-    \lang = \{\langle \phi \rangle \in SAT: |\langle \phi \rangle| \leq n_0 \}
+    \lang = \{\langle \phi \rangle \in SAT: |\langle \phi \rangle| \leq n_0 \} \subseteq SAT\
 $
 
-
-$\lang$ has a finite number of members, therefore $\lang \in \Pcl$ (since given $x \in \AB^*$ we can check whether $x \in \lang$ by
+$\lang$ has a finite number of members (since they have a limited length - at most $n_0$), therefore \underline{$\lang \in \Pcl$} (since given $x \in \AB^*$ we can check whether $x \in \lang$ by
 comparing it to each of the members of $\lang$, which would take at most $O(k) \cdot O(n)$ where $k=|\lang|$ and $n=|x|$).
 
-Now we will show that there is a polynomial reduction from $SAT$ to $\lang$:
+Now we will show that there is a polynomial reduction from $SAT$ to $\lang$: \\
+We define the following reduction $g: \AB^* \rightarrow \AB^*$:
+\pagebreak
 
+$g$ on input $\langle \phi \rangle$:
+\begin{enumerate}[1., itemsep=5pt]
 
-{
-\color{red}
-write reduction here
-}
+    \item Verify that $\langle \phi \rangle$ is a valid encoding of a formula, if it is not - return $\langle \phi \rangle$.
 
+    \item Let $\langle \phi_0 \rangle \leftarrow \langle \phi \rangle$
+    \item While ($|\langle \phi_0 \rangle| > n_0$)
+    \item \qquad $\langle \phi_0 \rangle \leftarrow f(\langle \phi_0 \rangle)$
 
+    \item Return $\langle \phi_0 \rangle$.
 
+\end{enumerate}
+Notice the following:
+\begin{enumerate}[(i), itemsep=5pt]
+    \item Before exiting the 'while' loop we have $|\langle \phi_0 \rangle| > n_0$, therefore after each iteration of the 'while' loop
+          $|\langle \phi_0 \rangle|$ is decreased at least by 1, since $f$ is a shrinking reduction function. \\
+          We denote the number of iterations by $k$, note that $k=O(|\langle \phi \rangle|)$.
 
+    \item Each iteration takes polynomial time, since $f$ is a polynomial reduction function,
+          the runtime of each iteration is $O(p(|\langle \phi_0 \rangle|)) = O(p(|\langle \phi \rangle|))$.
 
+    \item Since $f$ is a shrinking reduction function from $SAT$ to $SAT$, after each iteration $\phi_0$ is satisfiable iff $\phi$ is satisfiable.
+          And after exiting the 'while' loop, we have: \\
+          If $\phi \in SAT \Rightarrow \phi_0 \in SAT \wedge |\langle \phi_0 \rangle| \leq n_0 \Rightarrow \phi_0 \in \lang$ \\
+          If $\phi \notin SAT \Rightarrow \phi_0 \notin SAT \Rightarrow \phi_0 \notin \lang$
 
+\end{enumerate}
 
+From points (i) and (ii), notice that $g$ is computable in polynomial time, since the runtime for each step
+for input $\langle \phi \rangle$ (where $|\langle \phi \rangle| = n$) is: \\
+- For step  (1):   $O(n)$                                         \\
+- For steps (2-4): $O(k) \cdot O(n) = O(n) \cdot O(n) = O(n^2)$   \\
+- For step  (5):   $O(n)$                                         \\
 
+Also $\forall x=\langle \phi \rangle \in \AB^*$:
 
+If $x=\langle \phi \rangle \in SAT$ \\
+$\Longrightarrow \langle \phi \rangle$ is a satisfiable formula, and $|\langle \phi \rangle \leq n_0|$ or $|\langle \phi \rangle > n_0|$ \\
+If $\langle \phi \rangle$ is a satisfiable formula and $|\langle \phi \rangle \leq n_0|$ \\
+$\Longrightarrow g(\langle \phi \rangle) = \langle \phi \rangle \in \lang$ \\
+If $\langle \phi \rangle$ is a satisfiable formula and $|\langle \phi \rangle > n_0|$ \\
+$\Longrightarrow$ From point (iii) above, we get that $g(\langle \phi \rangle) \in \lang$ \\
 
-So we get that $SAT \leq_p \lang$, but we saw that $\lang \in \Pcl$ so we get $SAT \in \Pcl$.
-But we know that $SAT \in \NPCcl$, hence from a conclusion from the lecture we get that $\Pcl = \NPcl$.
+If $x=\langle \phi \rangle \notin SAT$ \\
+$\Longrightarrow \langle \phi \rangle$ is not a valid encoding of a formula or it is valid but not satisfiable. \\
+If $\langle \phi \rangle$ is not a valid encoding of a formula \\
+$\Longrightarrow g(\langle \phi \rangle) = \langle \phi \rangle \notin SAT$ \\
+$\Longrightarrow g(\langle \phi \rangle) = \langle \phi \rangle \notin \lang$
 
+If $\langle \phi \rangle$ is a valid encoding of a formula, but is not satisfiable \\
+$\Longrightarrow $ from point (iii) we get that $g(\langle \phi \rangle) \notin \lang$ \\
 
-if there is reduction then whole NP is NPC, beacuse P is NP we get P in NPC, then P=NP=NPC
+Therefore $g$ is a polynomial reduction from $SAT$ to $\lang$, so we get that $SAT \leq_p \lang$. We saw that $\lang \in \Pcl$ so we get $SAT \in \Pcl$.
+But we know that $SAT \in \NPCcl$, hence from a conclusion from the lecture we get that $\Pcl = \NPcl$, in contradiction with $\Pcl \neq \NPcl \Rightarrow$ The claim is false.
+

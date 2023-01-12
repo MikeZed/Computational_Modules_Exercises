@@ -1,8 +1,59 @@
-polynomial verifier runtime is at most $p(|x|)$, hence it would not look beyond the first $p(|x|)$ symbols of $w$,
-hence $w$ can be of length at most $p(|x|)$.
-If the length of $w$ is less than $p(|x|)$, then we can pad $w$ until its length reaches exactly $p(|x|)$
-In conlusion there is a verifier for $\lang$ that only accepts cerificates of length exactly $p(|x|)$
-(its behaviour would be identical to the behaviour of the standard verifier with the addional check
-that the length of the cerificate it receives as input is exactly $p(|x|)$, if it is not - it rejects.)
+Prove that if $\lang \in \NPcl$, then $\lang$ has a polynomial verifier that only accepts
+certificates of length exactly $p(|x|)$ for some polynomial $p$. \\
 
-***build the verfier***
+Proof: \\
+$\lang \in \NPcl$, therefore there exists a polynomial verifier $V$ for $\lang$, that runs in a polynomial-time $p$. \\
+We will define verifier $V'$ for $\lang$: \\
+First we set $V'$'s $\AB_{V'}$ to be $\AB_{V'}=\AB_{V} \cup \{\#\}$ assuming w.l.o.g.
+$\AB_{V} \cap \{\#\} = \emptyset$ (to pad the cerificate when it is too short). \\
+
+$V'$ on input $(x, w)$:
+\begin{enumerate}[1., itemsep=5pt]
+
+    \item Verify that $|w|=p(|x|)$, if it is not - reject.
+    \item If $w$ is padded with $'\#'$s at its end, remove them from $w$.
+    \item Run $V(x, w)$.
+    \item Accept iff $V(x, w)$ accepts.
+
+\end{enumerate}
+
+
+Notice the following:
+\begin{enumerate}[(i), itemsep=5pt]
+    \item $V$ is a polynomial verifier with runtime that is at most $p(|x|)$, hence it would not look beyond the first $p(|x|)$ symbols of $w$,
+          meaning that if $w$ is a cerificate, then $w'$, which we define as the first $p(|x|)$ symbols of $w$, is also a certificate for $x$.
+
+    \item If the length of the certificate $w$ is shorter than $p(|x|)$, then we can pad $w$ until its length reaches exactly $p(|x|)$.
+
+\end{enumerate}
+
+Indeed: \\
+If $x \in \lang$ \\
+$\Rightarrow $ There exists $w \in \AB^*$ such that $V$ accepts $(x, w)$. \\
+There are 3 options: $|w| = p(|x|)$ or $|w| > p(|x|)$ or $|w| < p(|x|)$ \\
+If $|w| = p(|x|) \\ \Rightarrow V'$ accepts $(x, w)$ \\
+If $|w| > p(|x|) \\ \Rightarrow $ From point (i) above, $V'$ accepts $(x, w')$, where $w'$ is the first $p(|x|)$ symbols of $w$ \\
+If $|w| < p(|x|) \\ \Rightarrow $ From point (ii) above, $V'$ accepts $(x, w')$, where $w'$ is $w$ padded by $(p(|x|) - |w|)$ $'\#'$s (the padding is removed inside $V'$) \\
+$\Longrightarrow $ There exists $w' \in \AB^*$ such that $V'$ accepts $(x, w')$. \\
+
+If $x \notin \lang$ \\
+$\Rightarrow V$ rejects $(x, w)$ for every $w \in \AB^*$. \\
+$\Rightarrow V'$ rejects $(x, w)$ for every $w \in \AB^*$.
+
+So $V'$ is a verifier for $\lang$, and from step (1) it only accepts certificates of length exactly $p(|x|)$.
+
+\pagebreak
+
+Also $V'$'s runtime on input $(x, w)$ (where $|x|=n$) is: \\
+- For step (1): $O(p(n))$ \\
+- For step (2): $O(p(n))$ \\
+- For step (3): $O(p(n))$ \\
+- For step (3): $O(1)$ \\
+
+Thus, the total runtime of $V'$ on input  $(x, w)$ is polynomial in $|x|=n$. \\
+
+In conclusion, $V'$ is polynomial verifier for $\lang$, that only accepts certificates of length exactly $p(|x|)$.
+As required.
+
+
+

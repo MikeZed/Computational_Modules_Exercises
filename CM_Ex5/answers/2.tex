@@ -7,7 +7,7 @@ since we can build a polynomial verifier $V$ for it:
 
 $V$ for input $(\langle \phi \rangle, w)$:
 \begin{enumerate}[1., itemsep=5pt]
-    \item Verify that $(\langle \phi \rangle$ is an encoding of a valid CNF formula, if it's not - reject.
+    \item Verify that $\langle \phi \rangle$ is a valid encoding of a CNF formula, if it's not - reject.
 
     \item Verify that $w$ is a possible assignment to the variables in $\phi$, if it's not - reject.
 
@@ -28,11 +28,11 @@ If $\langle \phi \rangle$ is not a valid encoding of a CNF formula $\Rightarrow 
 If there doesn't exist an assignment to $\phi$'s variables $w \in \AB^*$ such that $\phi$ is satisfied \\
 $\Rightarrow V$ rejects $(\langle \phi \rangle, w)$ for every $w \in \AB^*$.
 
-Also $V$'s runtime on input $(\langle \phi \rangle, w)$ (where $|(\langle \phi \rangle, w)|=n$) is: \\
+Also $V$'s runtime on input $(\langle \phi \rangle, w)$ (where $|\langle \phi \rangle|=n$) is: \\
 - For step (1): $O(n)$ \\
 - For step (2): $O(n)$ \\
 - For step (3): $O(n)$ \\
-Thus, the total runtime of $V$ on input  $(\langle \phi \rangle, w)$ is polynomial in $|(\langle \phi \rangle, w)|=n$, so $CNFSAT \in \NPcl$. \\
+Thus, the total runtime of $V$ on input  $(\langle \phi \rangle, w)$ is polynomial in $|\langle \phi \rangle|=n$, so $CNFSAT \in \NPcl$. \\
 But it is given that $\Pcl = \NPcl$, so $CNFSAT \in \Pcl$.
 Therefore there is a deterministic TM $M$ that decides $CNFSAT$ in polynomial time $p$. \\
 

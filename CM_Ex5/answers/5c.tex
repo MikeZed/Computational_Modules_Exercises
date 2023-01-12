@@ -1,0 +1,106 @@
+Input: a 3CNF formula $\phi$ such that literals in each clause correspond
+to three distinct variables (e.g., $x_1 \vee x_2 \vee \neg x_3$ but not $x_1 \vee x_2 \vee \neg x_2$). \\
+Question: does there exist an assignment that satisfies $\phi$?
+
+We need to show that: \\
+$\lang = \{\phi \in 3SAT: \text{ literals in each clause of $\phi$ correspond
+        to three distinct variables }\} \in \NPCcl$ \\
+
+Proof: \\
+We need to show that: \\
+1. $\lang \in NP$ \\
+2. $\forall \lang' \in \NPcl: \lang' \leq_p \lang$ by showing that $3SAT \leq_p \lang$ (we can do this since $3SAT \in NPC$) \\
+
+First we show that $\lang \in NP$, by building a polynomial verifier $V$ for it. \\
+$V$ for input $(\langle G \rangle, w)$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Verify that $\langle \phi \rangle$ is a valid encoding of a 3CNF formula with three distinct variables in each clause, if it is not - reject.
+
+    \item Verify that $w$ is a possible assignment to the variables in $\phi$, if it's not - reject.
+
+    \item Assign values to the variables in $\phi$ according to $w$, if the formula is satisfied - accept, otherwise reject.
+
+\end{enumerate}
+
+So we get: \\
+If $\langle \phi \rangle \in \lang$ \\
+$\Rightarrow \langle \phi \rangle$ is a valid encoding of a 3CNF formula with three distinct variables in each clause
+and there exists an assignment to its variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
+$\Rightarrow $ There exists $w \in \AB^*$ such that $V$ accepts $(\langle \phi \rangle, w)$. \\
+
+If $\langle \phi \rangle \notin \lang$ \\
+$\Rightarrow \langle \phi \rangle$ is not a valid encoding of a 3CNF formula with three distinct variables in each clause
+or there doesn't exist an assignment to its variables $w \in \AB^*$ such that $\phi$ is satisfied. \\
+If $\langle \phi \rangle$ is not a valid encoding of a 3CNF formula with three distinct variables in each clause $\Rightarrow V$ rejects. \\
+If there doesn't exist an assignment to $\phi$'s variables $w \in \AB^*$ such that $\phi$ is satisfied \\
+$\Rightarrow V$ rejects $(\langle \phi \rangle, w)$ for every $w \in \AB^*$.
+
+Also $V$'s runtime on input $(\langle \phi \rangle, w)$ (where $|\langle \phi \rangle|=n$) is: \\
+- For step (1): $O(n)$ \\
+- For step (2): $O(n)$ \\
+- For step (3): $O(n)$ \\
+Thus, the total runtime of $V$ on input  $(\langle \phi \rangle, w)$ is polynomial in $|\langle \phi \rangle|=n$, so \underline{$\lang \in \NPcl$}. \\
+
+\pagebreak
+
+Now, we will show that there is a polynomial reduction from $3SAT$ to $\lang$: \\
+First we show reduction for a single clause, we define the following function: \\
+$g: \AB^* \rightarrow \AB^*$: \\
+
+$C = \emptyset$ ($C$ is an empty clause, not satisfiable) \\
+$\Rightarrow g(C) = (x \vee y \vee z) \wedge (x \vee y \vee \neg z) \wedge (x \vee \neg y \vee z) \wedge (x \vee \neg y \vee \neg z)
+    \wedge (\neg x \vee y \vee z) \wedge (\neg x \vee y \vee \neg z) \wedge (\neg x \vee \neg y \vee z) \wedge (\neg x \vee \neg y \vee \neg z)$,
+where $x, y, z$ are new variables. \\
+
+$C = (x) = (x \vee x \vee x)$ \\
+$\Rightarrow g(C) = (x \vee y \vee z) \wedge (x \vee y \vee \neg z) \wedge(x \vee \neg y \vee z) \wedge(x \vee \neg y \vee \neg z)$, where $y, z$ are new variables. \\
+
+$C = (x \vee y) = (x \vee y \vee x) = (x \vee y \vee y) $ \\
+$\Rightarrow g(C) = (x \vee y \vee z) \wedge (x \vee y \vee \neg z)$, where $z$ is a new variable. \\
+
+$C = (x \vee y \vee z)$ \\
+$\Rightarrow g(C) = (x \vee y \vee z) = C$. \\
+
+for every other case, we define $g(C) = 0$. \\
+Notice that $g$ doesn't change the logic of the formula, so $C$ is satisfiable $\iff g(C)$ is satisfiable. \\
+Also, notice that $g$ is computable in a polynomial time in $|C|$. \\
+
+Now, we define the reduction from a whole formula in $3SAT$ to a whole formula in $\lang$: \\
+$f: \AB^* \rightarrow \AB^*$: \\
+$
+    f(\langle \phi \rangle) =
+    \begin{cases}
+        \langle \phi  \rangle,                                         & \langle \phi \rangle \text{ is not a valid encoding } \\
+        \langle g(C_1) \wedge g(C_2) \wedge ... \wedge g(C_n) \rangle, & else (\phi = C_1 \wedge C_2 \wedge ... \wedge C_n)    \\
+    \end{cases}
+$
+
+Where $C_1, C_2,...,C_n$ are the clauses of $\phi$. \\
+Notice that $f$ is computable in polynomial time in $|\langle \phi \rangle|$, since we just check
+if the input's encoding is valid and if it is - we apply $g$ (which is computable in a polynomial time) to each of the $n$ clauses of $\phi$.
+
+Also $\forall x = \langle \phi \rangle \in \AB^*$:
+
+
+
+
+
+
+
+If $x = \langle \phi \rangle \in 3SAT$ \\
+$\Rightarrow \phi$ is a valid 3CNF formula that is satisfiable \\
+$\Rightarrow f(\langle \phi \rangle) = \langle G' \rangle$, which is the same directed
+$\Rightarrow f(\langle \phi \rangle) = \langle G' \rangle \in \lang$ \\
+
+If $x = \langle  \phi \rangle \notin 3SAT$ \\
+$\Rightarrow \langle  \phi \rangle$ is not valid encoding or $G$ is a directed graph with no hamiltonian path from $s$ to $t$. \\
+If $\langle  \phi \rangle$ is not valid encoding \\
+$\Rightarrow f(\langle \phi \rangle) = \langle G'' \rangle \notin \lang$ \\
+If $G$ is a directed graph with no hamiltonian path from $s$ to $t$ \\
+$\Rightarrow $ If we assume that $f(\langle  \phi \rangle) = \langle G' \rangle \in \lang$ \\
+
+$\Rightarrow f(\langle \phi \rangle) \notin \lang$ \\
+
+So we get \underline{$3SAT \leq_p \lang$}. \\
+In conclusion, $\lang \in \NPCcl$. As required.
+
