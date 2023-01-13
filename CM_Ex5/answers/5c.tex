@@ -62,7 +62,8 @@ $C = (x \vee y \vee z)$ \\
 $\Rightarrow g(C) = (x \vee y \vee z) = C$. \\
 
 for every other case, we define $g(C) = 0$. \\
-Notice that $g$ doesn't change the logic of the formula, so $C$ is satisfiable $\iff g(C)$ is satisfiable. \\
+Notice that $g$ doesn't change the logic of the formula, so $C$ is satisfiable iff $g(C)$ is satisfiable
+with same assignment of the existing variables and an arbitrary assignment of the new variables. \\
 Also, notice that $g$ is computable in a polynomial time in $|C|$. \\
 
 Now, we define the reduction from a whole formula in $3SAT$ to a whole formula in $\lang$: \\
@@ -81,24 +82,27 @@ if the input's encoding is valid and if it is - we apply $g$ (which is computabl
 
 Also $\forall x = \langle \phi \rangle \in \AB^*$:
 
-
-
-
-
-
-
 If $x = \langle \phi \rangle \in 3SAT$ \\
-$\Rightarrow \phi$ is a valid 3CNF formula that is satisfiable \\
-$\Rightarrow f(\langle \phi \rangle) = \langle G' \rangle$, which is the same directed
-$\Rightarrow f(\langle \phi \rangle) = \langle G' \rangle \in \lang$ \\
+$\Rightarrow \phi = C_1 \wedge C_2 \wedge ... \wedge C_n$ is a valid 3CNF formula that is satisfiable \\
+$\Rightarrow f(\langle \phi \rangle) = \langle g(C_1) \wedge g(C_2) \wedge ... \wedge g(C_n) \rangle$,
+is satisfiable since each clause $C$ is satisfiable iff $g(C)$ is satisfiable with same assignment of the
+existing variables and an arbitrary assignment of the new variables. Meaning that the satisfying assignment
+for $\phi$ is same satisfying assignment for $f(\langle \phi \rangle)$ (with the addition of an arbitrary
+assignment to the new variables). \\
+Also from the definition of $g$ each clause $g(C)$ has 3 distinct variables. \\
+$\Rightarrow f(\langle \phi \rangle) \in \lang$ \\
 
-If $x = \langle  \phi \rangle \notin 3SAT$ \\
-$\Rightarrow \langle  \phi \rangle$ is not valid encoding or $G$ is a directed graph with no hamiltonian path from $s$ to $t$. \\
-If $\langle  \phi \rangle$ is not valid encoding \\
-$\Rightarrow f(\langle \phi \rangle) = \langle G'' \rangle \notin \lang$ \\
-If $G$ is a directed graph with no hamiltonian path from $s$ to $t$ \\
-$\Rightarrow $ If we assume that $f(\langle  \phi \rangle) = \langle G' \rangle \in \lang$ \\
+If $x = \langle \phi \rangle \notin 3SAT$ \\
+$\Rightarrow \langle  \phi \rangle$ is not valid encoding of a 3CNF formula or it is, but is not satisfiable \\
 
+If $\langle \phi \rangle$ is not valid encoding of a 3CNF formula \\
+$\Rightarrow f(\langle \phi \rangle) = \langle \phi \rangle \notin \lang$ \\
+
+If $\langle \phi = C_1 \wedge C_2 \wedge ... \wedge C_n \rangle$ is a valid encoding of a 3CNF formula but is not satisfiable \\
+$\Rightarrow f(\langle \phi \rangle) = \langle g(C_1) \wedge g(C_2) \wedge ... \wedge g(C_n) \rangle$,
+is not satisfiable since each clause $C$ is satisfiable iff $g(C)$ is satisfiable with same assignment of the
+existing variables and an arbitrary assignment of the new variables. Meaning that since there is no satisfying assignment
+for $\phi$ then there is no satisfying assignment for $f(\langle \phi \rangle)$  \\
 $\Rightarrow f(\langle \phi \rangle) \notin \lang$ \\
 
 So we get \underline{$3SAT \leq_p \lang$}. \\

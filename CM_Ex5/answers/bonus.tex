@@ -1,0 +1,42 @@
+\bd{Bonus.} \\
+In this exercise we will prove that if $\Pcl \neq \NPcl$, then there exists $\lang \in \NPcl \backslash \Pcl$
+such that $\lang \notin \NPCcl$. \\
+Let us define:
+\[
+    SAT_{pad} = \{\phi \#^{n^{f(n)}} : n = |\phi| \wedge \phi \in SAT\}
+\]
+such that $f: \nat \rightarrow \nat$: \\
+$\bullet$ is computable in polynomial time \\
+$\bullet$ is a monotonically non-decreasing \\
+$\bullet$ is bounded iff $SAT_{pad} \in \Pcl$
+
+\begin{enumerate}[(a)]
+    \item Prove that $SAT_{pad} \in \NPcl$. \\
+          Note: you may assume $g(n) = n^{f(n)}$ is computable in polynomial time. \\
+
+          Build verifier for $SAT_{pad} \Rightarrow$ Verifier checks encoding and correct
+          amount of $'\#'$, the witness is the satisfying assignment for $\phi$
+
+          Runs in polynomial time in $|\phi \#^{n^{f(n)}}|=k$ since verifying the input and
+          calculating the amount of $'\#'$ ($=n^{f(n)}$, which is calculated in poly time, let say $p$)
+          is $O(k+p(n))$, checking whether $\phi$ is satisfied by $w$ is $O(|\phi|) = O(n) = O(k)$. \\
+
+    \item Prove that if $\Pcl \neq \NPcl$, then $SAT_{pad} \notin P$. \\
+
+          Assuming $SAT_{pad} \in P$, from point 3 above we get that $f$ is bounded, let say $n_0$ is its boundary,
+          then we have that there is TM $M$ that decides $SAT_{pad}$ in poly time (let say $q$), meaning it checks whether
+          $x = \phi \#^{n^{f(n)}} \in SAT_{pad}$ in poly time $q(|x|) = q(|\phi \#^{n^{f(n)}}|)) = q(n+n^{f(n)}))$,
+          because $f(n)$ bounded by $n_0$ we can say that $q(|x|) = q(|\phi \#^{n^{f(n)}}|)) = q(n+n^{f(n)})) = O(q(n+n^{n_0})))$,
+          so $M$ can check whether $\phi \in SAT$ in poly time in $n \Rightarrow SAT \in \Pcl$ but $SAT \in \NPCcl$ so $\Pcl = \NPcl$
+          in contradiction with $\Pcl = \NPcl \Rightarrow SAT_{pad} \notin P$. \\
+
+    \item Prove that if $\Pcl \neq \NPcl$, then $SAT_{pad} \notin \NPCcl$. \\
+
+          Show there is reduction from $SAT_{pad}$ to some language not in $\NPCcl$?
+          Or show that there is some language in $\NPcl$ with no reduction from it to $SAT_{pad}$
+\end{enumerate}
+
+
+(Bonus++) Prove that such $f$ exists. \\
+
+Which function is bounded iff $SAT_{pad} \in \Pcl$?
