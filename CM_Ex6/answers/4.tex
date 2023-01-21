@@ -1,0 +1,23 @@
+A TM is {\it expected poly-time } if there exists $p \in poly$ such that for every x the
+expected running time of $M(x)$ is at most $p(|x|)$.
+Let us define: \\
+$ZPP = \{\lang \subseteq \AB^*: \text{ there exists an expected poly-time TM that decided } \lang\}$ \\
+Prove that $ZPP = RP \cap coRP$.
+
+Proof: \\
+We need to show that: \\
+1. $ZPP \subseteq RP \cap coRP$
+2. $ZPP \supseteq RP \cap coRP$
+
+\underline{$ZPP \subseteq RP \cap coRP$:} \\
+Let $\lang \in ZPP$, so there exists
+
+
+\underline{$ZPP \supseteq RP \cap coRP$:} \\
+Let $\lang \in RP \cap coRP$, so $\lang \in RP \wedge \lang \in coRP$. Therefore there exists
+
+
+
+
+
+so we get that $ZPP = RP \cap coRP$. As required.

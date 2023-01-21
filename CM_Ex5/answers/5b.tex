@@ -9,10 +9,10 @@ $\lang = \{\langle A = \{A_1, ..., A_n\}, k \rangle:  A_{i_j} \cap A_{i_l} \neq 
 
 Proof: \\
 We will show that: \\
-1. $\lang \in NP$ \\
-2. $\forall \lang' \in \NPcl: \lang' \leq_p \lang$ by showing that $CLIQUE \leq_p \lang$ (we can do this since $CLIQUE \in NPC$) \\
+1. $\lang \in \NPcl$ \\
+2. $\forall \lang' \in \NPcl: \lang' \leq_p \lang$ by showing that $CLIQUE \leq_p \lang$ (we can do this since $CLIQUE \in \NPCcl$) \\
 
-First we show that $\lang \in NP$, by building a polynomial verifier $V$ for it. \\
+First we show that $\lang \in \NPcl$, by building a polynomial verifier $V$ for it. \\
 $V$ for input $(\langle A = \{A_1, ..., A_n\}, k \rangle, w)$:
 \begin{enumerate}[1., itemsep=5pt]
     \item Verify that $\langle A = \{A_1, ..., A_n\}, k \rangle$ is a valid encoding of a set of sets and a number, if it's not - reject.
@@ -32,7 +32,7 @@ If $\langle A = \{A_1, ..., A_n\}, k \rangle \in \lang$ \\
 $\Rightarrow \langle A = \{A_1, ..., A_n\}, k \rangle$ is a valid encoding of a set of sets and a number
 and there is a subset of $A$ of size $k$ that answers the problem - $A_{i_1} , ..., A_{i_l}$.\\
 $\Rightarrow $ For $w=\langle A_{i_1} , ..., A_{i_l} \rangle$, $V$ will see that indeed for every 2 sets in the
-subset it holds that $A_{i_j} \cap A_{i_l} \neq \emptyset text{ for } j \neq l$. \\
+subset it holds that $A_{i_j} \cap A_{i_l} \neq \emptyset \text{ for } j \neq l$. \\
 $\Rightarrow $ There exists $w \in \AB^*$ such that $V$ accepts $(\langle A = \{A_1, ..., A_n\}, k \rangle, w)$. \\
 
 If $\langle A = \{A_1, ..., A_n\}, k \rangle \notin \lang$ \\

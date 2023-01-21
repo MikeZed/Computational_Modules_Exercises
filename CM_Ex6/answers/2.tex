@@ -1,0 +1,11 @@
+Let us define $V$ to be a {\it logarithmic verifier} for a language $\lang \subseteq \AB^*$ if $V$ is a
+deterministic TM with a read-only input-tape, read-once witness-tape and
+read-write working-tape such that for every $x \in \AB^*$ it holds that:
+\begin{itemize}
+    \item $x \in \lang \Longrightarrow \exists w \in \AB^* : V (x, w) = accept$
+    \item $x \notin \lang \Longrightarrow \forall w \in \AB^* : V (x, w) = reject$
+    \item $V (x, w)$ uses at most $O(log|x|)$ working-tape cells
+\end{itemize}
+Prove that a language is in $NL$ iff it has a logarithmic verifier.
+
+

@@ -8,10 +8,10 @@ $\lang = \{\phi \in 3SAT: \text{ literals in each clause of $\phi$ correspond
 
 Proof: \\
 We need to show that: \\
-1. $\lang \in NP$ \\
-2. $\forall \lang' \in \NPcl: \lang' \leq_p \lang$ by showing that $3SAT \leq_p \lang$ (we can do this since $3SAT \in NPC$) \\
+1. $\lang \in \NPcl$ \\
+2. $\forall \lang' \in \NPcl: \lang' \leq_p \lang$ by showing that $3SAT \leq_p \lang$ (we can do this since $3SAT \in \NPCcl$) \\
 
-First we show that $\lang \in NP$, by building a polynomial verifier $V$ for it. \\
+First we show that $\lang \in \NPcl$, by building a polynomial verifier $V$ for it. \\
 $V$ for input $(\langle G \rangle, w)$:
 \begin{enumerate}[1., itemsep=5pt]
     \item Verify that $\langle \phi \rangle$ is a valid encoding of a 3CNF formula with three distinct variables in each clause, if it is not - reject.

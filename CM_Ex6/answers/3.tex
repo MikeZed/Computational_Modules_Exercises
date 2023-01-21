@@ -1,0 +1,43 @@
+Prove that $\NPcl \subseteq \bigcup_{c>0} BPP(1/2, 1/2 + 1/2^{n^c})$
+
+Proof: \\
+We need to show that: \\
+Let there be $\lang \in \NPcl$,  \\
+
+Let $\lang \in \NPcl$, we need to show that $\lang \in \bigcup_{c>0} BPP(1/2, 1/2 + 1/2^{n^c})$. \\
+$\lang \in \NPcl$, therefore there exists a polynomial verifier $V_\lang$ for $\lang$, that only accepts
+certificates of length exactly $p(|x|)$, where $p$ is the polynomial runtime of the verifier
+(we get this from HW5\_Q4a). \\
+We define a probabilistic TM $M$ for $\lang$:
+
+$M$ for input $x$:
+\begin{enumerate}[1., itemsep=5pt]
+
+    \item Run $V_\lang(x, r)$ for random string $r$, for $s=p(|x|)$ times (each time with new random string $r$).
+
+    \item Accept iff $V_\lang$ accepts for one of the $r$.
+
+\end{enumerate}
+
+So we get: \\
+If $x \in \lang$ \\
+$\Rightarrow $ There exists $w_0 \in \AB^{p(|x|)}$ such that $V$ accepts $(x, w_0)$. \\
+$\Rightarrow M$ will choose the witness $w_0$ with probability $1/2^{p(|x|)}$,
+so it won't be chosen all $s=p(|x|)$ times with probability $(1 - 1/2^{p(|x|)})^s = (1 - 1/2^{p(|x|)})^{p(|x|)} \leq 1/e$ \\
+$\Rightarrow M$ will accept with probability $1 - 1/e$ \\
+
+If $x \notin \lang$ \\
+$\Rightarrow V$ rejects $(x, w)$ for every $w \in \AB^*$. \\
+$\Rightarrow M$ will reject\\
+
+Also $M$'s runtime on input $x$ (where $|x|=n$) is: \\
+- For step (1): $O(p(n) \cdot s) = O(p^2(n)) $  \\
+- For step (2): $O(s) = O(p|n|)$ \\
+Thus, the total runtime of $M$ on input $x$ is polynomial in $|x|=n$.
+
+So we get $\lang \in BPP(0, 1 - 1/e)$. \\
+Notice that $0 < 1/2 < 1/2 + 1/2^{n^c} < 1 - 1/e$ for $n > 3, c > 0$, hence from the lecture we get that: \\
+$\lang \in BPP(0, 1 - 1/e) \subseteq \bigcup_{c>0} BPP(1/2, 1/2 + 1/2^{n^c})$ \\
+In conclusion, we get $\NPcl \subseteq \bigcup_{c>0} BPP(1/2, 1/2 + 1/2^{n^c})$. As required.
+
+

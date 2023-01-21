@@ -6,10 +6,10 @@ $HAMCYCLE = \{\langle G \rangle: G \text{ is a directed graph with a hamiltonian
 
 Proof: \\
 We will show that: \\
-1. $HAMCYCLE \in NP$ \\
-2. $\forall \lang' \in \NPcl: \lang' \leq_p HAMCYCLE$ by showing that $HAMPATH \leq_p HAMCYCLE$ (we can do this since $HAMPATH \in NPC$) \\
+1. $HAMCYCLE \in \NPc$ \\
+2. $\forall \lang' \in \NPcl: \lang' \leq_p HAMCYCLE$ by showing that $HAMPATH \leq_p HAMCYCLE$ (we can do this since $HAMPATH \in \NPCcl$) \\
 
-First we show that $HAMCYCLE \in NP$, by building a polynomial verifier $V$ for it. \\
+First we show that $HAMCYCLE \in \NPc$, by building a polynomial verifier $V$ for it. \\
 $V$ for input $(\langle G \rangle, w)$:
 \begin{enumerate}[1., itemsep=5pt]
     \item Verify that $\langle G \rangle$ is a valid encoding of a directed graph, if it's not - reject.
