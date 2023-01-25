@@ -2,5 +2,43 @@ The distance between vertices $u$, $v$ in a graph $G$ is the number of edges in 
 shortest path connecting them. The diameter of a graph $G$ is the greatest
 distance between any pair of vertices in $G$. \\
 Prove that: \\
-$\lang = \{\langle G, D \rangle | G \text{ is a directed graphwith diameter at most } D \}
-    \in DSPACE(\text{log }n \cdot \text{log }D)$.
+$\lang = \{\langle G, D \rangle | G \text{ is a directed graph with diameter at most } D \}
+    \in DSPACE(\text{log }n \cdot \text{log }D)$. \\
+Proof: \\
+We will use the Reach algorithm that we saw in the lecture. \\
+We will define TM $M$ that runs in space $O(\text{log }n \cdot \text{log }D)$. \\
+$M$ on input $\langle G = (V,E), D \rangle$:
+
+\begin{enumerate}[1., itemsep=5pt]
+    \item Verify the encoding of the input, if it's not valid - reject.
+
+    \item $\forall u \in V$:
+    \item \qquad $\forall v \in V$:
+    \item \qquad \qquad Run $res = Reach(G, u, v, D)$
+    \item \qquad \qquad If $res = 0$ - reject.
+    \item Accept.
+
+\end{enumerate}
+
+So we get $\forall x=\langle G = (V,E), D \rangle \in \AB^*$:
+
+If $x=\langle G = (V,E), D \rangle \in \lang$ \\
+$\Longrightarrow \langle G = (V,E), D \rangle$ is a directed graph with a diameter at most $D$  \\
+$\Longrightarrow$ For every pair of vertices $u, v$ the distance is at most $D$ between them  \\
+$\Longrightarrow$ For every pair of vertices $u, v: Reach(G, u, v, D) = 1$  \\
+$\Longrightarrow M$ accepts \\
+
+If $x=\langle G = (V,E), D \rangle \notin \lang$ \\
+$\Longrightarrow \langle G = (V,E), D \rangle$ is not a valid encoding or it is valid but the diameter of $G$ is larger then $D$. \\
+If $\langle G = (V,E), D \rangle$ is not a valid encoding $\Longrightarrow M$ rejects \\
+If $\langle G = (V,E), D \rangle$ is a valid encoding, but the diameter of $G$ is larger then $D$ \\
+$\Longrightarrow $ There exist vertices $u, v$ such that the distance between them is larger then $D$ \\
+$\Longrightarrow $ There exist vertices $u, v: Reach(G, u, v, D) = 0$ \\
+$\Longrightarrow M$ rejects \\
+Therefore $M$ decides $\lang$. \\
+
+$M$'s space complexity on input $x=\langle G = (V,E), D \rangle$ (where $|V|=n$), according to the lecture is:
+$S(n) = O(\text{log }n) + S_{Reach}(D)$ \\
+$S_{Reach}(l) = O(\text{log }n) + S_{Reach}(l/2) \Rightarrow S_{Reach}(D) = O(\text{log }n \cdot \text{log }D)$ \\
+$\Longrightarrow S(n) = O(\text{log }n \cdot \text{log }D)$ \\
+Thus, $\lang \in DSPACE(\text{log }n \cdot \text{log }D)$.
