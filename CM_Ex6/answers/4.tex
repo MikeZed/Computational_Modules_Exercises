@@ -1,22 +1,91 @@
 A TM is {\it expected poly-time } if there exists $p \in poly$ such that for every x the
-expected running time of $M(x)$ is at most $p(|x|)$.
+expected running time of $M(x)$ is at most $p(|x|)$. \\
 Let us define: \\
-$ZPP = \{\lang \subseteq \AB^*: \text{ there exists an expected poly-time TM that decided } \lang\}$ \\
+$ZPP = \{\lang \subseteq \AB^*: \text{ there exists an expected poly-time TM that decides } \lang\}$ \\
 Prove that $ZPP = RP \cap coRP$.
 
 Proof: \\
 We need to show that: \\
-1. $ZPP \subseteq RP \cap coRP$
-2. $ZPP \supseteq RP \cap coRP$
+1. $ZPP \subseteq RP \cap coRP$ \\
+2. $ZPP \supseteq RP \cap coRP$ \\
 
 \underline{$ZPP \subseteq RP \cap coRP$:} \\
-Let $\lang \in ZPP$, so there exists
+Let $\lang \in ZPP$, so there exists an expected poly-time TM $M$ with poly-time $p$, that decides $\lang$. \\
+We will show that $\lang \in RP \cap coRP$, by showing that $\lang \in RP \wedge \lang \in coRP$:
 
+\underline{$\lang \in RP$:} \\
+We shall define probabilistic TM $M_{RP}$ for $\lang$.  \\
+$M_{RP}$ on input $x$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Run $M$ on $x$ for $2p(|x|)$ steps.
+    \item If it stops, answer as $M(x)$ answers.
+    \item Reject.
+\end{enumerate}
+We denote by $T_{M,x}$ (random variable) the runtime of $M$ on input $x$ until it stops.
 
+So we get $\forall x \in \AB^*$: \\
+If $x \in \lang$ \\
+$\Longrightarrow M$ accepts $x$ in expected poly-time $p(|x|)$ \\
+$\Longrightarrow M_{RP}$ rejects $x$ only if $T_{M,x} > 2p(|x|)$ \\
+$\Longrightarrow M_{RP}$ rejects $x$ with probability (Markov's Inequelity):
+\[ P(T_{M,x} \geq 2p(|x|)) \leq E[T_{M,x}] / 2p(|x|) = p(|x|) / 2p(|x|) = 1/2 \]
+$\Longrightarrow M_{RP}$ accepts $x$ with probability $\geq 1/2$
+
+If $x \notin \lang$ \\
+$\Longrightarrow M$ rejects $x$ \\
+$\Longrightarrow M_{RP}$ rejects $x$ whether $M(x)$ will stop or not \\
+
+Notice that the TM's runtime is polynomial $= O(2p(|x|)) = O(p(|x|))$ \\
+Therefore $\lang \in RP$. \\
+
+\underline{$\lang \in coRP$:} \\
+We shall define probabilistic TM $M_{coRP}$ for $\lang$
+$M_{coRP}$ on input $x$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Run $M$ on $x$ for $2p(|x|)$ steps.
+    \item If it stops, answer as $M(x)$ answers.
+    \item Accept.
+\end{enumerate}
+We denote by $T_{M,x}$ (random variable) the runtime of $M$ on input $x$ until it stops.
+
+\pagebreak
+So we get $\forall x \in \AB^*$: \\
+If $x \in \lang$ \\
+$\Longrightarrow M$ accepts $x$ \\
+$\Longrightarrow M_{coRP}$ accepts $x$ whether $M(x)$ will stop or not
+
+If $x \notin \lang$ \\
+$\Longrightarrow M$ rejects $x$ in expected poly-time $p(|x|)$ \\
+$\Longrightarrow M_{coRP}$ accepts $x$ only if $T_{M,x} > 2p(|x|)$ \\
+$\Longrightarrow M_{coRP}$ accepts $x$ with probability (Markov's Inequelity):
+\[ P(T_{M,x} \geq 2p(|x|)) \leq E[T_{M,x}] / 2p(|x|) = p(|x|) / 2p(|x|) = 1/2 \]
+$\Longrightarrow M_{coRP}$ accepts $x$ with probability $\leq 1/2$ \\
+
+Notice that the TM's runtime is polynomial $= O(2p(|x|)) = O(p(|x|))$ \\
+Therefore $\lang \in coRP$. \\
+
+Hence $\lang \in RP \cap coRP \Rightarrow ZPP \subseteq RP \cap coRP$. \\
 
 \underline{$ZPP \supseteq RP \cap coRP$:} \\
 Let $\lang \in RP \cap coRP$, so $\lang \in RP \wedge \lang \in coRP$. Therefore there exists
+probabilistic TM $M_{RP}, M_{coRP}$ such that: \\
+- If $x \in    \lang: M_{RP}$ accepts $x$ with probability $\geq 1/2$, $M_{coRP}$ always accepts $x$,  \\
+- If $x \notin \lang: M_{RP}$ always rejects $x$, $M_{coRP}$ accepts $x$ with probability $\leq 1/2$ \\
+(*) Therefore if $M_{RP}$ accepts $x$, then definitely $x \in \lang$
+and if $M_{coRP}$ rejects $x$, then definitely $x \notin \lang$. \\
 
+We define TM $M$ for language $\lang$: \\
+$M$ on input $x$:
+\begin{enumerate}[1., itemsep=5pt]
+    \item Run $M_{RP}$ on $x$ with new random string $r$, if it accepts - accept.
+    \item Run $M_{coRP}$ on $x$ with new random string $r$, if it rejects - reject.
+    \item Return to step 1.
+\end{enumerate}
 
+Notice that $M$'s answer is always correct, since we run both TMs until we get an answer according to (*).
+Since the probability of error for $M_{RP}, M_{coRP}$ in each case is $1/2$,
+each of them is expected to run twice, since their runtime is polynomial we get that
+the algorithm's runtime is expected poly-time.
 
+Hence $\lang \in ZPP \Rightarrow ZPP \supseteq RP \cap coRP$. \\
 so we get that $ZPP = RP \cap coRP$. As required.

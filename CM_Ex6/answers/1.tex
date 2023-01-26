@@ -26,7 +26,7 @@ If $x=\langle G = (V,E), D \rangle \in \lang$ \\
 $\Longrightarrow \langle G = (V,E), D \rangle$ is a directed graph with a diameter at most $D$  \\
 $\Longrightarrow$ For every pair of vertices $u, v$ the distance is at most $D$ between them  \\
 $\Longrightarrow$ For every pair of vertices $u, v: Reach(G, u, v, D) = 1$  \\
-$\Longrightarrow M$ accepts \\
+$\Longrightarrow M$ accepts
 
 If $x=\langle G = (V,E), D \rangle \notin \lang$ \\
 $\Longrightarrow \langle G = (V,E), D \rangle$ is not a valid encoding or it is valid but the diameter of $G$ is larger then $D$. \\
@@ -37,8 +37,8 @@ $\Longrightarrow $ There exist vertices $u, v: Reach(G, u, v, D) = 0$ \\
 $\Longrightarrow M$ rejects \\
 Therefore $M$ decides $\lang$. \\
 
-$M$'s space complexity on input $x=\langle G = (V,E), D \rangle$ (where $|V|=n$), according to the lecture is:
+$M$'s space complexity on input $x=\langle G = (V,E), D \rangle$ (where $|V|=n$), since we can reuse the space for each of the runs of $Reach$, according to the lecture is: \\
 $S(n) = O(\text{log }n) + S_{Reach}(D)$ \\
-$S_{Reach}(l) = O(\text{log }n) + S_{Reach}(l/2) \Rightarrow S_{Reach}(D) = O(\text{log }n \cdot \text{log }D)$ \\
+$S_{Reach}(l) = O(\text{log }n) + S_{Reach}(l/2), S_{Reach}(1) = O(\text{log }n) \Rightarrow S_{Reach}(D) = O(\text{log }n \cdot \text{log }D)$ \\
 $\Longrightarrow S(n) = O(\text{log }n \cdot \text{log }D)$ \\
 Thus, $\lang \in DSPACE(\text{log }n \cdot \text{log }D)$.
