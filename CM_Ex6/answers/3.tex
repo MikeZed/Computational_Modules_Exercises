@@ -13,31 +13,40 @@ We define a probabilistic TM $M$ for $\lang$:
 $M$ for input $x$:
 \begin{enumerate}[1., itemsep=5pt]
 
-    \item Run $V_\lang(x, r)$ for random string $r$, for $s=p(|x|)$ times (each time with new random string $r$).
+    \item Draw a random bit $b$.
 
-    \item Accept iff $V_\lang$ accepts for one of the $r$.
+    \item If $b=1$ accept.
+
+    \item Run $V_\lang(x, r)$ for random string $r$.
+
+    \item Accept iff $V_\lang$ accepts.
 
 \end{enumerate}
 
 So we get: \\
 If $x \in \lang$ \\
 $\Rightarrow $ There exists $w_0 \in \AB^{p(|x|)}$ such that $V$ accepts $(x, w_0)$. \\
-$\Rightarrow M$ will choose the witness $w_0$ with probability $1/2^{p(|x|)}$,
-so it won't be chosen all $s=p(|x|)$ times with probability $(1 - 1/2^{p(|x|)})^s = (1 - 1/2^{p(|x|)})^{p(|x|)} \leq 1/e$ \\
-$\Rightarrow M$ will accept with probability $1 - 1/e$ \\
-
+$\Rightarrow M$ will choose the witness $w_0$ with probability $1/2^{p(|x|)}$ \\
+$\Rightarrow M$ will accept with probability: \\
+$
+    \begin{aligned}
+        P(M(x) \text{ accepts}) & = P(b=1 \vee w=w_0) =                                                             \\
+                                & = P(b=1) +  P(w=w_0) =                                                            \\
+                                & = 1/2 + 1/2^{p(|x|)} \geq 1/2 + 1/2^{|x|^c}, \text{ for } |x|=n>>1, c > deg(p(x))
+    \end{aligned}
+$ \\
 If $x \notin \lang$ \\
 $\Rightarrow V$ rejects $(x, w)$ for every $w \in \AB^*$. \\
-$\Rightarrow M$ will reject\\
+$\Rightarrow M$ will accept with probability $P(M(x) \text{ accepts}) = P(b=1) = 1/2$  \\
 
 Also $M$'s runtime on input $x$ (where $|x|=n$) is: \\
-- For step (1): $O(p(n) \cdot s) = O(p^2(n)) $  \\
-- For step (2): $O(s) = O(p(n))$ \\
+- For steps (1-2): $O(1)$ \\
+- For steps (3-4): $O(p(n))$  \\
 Thus, the total runtime of $M$ on input $x$ is polynomial in $|x|=n$.
 
-So we get $\lang \in BPP(0, 1 - 1/e)$. \\
-Notice that $0 < 1/2 < 1/2 + 1/2^{n^c} < 1 - 1/e$ for $n > 3, c > 0$, hence from the lecture we get that: \\
-$\lang \in BPP(0, 1 - 1/e) \subseteq \bigcup_{c>0} BPP(1/2, 1/2 + 1/2^{n^c})$ \\
+So we get $\lang \in BPP(1/2, 1/2 + 1/2^{p(n)})$. \\
+Notice that $0 < 1/2 \leq 1/2 + 1/2^{n^c} \leq 1/2 + 1/2^{p(n)}$ for $n >> 1, c > deg(p(x))$, hence from the lecture we get that: \\
+$\lang \in BPP(1/2, 1/2 + 1/2^{p(n)}) \subseteq \bigcup_{c>0} BPP(1/2, 1/2 + 1/2^{n^c})$ \\
 In conclusion, we get $\NPcl \subseteq \bigcup_{c>0} BPP(1/2, 1/2 + 1/2^{n^c})$. As required.
 
 
