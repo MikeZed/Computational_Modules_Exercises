@@ -27,14 +27,16 @@ So we get: \\
 If $x \in \lang$ \\
 $\Rightarrow $ There exists $w_0 \in \AB^{p(|x|)}$ such that $V$ accepts $(x, w_0)$. \\
 $\Rightarrow M$ will choose the witness $w_0$ with probability $1/2^{p(|x|)}$ \\
-$\Rightarrow M$ will accept with probability: \\
+$\Rightarrow M$ will accept with probability:
+
 $
     \begin{aligned}
         P(M(x) \text{ accepts}) & = P(b=1 \vee w=w_0) =                                                             \\
                                 & = P(b=1) +  P(w=w_0) =                                                            \\
                                 & = 1/2 + 1/2^{p(|x|)} \geq 1/2 + 1/2^{|x|^c}, \text{ for } |x|=n>>1, c > deg(p(x))
     \end{aligned}
-$ \\
+$
+
 If $x \notin \lang$ \\
 $\Rightarrow V$ rejects $(x, w)$ for every $w \in \AB^*$. \\
 $\Rightarrow M$ will accept with probability $P(M(x) \text{ accepts}) = P(b=1) = 1/2$  \\
